@@ -9,12 +9,10 @@
             <div class="item">
                 <div class="ui brown button topButton">Dashboard</div>
             </div>
-            <div class="item">
-                <div class="ui brown button topButton">Admin</div>
-            </div>
-            <div class="item" style="margin: 0; padding: 8px 22px 0px 0px;">
-                <div class="ui dropdown" style="background-color: #fff;">
-                    <i class="dropdown icon" style="font-size: 28px; color: #ed2a26; margin: 0 0 6px"></i>
+            <div class="ui left labeled button item" tabindex="0">
+                <div class="ui brown button" style="border-radius: .5rem 0 0 .5rem;">Admin</div>
+                <div class="ui dark-brown button dropdown" style="border-radius: 0 .5rem .5rem 0;">
+                    <i class="dropdown icon" style="color: #fff; margin: 0; font-size: 1rem !important;"></i>
                     <div class="menu">
                         <div class="item">Logout</div>
                         <div class="item">Action</div>
@@ -22,6 +20,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 </div>

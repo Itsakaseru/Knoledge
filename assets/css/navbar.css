@@ -38,8 +38,12 @@
     background-color: #002456 !important;
 }
 
-.dropdown.icon:hover {
-    color: #002456 !important;
+.dark-brown {
+    background-color: #b1201e !important;
+}
+
+.dark-brown:hover {
+    background-color: #002456 !important;
 }
 
 .ui.secondary.menu .item {
