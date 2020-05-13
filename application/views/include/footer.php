@@ -1,7 +1,4 @@
 <div class="sticky-wrap">
-  <div class="sticky-content">
-    <h1>Test</h1>
-  </div>
     <div class="sticky-footer">
         <div class="ui inverted brown vertical footer segment">
             <div class="ui center aligned container">

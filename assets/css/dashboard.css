@@ -1,3 +1,232 @@
 body {
     background-color: #F1F1F1;
+    color: #955F26;
+}
+
+#dashboard {
+    margin-top: 100px;
+}
+
+h1 {
+    font-family: 'Myriad Pro Semibold';
+    font-weight: normal;
+    font-size: 25pt;
+}
+
+h1 span {
+    font-family: 'Myriad Pro Regular';
+}
+
+.user-container .profile-info {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+    height: 463px;
+}
+
+.user-container .profile-info img {
+    padding: 8%;
+}
+
+.user-container .name {
+    font-family: 'Myriad Pro Bold';
+    font-size: 18pt;
+    text-align: center;
+}
+
+.user-container .role {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 14pt;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.user-container hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #D5D5D5;
+}
+
+.user-container .profile-info .title {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 11pt;
+}
+
+.user-container .profile-info .content {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+}
+
+.user-container .profile-info .details {
+    margin-left: 10%;
+}
+
+.user-container .profile-info .details .content {
+    margin-bottom: 25px;
+}
+
+.user-info {
+    padding-left: 50px;
+}
+
+.user-info .cards{
+    margin: 20px 0 40px 0 !important;
+}
+
+.average-score {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    width: 350px;
+    height: 190px;
+}
+
+.average-score .average-score-text {
+    font-family: 'Myriad Pro Semibold';
+    position: absolute;
+    top: 97px;
+    left: 215px;
+}
+
+.dashboard-filter {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    margin-bottom: 40px;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+.dashboard-table {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    padding: 30px;
+}
+
+
+
+
+
+/* Radial Ring */  
+.radial-progress {
+	float: left;
+	margin: 25px;
+	width: 140px;
+	height: 140px;
+	position: relative;
+	background-color: #d7d7d7;
+	border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+	.radial-progress {
+		width: 85px;
+		height: 85px;
+	}
+}
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill,
+.radial-progress .circle .shadow {
+	width: 140px;
+	height: 140px;
+	position: absolute;
+	border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+
+	.radial-progress .circle .mask,
+	.radial-progress .circle .fill,
+	.radial-progress .circle .shadow {
+		width: 85px;
+		height: 85px;
+	}
+}
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill {
+	transition: -webkit-transform 1s;
+	transition: -ms-transform 1s;
+	transition: transform 1s;
+}
+
+.radial-progress .circle .mask.reanimate,
+.radial-progress .circle .fill.reanimate {
+	transition: -webkit-transform 0s;
+	transition: -ms-transform 0s;
+	transition: transform 0s;
+}
+
+.radial-progress .circle .mask.reset,
+.radial-progress .circle .fill.reset {
+	-webkit-transform: rotate(0deg) !important;
+	-ms-transform: rotate(0deg) !important;
+	transform: rotate(0deg) !important;
+}
+
+/* Start Cut <>, <>, <>, x */
+.radial-progress .circle .mask {
+	clip: rect(0px, 140px, 140px, 70px);
+}
+
+@media (max-width: 480px) {
+	.radial-progress .circle .mask {
+		clip: rect(0px, 85px, 85px, 42.5px);
+	}
+}
+
+/* End Cut <>, x, <>, <> */
+.radial-progress .circle .mask .fill {
+	clip: rect(0px, 75px, 140px, 0px);
+	background-color: #ea463d;
+}
+
+@media (max-width: 480px) {
+	.radial-progress .circle .mask .fill {
+		clip: rect(0px, 42.5px, 85px, 0px);
+	}
+}
+
+.radial-progress .inset {
+	width: 100px !important;
+	height: 100px !important;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -50px !important;
+	background-color: #fbfbfb;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 100px;
+}
+
+@media (max-width: 480px) {
+	.radial-progress .inset {
+		width: 66px !important;
+		height: 66px !important;
+		margin: -33px 0 0 -33px !important;
+		line-height: 90px;
+	}
+}
+
+@media (max-width: 480px) {
+	.radial-progress .little {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 480px) {
+	.radial-progress .big {
+		font-size: 27px;
+	}
+}
+
+.radial-progress .inset {
+    font-size: 19pt;
 }
