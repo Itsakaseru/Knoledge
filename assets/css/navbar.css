@@ -6,7 +6,7 @@
 .iconify {
     width: 28px;
     height: 28px;
-    color: brown;
+    color: #6D340D;
 }
 
 .noti_count {
@@ -35,15 +35,15 @@
 }
 
 .brown:hover {
-    background-color: #002456 !important;
+    background-color: #6D340D !important;
 }
 
 .dark-brown {
-    background-color: #cc1f1c !important;
+    background-color: #955F26 !important;
 }
 
 .dark-brown:hover {
-    background-color: #002456 !important;
+    background-color: #6D340D !important;
 }
 
 .ui.secondary.menu .item {

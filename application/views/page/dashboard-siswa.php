@@ -6,6 +6,20 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/navbar.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/footer.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/dashboard.css'); ?>">
+	<style>
+		.radial-progress .circle .mask .fill {
+			clip: rect(0px, 70px, 140px, 0px);
+			background-color: <?php
+				if($averageScore > 79) {
+					echo "#EDCF2E";
+				}
+				else if($averageScore > 59) {
+					echo "#002456";
+				}
+				else { echo "#780E0B"; }
+			?>;
+		}
+	</style>
 </head>
 
 <body>
@@ -14,11 +28,11 @@
 		<div class="ui two column stackable grid container">
 			<div class="column">
 				<div class="title">
-					<h1>Hi Lemuel, <span style="font-weight: normal">when will you graduate?</span></h1>
+					<h1>Hi Lemuel, <span style="font-weight: normal">pull mostima oi jangan lupa</span></h1>
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide column right floated">
-				<div class="ui labeled icon button right floated" data-tooltip="Siswa" data-position="bottom right">
+				<div class="ui labeled icon button right floated user-role" data-tooltip="Siswa" data-position="bottom right">
 					<i class="user icon"></i>
 					Class 1-A
 				</div>
@@ -42,7 +56,7 @@
 			<div class="user-info twelve wide column">
 				<div class="ui cards">
 					<div class="average-score">
-						<div class="radial-progress" data-score="6.7">
+						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
 							<div class="circle">
 								<div class="mask full">
 									<div class="fill"></div>
@@ -52,7 +66,7 @@
 									<div class="fill fix"></div>
 								</div>
 							</div>
-							<div class="inset">6.7</div>
+							<div class="inset"><?php echo $averageScore; ?></div>
 						</div>
 						<div class="average-score-text">
 							<span style="font-size: 35pt; font-weight: bold;">YOUR</span><br><br>
@@ -63,7 +77,7 @@
 				</div>
 				<div class="dashboard-filter">
 					<div class="ui five column stackable grid">
-						<div class="column"><button class="ui button">Current Class</button></div>
+						<div class="column"><button class="ui button yes">Current Class</button></div>
 						<div class="column"><button class="ui button">Show all</button></div>
 						<div class="column"><button class="ui button">Class 1</button></div>
 						<div class="column"><button class="ui button">Class 2</button></div>
@@ -74,42 +88,22 @@
 					<table id="table" class="ui celled table" style="width:100%">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
+								<th>Subject</th>
+								<th>Assignment</th>
+								<th>Mid Term</th>
+								<th>Final Term</th>
 							</tr>
 						</thead>
 						<tbody>
+						<?php foreach($studentScores as $score){ ?>
 							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
+								<td><?php echo $score['subjectName']; ?></td>
+								<td><?php echo $score['assignment']; ?></td>
+								<td><?php echo $score['midterm']; ?></td>
+								<td><?php echo $score['finalterm']; ?></td>
 							</tr>
-							<tr>
-								<td>Garrett Winters</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>63</td>
-								<td>2011/07/25</td>
-								<td>$170,750</td>
-							</tr>
+						<?php } ?>
 						</tbody>
-						<tfoot>
-							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-							</tr>
-						</tfoot>
 					</table>
 				</div>
 			</div>

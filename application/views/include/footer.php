@@ -15,7 +15,7 @@
                 <div class="three wide column">
                 <h4 class="ui inverted header">Contact</h4>
                 <div class="ui inverted list" style="color: #fff !important;">
-                    <a class="item" style="color: #fff !important;">lancaster.lemuel@gmail.com</a>
+                    <a class="item" style="color: #fff !important;">sakii@itsakaseru.me</a>
                     <a class="item" style="color: #fff !important;">andrioeffndi31@gmail.com</a>
                     <a class="item" style="color: #fff !important;">shigeru@gmail.com</a>
                     <a class="item" style="color: #fff !important;">hans.adithio@gmail.com</a>

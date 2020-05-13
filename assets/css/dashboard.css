@@ -101,6 +101,28 @@ h1 span {
     text-align: center;
 }
 
+.dashboard-filter button {
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-filter button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.dashboard-filter .yes {
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-filter .yes:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
 .dashboard-table {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
@@ -108,6 +130,21 @@ h1 span {
     padding: 30px;
 }
 
+.user-role {
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.user-role:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
+.user-role i {
+    background-color: rgba(0,0,0,.2) !important;
+    transition: 0.3s ease-in !important;
+}
 
 
 
@@ -183,7 +220,7 @@ h1 span {
 
 /* End Cut <>, x, <>, <> */
 .radial-progress .circle .mask .fill {
-	clip: rect(0px, 75px, 140px, 0px);
+	clip: rect(0px, 70px, 140px, 0px);
 	background-color: #ea463d;
 }
 
