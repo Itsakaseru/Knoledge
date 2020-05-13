@@ -28,22 +28,22 @@
         <div class=" right menu">
             <div class="item">
                 <button class="ui icon toggle basic button"
-                    style="background-color: #ed2a26 !important; border: 0 !important;">
+                    style="background-color: #955F26 !important; border: 0 !important;">
                     <i class="content icon" style="color: #fff;"></i>
                 </button>
             </div>
     </div>
     <div class="ui vertical secondary fluid menu">
-        <a style="color: #ed2a26;" class="item topButton">Dashboard</a>
+        <a style="color: #955F26;" class="item topButton">Dashboard</a>
         <a class="item topButton">
-            <div class="ui dropdown topButton" style="color: #ed2a26;">
+            <div class="ui dropdown topButton" style="color: #955F26;">
                 Admin <i class="dropdown icon"></i>
                 <div class="menu">
                     <div class="item">Sign Out</div>
                 </div>
             </div>
         </a>
-        <a class="item topButton" style="color: #ed2a26;" href="#"><span class="noti_count">3</span>Notification</a>
+        <a class="item topButton" style="color: #955F26;" href="#"><span class="noti_count">3</span>Notification</a>
     </div>
 </div>
 </div>

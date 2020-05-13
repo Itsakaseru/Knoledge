@@ -14,7 +14,7 @@
     position: absolute;
     top: 3px;
     right: 8px;
-    background: #ed2a26;
+    background: #955F26;
     color: #fff;
     width: 16px;
     height: 16px;
@@ -31,7 +31,7 @@
 }
 
 .brown {
-    background-color: #ed2a26 !important;
+    background-color: #955F26 !important;
 }
 
 .brown:hover {
@@ -39,7 +39,7 @@
 }
 
 .dark-brown {
-    background-color: #b1201e !important;
+    background-color: #cc1f1c !important;
 }
 
 .dark-brown:hover {
