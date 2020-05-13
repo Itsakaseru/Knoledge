@@ -1,6 +1,6 @@
 <div class="ui tablet computer only padded grid">
     <div class="ui secondary top fixed fluid menu">
-        <a class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;""></a>
+        <a class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;"></a>
         <div class=" right menu">
             <div class="item">
                 <a href="#"><span class="iconify" data-icon="uil-bell" data-inline="false"></span></a>
@@ -46,4 +46,56 @@
         <a class="item topButton" style="color: #955F26;" href="#"><span class="noti_count">3</span>Notification</a>
     </div>
 </div>
+</div>
+
+<style>
+html,body{margin:0;padding:0}
+.sticky-wrap{
+	display:flex;
+	flex-direction:column;
+	min-height:100vh
+}
+.sticky-footer{margin-top:auto}
+
+</style>
+
+<div class="sticky-wrap">
+  <div class="sticky-content">
+    <h1>Test</h1>
+  </div>
+    <div class="sticky-footer">
+        <div class="ui inverted brown vertical footer segment">
+            <div class="ui center aligned container">
+            <div class="ui stackable inverted divided grid">
+                <div class="three wide column">
+                <h4 class="ui inverted header">Our Team</h4>
+                <div class="ui inverted list">
+                    <a class="item" style="color: #fff !important;">Lemuel Lancaster</a>
+                    <a class="item" style="color: #fff !important;">Andrio Effendi</a>
+                    <a class="item" style="color: #fff !important;">Jeremy Yonathan</a>
+                    <a class="item" style="color: #fff !important;">Hans Adithio</a>
+                </div>
+                </div>
+                <div class="three wide column">
+                <h4 class="ui inverted header">Contact</h4>
+                <div class="ui inverted list" style="color: #fff !important;">
+                    <a class="item" style="color: #fff !important;">lancaster.lemuel@gmail.com</a>
+                    <a class="item" style="color: #fff !important;">andrioeffndi31@gmail.com</a>
+                    <a class="item" style="color: #fff !important;">shigeru@gmail.com</a>
+                    <a class="item" style="color: #fff !important;">hans.adithio@gmail.com</a>
+                </div>
+                </div>
+                <div class="seven wide column">
+                <h4 class="ui inverted header">Knoledge</h4>
+                <p>Online student report management application.</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <img src="<?php echo base_url('assets/images/logoWhite.png'); ?>" style="height: auto; width: 12em;" class="ui centered mini image"><br>
+            <div class="ui horizontal inverted small divided link list">
+                <a class="item" href="#">Terms and Conditions</a>
+                <a class="item" href="#">©2020 Knoledge</a>
+            </div>
+        </div>
+    </div>
 </div>
