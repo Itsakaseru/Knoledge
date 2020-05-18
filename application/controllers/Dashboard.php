@@ -30,7 +30,7 @@ class Dashboard extends CI_Controller {
         $data['studentScores'] = $this->student->getData();
         $data['averageScore'] = $this->student->getAverageScore();
                 
-        $this->load->view('page/dashboard-siswa',$data);
+        $this->load->view('page/dashboard-student',$data);
     }
 	
 }
