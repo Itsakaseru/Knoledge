@@ -26,6 +26,12 @@ h1 span {
     height: 463px;
 }
 
+@media (max-width: 768px) {
+	.user-container .profile-info {
+        height: 630px;
+    }
+}
+
 .user-container .profile-info img {
     padding: 8%;
 }

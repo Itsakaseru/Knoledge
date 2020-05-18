@@ -1,5 +1,3 @@
-<html>
-
 <head>
 	<title>Test</title>
 	<?php echo $main; ?>
@@ -26,12 +24,12 @@
 	<?php echo $navbar; ?>
 	<div id="dashboard">
 		<div class="ui two column stackable grid container">
-			<div class="column">
+			<div class="ten wide computer column">
 				<div class="title">
 					<h1>Hi Lemuel, <span style="font-weight: normal">pull mostima oi jangan lupa</span></h1>
 				</div>
 			</div>
-			<div id="user-small-info" class="three wide column right floated">
+			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
 				<div class="ui labeled icon button right floated user-role" data-tooltip="Siswa" data-position="bottom right">
 					<i class="user icon"></i>
 					Class 1-A
@@ -39,7 +37,7 @@
 			</div>
 		</div>
 		<div class="ui four column stackable grid container" style="padding: 0 !important;">
-			<div class="user-container four wide column">
+			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
 					<img class="ui circular image centered" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>" width="85%" />
 					<div class="name">Remueru Itsakaseru</div>
@@ -53,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="user-info twelve wide column">
+			<div class="user-info twelve wide computer eleven wide tablet column">
 				<div class="ui cards">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
@@ -76,12 +74,12 @@
 					</div>
 				</div>
 				<div class="dashboard-filter">
-					<div class="ui five column stackable grid">
-						<div class="column"><button class="ui button yes">Current Class</button></div>
-						<div class="column"><button class="ui button">Show all</button></div>
-						<div class="column"><button class="ui button">Class 1</button></div>
-						<div class="column"><button class="ui button">Class 2</button></div>
-						<div class="column"><button class="ui button">Class 3</button></div>
+					<div class="ui five wide column stackable grid">
+						<div class="four wide column"><button class="ui button yes">Current Class</button></div>
+						<div class="three wide column"><button class="ui button">Show all</button></div>
+						<div class="three wide column"><button class="ui button">Class 1</button></div>
+						<div class="three wide column"><button class="ui button">Class 2</button></div>
+						<div class="three wide column"><button class="ui button">Class 3</button></div>
 					</div>
 				</div>
 				<div class="dashboard-table">
@@ -144,5 +142,3 @@
 	setTimeout(window.randomize, 200);
 </script>
 <!-- End Radial Ring script -->
-
-</html>
