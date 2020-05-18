@@ -1,0 +1,60 @@
+body {
+    background: rgb(186,123,56);
+    background: linear-gradient(37deg, rgba(186,123,56,1) 0%, rgba(149,95,38,1) 48%);
+}
+
+body > .grid {
+    height: 100%;
+    width: 100%;
+}
+
+.image {
+    width: 150px !important;
+    margin-bottom: 30px !important;
+}
+
+.column {
+    background: white;
+    border-radius: 10px;
+    max-width: 350px;
+    padding: 40px 35px !important;
+}
+
+.form {
+    margin: 0 !important;
+}
+
+input {
+    height: 50px !important;
+    text-align: center;
+}
+
+::-webkit-input-placeholder {
+    font-family: 'Myriad Pro Regular' !important;
+    text-align: center;
+ }
+ 
+ :-moz-placeholder {
+    font-family: 'Myriad Pro Regular' !important;
+    text-align: center;  
+ }
+ 
+ ::-moz-placeholder {
+    font-family: 'Myriad Pro Regular' !important;
+    text-align: center;  
+ }
+ 
+ :-ms-input-placeholder {  
+    font-family: 'Myriad Pro Regular' !important;
+    text-align: center; 
+ }
+
+.button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: white !important;
+    background: #955F26 !important;
+    font-size: 14pt !important;
+    margin-top: 20px !important;
+    width: 280px !important;
+    height: 50px !important;
+}
