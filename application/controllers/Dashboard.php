@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('quotes');
+        $this->load->model('user');
 
         // if session doesn't exist, return to login page
         if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
@@ -15,14 +16,26 @@ class Dashboard extends CI_Controller {
             exit();
         }
 
-        // If Student load this
-        $this->load->model('student');
-
-        // If Teacher load this
-        //
+        // role query
+        $query = $this->user->getRole($_SESSION['id']);
+        foreach($query as $row) $roleid = $row['roleID'];
+        unset($query);
 
         // If Admin load this
-        //
+        if($roleid == 1)
+        {
+            // admin
+        }
+        // If Teacher load this
+        else if($roleid == 2)
+        {
+            // teacher
+        }
+        // If Student load this
+        else if($roleid == 3)
+        {
+            $this->load->model('student');
+        }
     }
 
     public function index()

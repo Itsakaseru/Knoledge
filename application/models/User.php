@@ -23,5 +23,19 @@ class User extends CI_Model{
         else return $query->result_array();
     }
 
+    public function getRole($id)
+    {
+        $this->db->trans_begin();
+        // create view later
+        $query = $this->db->query("SELECT roleID FROM users WHERE userID='$id'");
+        $this->db->trans_complete();
+        if($this->db->trans_status() === FALSE)
+        {
+            $this->db->trans_rollback();
+            return FALSE;
+        }
+        else return $query->result_array();
+    }
+
 }
 ?>
