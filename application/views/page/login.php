@@ -9,12 +9,12 @@
             <div class="ui image header">
                 <img class="image" src="<?php echo base_url('assets/images/logo.svg'); ?>">
             </div>
-            <form class="ui large form" method="post">
+            <form class="ui large form" action="<?php echo base_url('login/action'); ?>" method="post">
                 <div class="field">
                     <input type="text" name="email" placeholder="Email">
                 </div>
                 <div class="field">
-                    <input type="password" name="password" placeholder="Password"> 
+                    <input type="password" name="password" placeholder="Password">
                 </div>
                 <button class="ui button" type="submit">Login</button>
             </form>

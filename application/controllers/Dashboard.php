@@ -8,6 +8,13 @@ class Dashboard extends CI_Controller {
         parent::__construct();
         $this->load->model('quotes');
 
+        // if session doesn't exist, return to login page
+        if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
+        {
+            echo "<script>window.location.href = \"" . base_url('login') . "\"</script>";
+            exit();
+        }
+
         // If Student load this
         $this->load->model('student');
 
@@ -29,9 +36,9 @@ class Dashboard extends CI_Controller {
 
         $data['studentScores'] = $this->student->getData();
         $data['averageScore'] = $this->student->getAverageScore();
-                
+
         $this->load->view('page/dashboard-student',$data);
     }
-	
+
 }
 ?>
