@@ -11,7 +11,10 @@ class Home extends CI_Controller {
 
     public function index()
     {
-        // load Home Page
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $this->load->view('page/home', $data);
     }
 
     public function login()
