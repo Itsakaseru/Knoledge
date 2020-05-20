@@ -11,7 +11,7 @@
             </div>
             <div class="ui left labeled button item" tabindex="0">
                 <div class="ui brown button" style="border-radius: .5rem 0 0 .5rem; font-family: 'Myriad Pro Semibold';">Admin</div>
-                <div class="ui dark-brown button dropdown" style="border-radius: 0 .5rem .5rem 0; font-family: 'Myriad Pro Semibold';">
+                <div class="ui dark-brown button dropdown user-dropdownButton" style="border-radius: 0 .5rem .5rem 0; font-family: 'Myriad Pro Semibold';">
                     <i class="dropdown icon" style="color: #fff; margin: 0; font-size: 1rem !important;"></i>
                     <div class="menu">
                         <div class="item">Sign Out</div>
