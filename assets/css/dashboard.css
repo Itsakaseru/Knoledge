@@ -28,7 +28,8 @@ h1 span {
 
 @media (max-width: 768px) {
 	.user-container .profile-info {
-        height: 630px;
+        height: 100%;
+        padding-bottom: 3% !important;
     }
 }
 
@@ -166,13 +167,6 @@ h1 span {
 	border-radius: 50%;
 }
 
-@media (max-width: 480px) {
-	.radial-progress {
-		width: 85px;
-		height: 85px;
-	}
-}
-
 .radial-progress .circle .mask,
 .radial-progress .circle .fill,
 .radial-progress .circle .shadow {
@@ -182,15 +176,6 @@ h1 span {
 	border-radius: 50%;
 }
 
-@media (max-width: 480px) {
-
-	.radial-progress .circle .mask,
-	.radial-progress .circle .fill,
-	.radial-progress .circle .shadow {
-		width: 85px;
-		height: 85px;
-	}
-}
 
 .radial-progress .circle .mask,
 .radial-progress .circle .fill {
@@ -218,22 +203,11 @@ h1 span {
 	clip: rect(0px, 140px, 140px, 70px);
 }
 
-@media (max-width: 480px) {
-	.radial-progress .circle .mask {
-		clip: rect(0px, 85px, 85px, 42.5px);
-	}
-}
 
 /* End Cut <>, x, <>, <> */
 .radial-progress .circle .mask .fill {
 	clip: rect(0px, 70px, 140px, 0px);
 	background-color: #ea463d;
-}
-
-@media (max-width: 480px) {
-	.radial-progress .circle .mask .fill {
-		clip: rect(0px, 42.5px, 85px, 0px);
-	}
 }
 
 .radial-progress .inset {
@@ -247,27 +221,6 @@ h1 span {
 	border-radius: 50%;
 	text-align: center;
 	line-height: 100px;
-}
-
-@media (max-width: 480px) {
-	.radial-progress .inset {
-		width: 66px !important;
-		height: 66px !important;
-		margin: -33px 0 0 -33px !important;
-		line-height: 90px;
-	}
-}
-
-@media (max-width: 480px) {
-	.radial-progress .little {
-		font-size: 12px;
-	}
-}
-
-@media (max-width: 480px) {
-	.radial-progress .big {
-		font-size: 27px;
-	}
 }
 
 .radial-progress .inset {
