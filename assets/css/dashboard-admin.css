@@ -108,7 +108,7 @@ tr:nth-child(even) {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    width: 350px;
+    width: 420px;
     height: 190px;
 }
 
@@ -116,7 +116,7 @@ tr:nth-child(even) {
     font-family: 'Myriad Pro Semibold';
     position: absolute;
     top: 97px;
-    left: 215px;
+    left: 440px;
 }
 
 .dashboard-filter {
@@ -176,6 +176,73 @@ tr:nth-child(even) {
     transition: 0.3s ease-in !important;
 }
 
+.school-info {
+    margin-right: 30px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.15) !important;
+    background-color: #FFFFFF !important;
+    width: 200px;
+    border-radius: 10px !important;
+}
+
+.school-info .details {
+    height: 100%;
+    padding: 25px;
+}
+
+.school-info .details .title {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 11pt;
+}
+
+.school-info .details .content {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+    margin-bottom: 12px;
+}
+
+.school-info .details .content-last {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+    margin: 0 !important;
+}
+
+.admin-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.admin-button button {
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.15) !important;
+    color: white !important;
+    background-color: #955F26 !important;
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 14pt !important;
+    width: 220px;
+    height: 55px;
+    border-radius: 10px !important;
+    text-align: left !important;
+}
+
+.admin-button .add-user button {
+    background-color: rgb(88, 149, 38) !important;
+}
+
+.admin-button .edit-user button {
+    background-color: rgb(209, 184, 40) !important;
+}
+
+.admin-button .remove-user button {
+    background-color: rgb(149, 38, 38) !important;
+}
+
+.admin-button i {
+    width: 70px !important;
+    background-color: transparent !important;
+}
 
 /* Radial Ring */  
 .radial-progress {
