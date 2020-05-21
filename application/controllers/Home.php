@@ -56,7 +56,7 @@ class Home extends CI_Controller {
 
                 $this->session->set_userdata('id', $user['userID']);
                 $this->session->set_userdata('logged', 1);
-                echo "<script>window.location.href = \"" . base_url('main') . "\"</script>";
+                echo "<script>window.location.href = \"" . base_url('dashboard') . "\"</script>";
             }
             else
             {
