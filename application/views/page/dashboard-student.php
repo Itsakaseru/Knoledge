@@ -90,6 +90,7 @@
 								<th>Assignment</th>
 								<th>Mid Term</th>
 								<th>Final Term</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -99,6 +100,7 @@
 								<td><?php echo $score['assignment']; ?></td>
 								<td><?php echo $score['midterm']; ?></td>
 								<td><?php echo $score['finalterm']; ?></td>
+								<td><button class="tiny ui button reqReview">Request Re-review</button></td>
 							</tr>
 						<?php } ?>
 						</tbody>

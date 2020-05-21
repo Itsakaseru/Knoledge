@@ -17,6 +17,26 @@ h1 span {
     font-family: 'Myriad Pro Regular';
 }
 
+#table {
+    text-align: center;
+    font-family: 'Myriad Pro Regular';
+    border-radius: 10px !important;
+}
+
+th {
+    background: #955F26 !important;
+    color: white !important;
+}
+
+tr:nth-child(even) {
+    background: rgb(255, 247, 239) !important;
+}
+
+.reqReview {
+    background-color: #EDCF2E !important;
+    color: #955F26;
+}
+
 .user-container .profile-info {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
