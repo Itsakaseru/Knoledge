@@ -47,14 +47,3 @@
     </div>
 </div>
 </div>
-
-<style>
-html,body{margin:0;padding:0}
-.sticky-wrap{
-	display:flex;
-	flex-direction:column;
-	min-height:100vh
-}
-.sticky-footer{margin-top:auto}
-
-</style>
