@@ -24,7 +24,7 @@
 </div>
 <div class="ui mobile only padded grid">
     <div class="ui secondary top fixed fluid menu">
-        <a class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;""></a>
+        <a href="<?php echo base_url('Dashboard'); ?>" class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;""></a>
         <div class=" right menu">
             <div class="item">
                 <button class="ui icon toggle basic button"
