@@ -1,6 +1,6 @@
 <div class="ui tablet computer only padded grid">
     <div class="ui secondary top fixed fluid menu">
-        <a class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;"></a>
+        <a href="<?php echo base_url('Dashboard'); ?>" class="header item"><img src="<?php echo base_url('assets/images/logo.png'); ?>" style="height: auto; width: 12em;"></a>
         <div class=" right menu">
             <div class="item">
                 <a href="#"><span class="iconify" data-icon="uil-bell" data-inline="false"></span></a>
