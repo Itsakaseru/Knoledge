@@ -100,7 +100,7 @@
 								<td><?php echo $score['assignment']; ?></td>
 								<td><?php echo $score['midterm']; ?></td>
 								<td><?php echo $score['finalterm']; ?></td>
-								<td><button class="tiny ui button reqReview">Request Re-review</button></td>
+								<td><a href="<?php echo base_url('Dashboard/reqReview'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
 							</tr>
 						<?php } ?>
 						</tbody>

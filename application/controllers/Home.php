@@ -60,12 +60,12 @@ class Home extends CI_Controller {
             }
             else
             {
-                // echo "Wrong password";
+                 echo "Wrong password";
             }
         }
         else
         {
-            // echo "User not found!";
+             echo "User not found!";
         }
     }
 
