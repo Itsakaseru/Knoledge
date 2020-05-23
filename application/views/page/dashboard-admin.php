@@ -30,101 +30,13 @@
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
-				<div class="ui labeled icon button right floated user-role" data-tooltip="Siswa" data-position="bottom right">
+				<div class="ui labeled icon button right floated user-role" data-tooltip="Admin" data-position="bottom right">
 					<i class="code icon"></i>
 					Admin
 				</div>
 			</div>
 		</div>
-		<div class="ui four column stackable grid container" style="padding: 0 !important;">
-			<div class="user-info sixteen wide computer eleven wide tablet column">
-				<div class="ui cards">
-                    <div class="ui school-info">
-                        <div class="details">
-                            <div class="title">Total Students</div>
-                            <div class="content">1420</div>
-                            <div class="title">Total Teachers</div>
-                            <div class="content">73</div>
-                            <div class="title">Total Subject</div>
-                            <div class="content-last">5</div>
-                        </div>
-                    </div>
-					<div class="average-score">
-						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
-							<div class="circle">
-								<div class="mask full">
-									<div class="fill"></div>
-								</div>
-								<div class="mask half">
-									<div class="fill"></div>
-									<div class="fill fix"></div>
-								</div>
-							</div>
-							<div class="inset"><?php echo $averageScore; ?></div>
-						</div>
-						<div class="average-score-text">
-							<span style="font-size: 35pt; font-weight: bold;">AVERAGE</span><br><br>
-							<span style="font-size: 15pt;">STUDENTS</span><br>
-							<span style="font-size: 15pt;">SCORE</span>
-                        </div>
-                    </div>
-                    <div class="admin-button">
-                        <div class="add-user">
-                            <button class="ui compact labeled icon button">
-                            <i class="plus icon"></i>
-                            Add User
-                            </button>
-                        </div>
-                        <div class="edit-user">
-                            <button class="ui compact labeled icon button">
-                            <i class="edit icon"></i>
-                            Edit User
-                            </button>
-                        </div>
-                        <div class="remove-user">
-                            <button class="ui compact labeled icon button">
-                            <i class="eraser icon"></i>
-                            Remove User
-                            </button>
-                        </div>
-                    </div>
-                </div>
-				<div class="dashboard-filter">
-					<div class="ui column stackable grid">
-						<div class="two wide column"><button class="ui button yes">Teachers</button></div>
-						<div class="two wide column"><button class="ui button">Students</button></div>
-                        <div class="two wide column"><button class="ui button">Subjects</button></div>
-                        <div class="two wide column"><button class="ui button">Class 1</button></div>
-                        <div class="two wide column"><button class="ui button">Class 2</button></div>
-                        <div class="two wide column"><button class="ui button">Class 3</button></div>
-					</div>
-				</div>
-				<div class="dashboard-table">
-					<table id="table" class="ui celled table" style="width:100%">
-						<thead>
-							<tr>
-								<th>Subject</th>
-								<th>Assignment</th>
-								<th>Mid Term</th>
-								<th>Final Term</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php foreach($studentScores as $score){ ?>
-							<tr>
-								<td><?php echo $score['subjectName']; ?></td>
-								<td><?php echo $score['assignment']; ?></td>
-								<td><?php echo $score['midterm']; ?></td>
-								<td><?php echo $score['finalterm']; ?></td>
-								<td><button class="tiny ui button reqReview">Request Re-review</button></td>
-							</tr>
-						<?php } ?>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+		<?php echo $module; ?>
 	</div>
 	<?php echo $footer; ?>
 </body>
@@ -138,6 +50,10 @@
 		$(".ui.dropdown").dropdown();
 
 		$('#table').DataTable();
+		
+		$('.dropdown').dropdown({
+			action: 'select'
+		});
 	});
 </script>
 <!-- End Dropdown script -->

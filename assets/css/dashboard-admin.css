@@ -32,6 +32,11 @@ tr:nth-child(even) {
     background: rgb(255, 247, 239) !important;
 }
 
+.admin-info {
+    margin-top: 10px !important;
+    margin-bottom: 30px !important;
+}
+
 .reqReview {
     background-color: #EDCF2E !important;
     color: #955F26;
@@ -109,17 +114,16 @@ tr:nth-child(even) {
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
     width: 420px;
-    height: 190px;
 }
 
 .average-score .average-score-text {
     font-family: 'Myriad Pro Semibold';
     position: absolute;
-    top: 97px;
-    left: 440px;
+    top: 80px;
+    left: 200px;
 }
 
-.dashboard-filter {
+.dashboard-navbar {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
@@ -128,34 +132,50 @@ tr:nth-child(even) {
     text-align: center;
 }
 
-.dashboard-filter button {
+.dashboard-navbar button {
     font-family: 'Myriad Pro Regular' !important;
     color: #955F26 !important;
     background-color: transparent !important;
     transition: 0.3s ease-in !important;
 }
 
-.dashboard-filter button:hover {
+.dashboard-navbar button:hover {
     color: rgb(255, 255, 255) !important;
     background-color: #955F26 !important;
 }
 
-.dashboard-filter .yes {
+.dashboard-navbar .yes {
     color: #FFFFFF !important;
     background-color: #955F26 !important;
     transition: 0.3s ease-in !important;
 }
 
-.dashboard-filter .yes:hover {
+.dashboard-navbar .yes:hover {
     color: #FFFFFF !important;
     background-color: #6D340D !important;
+}
+
+.global-action .button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.global-action .button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.global-action .button .icon {
+    background-color: transparent !important;
 }
 
 .dashboard-table {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    padding: 30px;
+    padding: 30px !important;
 }
 
 .user-role {
@@ -205,43 +225,6 @@ tr:nth-child(even) {
     font-family: 'Myriad Pro Semibold';
     font-size: 18pt;
     margin: 0 !important;
-}
-
-.admin-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 30px;
-}
-
-.admin-button button {
-    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.15) !important;
-    color: white !important;
-    background-color: #955F26 !important;
-    font-family: 'Myriad Pro Regular' !important;
-    font-size: 14pt !important;
-    width: 220px;
-    height: 55px;
-    border-radius: 10px !important;
-    text-align: left !important;
-}
-
-.admin-button .add-user button {
-    background-color: rgb(88, 149, 38) !important;
-}
-
-.admin-button .edit-user button {
-    background-color: rgb(209, 184, 40) !important;
-}
-
-.admin-button .remove-user button {
-    background-color: rgb(149, 38, 38) !important;
-}
-
-.admin-button i {
-    width: 70px !important;
-    background-color: transparent !important;
 }
 
 /* Radial Ring */  
