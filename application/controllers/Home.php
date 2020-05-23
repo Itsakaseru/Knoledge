@@ -7,12 +7,14 @@ class Home extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user');
+        $this->load->model('quote');
     }
 
     public function index()
     {
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+        $data['quote'] = $this->quote->getQuote();
 
         $this->load->view('page/home', $data);
     }
@@ -56,16 +58,16 @@ class Home extends CI_Controller {
 
                 $this->session->set_userdata('id', $user['userID']);
                 $this->session->set_userdata('logged', 1);
-                echo "<script>window.location.href = \"" . base_url('main') . "\"</script>";
+                echo "<script>window.location.href = \"" . base_url('dashboard') . "\"</script>";
             }
             else
             {
-                // echo "Wrong password";
+                 echo "Wrong password";
             }
         }
         else
         {
-            // echo "User not found!";
+             echo "User not found!";
         }
     }
 

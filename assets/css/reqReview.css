@@ -1,0 +1,57 @@
+body {
+    background-color: #F1F1F1;
+    color: #955F26;
+}
+.formContainer {
+    margin-top: 6rem !important;
+    width: 64rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0px 3px 60px 0px rgba(0, 0, 0, 0.20) !important;
+    background: #FFFFFF !important;
+}
+
+.ui.container {
+    padding: 3rem;
+}
+
+textarea {
+    resize: none !important;
+    min-height: 18em !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    color: #955F26 !important;
+}
+
+label {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 14pt !important;
+    color: #955F26 !important;
+}
+
+.brown {
+    background-color: #955F26 !important;
+}
+
+.submitBtn {
+    margin-top: 2rem !important;
+    border-radius: .5rem !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 14pt !important;
+}
+
+.judul {
+    margin-top: 9rem !important;
+    color: #955F26 !important;
+}
+
+input {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    color: #955F26 !important;
+}
+
+.score {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    color: #955F26 !important;
+}

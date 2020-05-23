@@ -58,3 +58,15 @@ input {
     width: 280px !important;
     height: 50px !important;
 }
+
+.remember-me {
+    font-family: 'Myriad Pro Regular' !important;
+    text-align: left !important;
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+}
+
+.remember-me label {
+    color: rgb(184, 114, 40) !important;
+    font-size: 12pt !important;
+}

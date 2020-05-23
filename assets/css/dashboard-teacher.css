@@ -17,18 +17,47 @@ h1 span {
     font-family: 'Myriad Pro Regular';
 }
 
+#studentScore {
+    text-align: center;
+    font-family: 'Myriad Pro Regular';
+    border-radius: .5rem !important;
+}
+
+th {
+    background: #955F26 !important;
+    color: white !important;
+}
+
+tr:nth-child(even) {
+    background: rgb(255, 247, 239) !important;
+}
+
+.right-container {
+    padding-right: 0 !important;
+}
+
+.right-side {
+    margin-top: 20px;
+}
+
+.reqReview {
+    background-color: #EDCF2E !important;
+    color: #955F26;
+}
+
 .user-container .profile-info {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF !important;
     margin-top: 20px !important;
     padding: 0 !important;
-    height: 463px;
+    height: 530px;
 }
 
 @media (max-width: 768px) {
 	.user-container .profile-info {
-        height: 630px;
+        height: 100%;
+        padding-bottom: 3% !important;
     }
 }
 
@@ -87,27 +116,50 @@ h1 span {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    width: 350px;
     height: 190px;
 }
 
 .average-score .average-score-text {
     font-family: 'Myriad Pro Semibold';
     position: absolute;
-    top: 97px;
+    top: 79px;
     left: 215px;
+    font-size: 35pt !important;
+}
+
+@media (max-width: 1199px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 200px;
+        font-size: 25pt !important;
+    }
+}
+
+@media (max-width: 991px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: calc(60% - 1em);
+        font-size: 35pt !important;
+    }
 }
 
 .dashboard-filter {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    margin-bottom: 40px;
     padding: 15px 25px;
     text-align: center;
 }
 
 .dashboard-filter button {
+    font-family: 'Myriad Pro Regular' !important;
     color: #955F26 !important;
     background-color: transparent !important;
     transition: 0.3s ease-in !important;
@@ -133,13 +185,15 @@ h1 span {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    padding: 30px;
+    padding: 30px !important;
 }
 
 .user-role {
+    font-family: 'Myriad Pro Regular' !important;
     color: #FFFFFF !important;
     background-color: #955F26 !important;
     transition: 0.3s ease-in !important;
+    border-radius: .5rem !important;
 }
 
 .user-role:hover {
@@ -152,8 +206,73 @@ h1 span {
     transition: 0.3s ease-in !important;
 }
 
+.studentSubject {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    height: 190px;
+    padding: 23px;
+}
 
+.subjectList ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
 
+.subjectList ::-webkit-scrollbar-thumb {
+    background: #955F26 !important;
+}
+
+.studentSubject .title {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt;
+}
+
+.subject-container {
+    max-height: 121px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding-right: 5px; 
+}
+
+.subject {
+    color: white;
+    background-color: #955F26;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: .5rem;
+}
+
+.subject .title {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 15pt;
+    overflow-x: 100%;
+}
+
+.subject .teacher {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 10pt;
+    overflow-x: 100%;
+}
+
+.filter-button .button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.filter-button .button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.filter-button .button .icon {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.table-container, .filter-container {
+    padding-right: 0 !important;
+}
 
 /* Radial Ring */  
 .radial-progress {
@@ -166,13 +285,6 @@ h1 span {
 	border-radius: 50%;
 }
 
-@media (max-width: 480px) {
-	.radial-progress {
-		width: 85px;
-		height: 85px;
-	}
-}
-
 .radial-progress .circle .mask,
 .radial-progress .circle .fill,
 .radial-progress .circle .shadow {
@@ -182,15 +294,6 @@ h1 span {
 	border-radius: 50%;
 }
 
-@media (max-width: 480px) {
-
-	.radial-progress .circle .mask,
-	.radial-progress .circle .fill,
-	.radial-progress .circle .shadow {
-		width: 85px;
-		height: 85px;
-	}
-}
 
 .radial-progress .circle .mask,
 .radial-progress .circle .fill {
@@ -218,22 +321,11 @@ h1 span {
 	clip: rect(0px, 140px, 140px, 70px);
 }
 
-@media (max-width: 480px) {
-	.radial-progress .circle .mask {
-		clip: rect(0px, 85px, 85px, 42.5px);
-	}
-}
 
 /* End Cut <>, x, <>, <> */
 .radial-progress .circle .mask .fill {
 	clip: rect(0px, 70px, 140px, 0px);
 	background-color: #ea463d;
-}
-
-@media (max-width: 480px) {
-	.radial-progress .circle .mask .fill {
-		clip: rect(0px, 42.5px, 85px, 0px);
-	}
 }
 
 .radial-progress .inset {
@@ -247,27 +339,6 @@ h1 span {
 	border-radius: 50%;
 	text-align: center;
 	line-height: 100px;
-}
-
-@media (max-width: 480px) {
-	.radial-progress .inset {
-		width: 66px !important;
-		height: 66px !important;
-		margin: -33px 0 0 -33px !important;
-		line-height: 90px;
-	}
-}
-
-@media (max-width: 480px) {
-	.radial-progress .little {
-		font-size: 12px;
-	}
-}
-
-@media (max-width: 480px) {
-	.radial-progress .big {
-		font-size: 27px;
-	}
 }
 
 .radial-progress .inset {

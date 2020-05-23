@@ -12,7 +12,7 @@
                     <a class="item" style="color: #fff !important;">Hans Adithio</a>
                 </div>
                 </div>
-                <div class="three wide column">
+                <div class="four wide column">
                 <h4 class="ui inverted header">Contact</h4>
                 <div class="ui inverted list" style="color: #fff !important;">
                     <a class="item" style="color: #fff !important;">sakii@itsakaseru.me</a>
@@ -21,7 +21,7 @@
                     <a class="item" style="color: #fff !important;">hans.adithio@gmail.com</a>
                 </div>
                 </div>
-                <div class="seven wide column">
+                <div class="nine wide column">
                 <h4 class="ui inverted header">Knoledge</h4>
                 <p>Online student report management application.</p>
                 </div>

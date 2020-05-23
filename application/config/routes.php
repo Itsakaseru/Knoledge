@@ -56,4 +56,3 @@ $route['translate_uri_dashes'] = FALSE;
 // Custom Routes
 $route['login'] = 'Home/login';
 $route['login/action'] = 'Home/action';
-$route['main'] = 'Dashboard';

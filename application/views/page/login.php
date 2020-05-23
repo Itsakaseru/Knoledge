@@ -16,6 +16,12 @@
                 <div class="field">
                     <input type="password" name="password" placeholder="Password">
                 </div>
+                <div class="field remember-me">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0">
+                        <label>Remember Me</label>
+                    </div>
+                </div>
                 <button class="ui button" type="submit">Login</button>
             </form>
         </div>
