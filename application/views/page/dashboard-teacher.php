@@ -54,7 +54,7 @@
 				</div>
             </div>
             <!-- Show only if teacher = homeroom teacher -->
-			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column">
+			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column right-container">
 				<div class="nine wide computer sixteen wide tablet column right-side">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
@@ -99,12 +99,12 @@
 						</div>
 					</div>
                 </div>
-				<div class="sixteen wide column">
+				<div class="sixteen wide column filter-container">
 					<div class="dashboard-filter">
 						<div class="ui five wide column stackable grid">
-							<div class="four wide column"><button class="ui button yes">Homeroom Class</button></div>
+							<div class="five wide column"><button class="ui button yes">Homeroom Class</button></div>
 							<div class="three wide column"><button class="ui button">Show all</button></div>
-							<div class="six wide column right floated right aligned">
+							<div class="six wide computer eight wide tablet column right floated right aligned">
                                 <div class="ui buttons filter-button">
                                     <div class="ui floating labeled dropdown icon button">
                                         <span class="text">Filter by subject</span>
@@ -125,7 +125,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="sixteen wide column">
+				<div class="sixteen wide column table-container">
 					<div class="dashboard-table">
 						<table id="studentScore" class="ui celled table" style="width:100%">
 							<thead>
