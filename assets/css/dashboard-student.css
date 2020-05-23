@@ -20,7 +20,7 @@ h1 span {
 #studentScore {
     text-align: center;
     font-family: 'Myriad Pro Regular';
-    border-radius: 10px !important;
+    border-radius: .5rem !important;
 }
 
 th {
@@ -122,7 +122,7 @@ tr:nth-child(even) {
     left: 235px;
 }
 
-@media (max-width: 1999px) {
+@media (max-width: 1199px) {
 	.average-score .average-score-text {
         top: 79px;
         left: 200px;
@@ -179,7 +179,7 @@ tr:nth-child(even) {
     color: #FFFFFF !important;
     background-color: #955F26 !important;
     transition: 0.3s ease-in !important;
-    border-radius: 10px !important;
+    border-radius: .5rem !important;
 }
 
 .user-role:hover {
@@ -225,7 +225,7 @@ tr:nth-child(even) {
     background-color: #955F26;
     margin-bottom: 5px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: .5rem;
 }
 
 .subject .title {
