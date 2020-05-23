@@ -32,6 +32,10 @@ tr:nth-child(even) {
     background: rgb(255, 247, 239) !important;
 }
 
+.right-side {
+    margin-top: 20px;
+}
+
 .reqReview {
     background-color: #EDCF2E !important;
     color: #955F26;
@@ -115,7 +119,7 @@ tr:nth-child(even) {
 .average-score .average-score-text {
     font-family: 'Myriad Pro Semibold';
     position: absolute;
-    top: 97px;
+    top: 79px;
     left: 215px;
 }
 
@@ -123,7 +127,6 @@ tr:nth-child(even) {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    margin-bottom: 40px;
     padding: 15px 25px;
     text-align: center;
 }
@@ -155,7 +158,7 @@ tr:nth-child(even) {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF;
-    padding: 30px;
+    padding: 30px !important;
 }
 
 .user-role {

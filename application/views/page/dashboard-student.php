@@ -3,7 +3,7 @@
 	<?php echo $main; ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/navbar.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/footer.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/dashboard.css'); ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/dashboard-student.css'); ?>">
 	<style>
 		.radial-progress .circle .mask .fill {
 			clip: rect(0px, 70px, 140px, 0px);
@@ -51,8 +51,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="user-info twelve wide computer eleven wide tablet column">
-				<div class="ui cards">
+			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column">
+				<div class="seven wide column right-side">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
 							<div class="circle">
@@ -73,38 +73,42 @@
 						</div>
 					</div>
 				</div>
-				<div class="dashboard-filter">
-					<div class="ui five wide column stackable grid">
-						<div class="four wide column"><button class="ui button yes">Current Class</button></div>
-						<div class="three wide column"><button class="ui button">Show all</button></div>
-						<div class="three wide column"><button class="ui button">Class 1</button></div>
-						<div class="three wide column"><button class="ui button">Class 2</button></div>
-						<div class="three wide column"><button class="ui button">Class 3</button></div>
+				<div class="sixteen wide column">
+					<div class="dashboard-filter">
+						<div class="ui five wide column stackable grid">
+							<div class="four wide column"><button class="ui button yes">Current Class</button></div>
+							<div class="three wide column"><button class="ui button">Show all</button></div>
+							<div class="three wide column"><button class="ui button">Class 1</button></div>
+							<div class="three wide column"><button class="ui button">Class 2</button></div>
+							<div class="three wide column"><button class="ui button">Class 3</button></div>
+						</div>
 					</div>
 				</div>
-				<div class="dashboard-table">
-					<table id="table" class="ui celled table" style="width:100%">
-						<thead>
-							<tr>
-								<th>Subject</th>
-								<th>Assignment</th>
-								<th>Mid Term</th>
-								<th>Final Term</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php foreach($studentScores as $score){ ?>
-							<tr>
-								<td><?php echo $score['subjectName']; ?></td>
-								<td><?php echo $score['assignment']; ?></td>
-								<td><?php echo $score['midterm']; ?></td>
-								<td><?php echo $score['finalterm']; ?></td>
-								<td><a href="<?php echo base_url('Dashboard/reqReview'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
-							</tr>
-						<?php } ?>
-						</tbody>
-					</table>
+				<div class="sixteen wide column">
+					<div class="dashboard-table">
+						<table id="table" class="ui celled table" style="width:100%">
+							<thead>
+								<tr>
+									<th>Subject</th>
+									<th>Assignment</th>
+									<th>Mid Term</th>
+									<th>Final Term</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php foreach($studentScores as $score){ ?>
+								<tr>
+									<td><?php echo $score['subjectName']; ?></td>
+									<td><?php echo $score['assignment']; ?></td>
+									<td><?php echo $score['midterm']; ?></td>
+									<td><?php echo $score['finalterm']; ?></td>
+									<td><a href="<?php echo base_url('Dashboard/reqReview'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
+								</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
