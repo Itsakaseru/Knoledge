@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column">
-				<div class="eight wide column right-side">
+				<div class="eight wide computer sixteen wide tablet column right-side">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
 							<div class="circle">
@@ -73,7 +73,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="seven wide column right-side subjectList">
+				<div class="six wide computer sixteen wide tablet column right-side subjectList">
 					<div class="studentSubject">
 						<div class="title">Subject List</div>
 						<div class="subject-container">

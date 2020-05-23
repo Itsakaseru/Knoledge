@@ -17,7 +17,7 @@ h1 span {
     font-family: 'Myriad Pro Regular';
 }
 
-#table {
+#studentScore {
     text-align: center;
     font-family: 'Myriad Pro Regular';
     border-radius: 10px !important;
@@ -120,6 +120,20 @@ tr:nth-child(even) {
     position: absolute;
     top: 79px;
     left: 235px;
+}
+
+@media (max-width: 1999px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: calc(60% - 1em);
+    }
 }
 
 .dashboard-filter {
