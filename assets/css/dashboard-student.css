@@ -247,6 +247,10 @@ tr:nth-child(even) {
     overflow-x: 100%;
 }
 
+.score-container, .filter-container {
+    padding-right: 0 !important;
+}
+
 
 /* Radial Ring */  
 .radial-progress {

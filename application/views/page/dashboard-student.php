@@ -96,7 +96,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="sixteen wide column">
+				<div class="sixteen wide column filter-container">
 					<div class="dashboard-filter">
 						<div class="ui five wide column stackable grid">
 							<div class="four wide column"><button class="ui button yes">Current Class</button></div>
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="sixteen wide column">
+				<div class="sixteen wide column score-container">
 					<div class="dashboard-table">
 						<table id="studentScore" class="ui celled table" style="width:100%">
 							<thead>
