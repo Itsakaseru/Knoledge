@@ -42,6 +42,19 @@ class Dashboard extends CI_Controller {
     {
         // Student Debug
         // Import CSS, JS, Fonts
+        // $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        // $data['qotd'] = $this->quotes->getQuote();
+
+        // $data['studentScores'] = $this->student->getData();
+        // $data['averageScore'] = $this->student->getAverageScore();
+
+        // $this->load->view('page/dashboard-student',$data);
+
+        // Teacher Debug
+        // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
@@ -51,7 +64,7 @@ class Dashboard extends CI_Controller {
         $data['studentScores'] = $this->student->getData();
         $data['averageScore'] = $this->student->getAverageScore();
 
-        $this->load->view('page/dashboard-student',$data);
+        $this->load->view('page/dashboard-teacher',$data);
 
         // Admin Debug
         // $data['main'] = $this->load->view('include/main', NULL, TRUE);
