@@ -89,4 +89,19 @@
         font-weight: normal;
         src: local('Myriad Pro Bold Condensed Italic'), url('<?php echo base_url('assets/fonts/MYRIADPRO-BOLDCONDIT.woff'); ?>') format('woff');
     }
+
+    ::-webkit-scrollbar-track
+    {
+        background-color: rgb(190, 190, 190);
+    }
+
+    ::-webkit-scrollbar
+    {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb
+    {
+        background-color: #955F26;
+    }
 </style>
