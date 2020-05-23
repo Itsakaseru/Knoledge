@@ -82,7 +82,7 @@ class Dashboard extends CI_Controller {
         // $this->load->view('page/dashboard-admin',$data);
     }
 
-    public function reqReview()
+    public function request()
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
@@ -90,6 +90,16 @@ class Dashboard extends CI_Controller {
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         $this->load->view('page/reqReview',$data);
+    }
+
+    public function update()
+    {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $this->load->view('page/updateScore',$data);
     }
 
 }
