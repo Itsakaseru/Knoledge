@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('quotes');
+        $this->load->model('motd');
         $this->load->model('user');
 
         // if session doesn't exist, return to login page
@@ -46,7 +46,7 @@ class Dashboard extends CI_Controller {
         // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        // $data['qotd'] = $this->quotes->getQuote();
+        // $data['qotd'] = $this->motd->getMotd();
 
         // $data['studentScores'] = $this->student->getData();
         // $data['averageScore'] = $this->student->getAverageScore();
@@ -59,7 +59,7 @@ class Dashboard extends CI_Controller {
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $data['qotd'] = $this->quotes->getQuote();
+        $data['qotd'] = $this->motd->getMotd();
 
         $data['studentScores'] = $this->student->getData();
         $data['averageScore'] = $this->student->getAverageScore();
@@ -71,7 +71,7 @@ class Dashboard extends CI_Controller {
         // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        // $data['qotd'] = $this->quotes->getQuote();
+        // $data['qotd'] = $this->motd->getMotd();
 
         // $module['studentScores'] = $this->student->getData();
         // $module['averageScore'] = $this->student->getAverageScore();
