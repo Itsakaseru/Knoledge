@@ -129,6 +129,13 @@ tr:nth-child(even) {
     }
 }
 
+@media (max-width: 991px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 260px;
+    }
+}
+
 @media (max-width: 768px) {
 	.average-score .average-score-text {
         top: 79px;
