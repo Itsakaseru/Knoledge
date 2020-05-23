@@ -40,6 +40,7 @@ class Dashboard extends CI_Controller {
 
     public function index()
     {
+        // Student Debug
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
@@ -51,6 +52,21 @@ class Dashboard extends CI_Controller {
         $data['averageScore'] = $this->student->getAverageScore();
 
         $this->load->view('page/dashboard-student',$data);
+
+        // Admin Debug
+        // $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        // $data['qotd'] = $this->quotes->getQuote();
+
+        // $module['studentScores'] = $this->student->getData();
+        // $module['averageScore'] = $this->student->getAverageScore();
+
+        // // Load admin module
+        // $data['module'] = $this->load->view('admin-module/overview', $module, TRUE);
+
+        // $this->load->view('page/dashboard-admin',$data);
     }
 
     public function reqReview()
