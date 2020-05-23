@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column">
-				<div class="seven wide column right-side">
+				<div class="eight wide column right-side">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
 							<div class="circle">
@@ -73,6 +73,29 @@
 						</div>
 					</div>
 				</div>
+				<div class="seven wide column right-side subjectList">
+					<div class="studentSubject">
+						<div class="title">Subject List</div>
+						<div class="subject-container">
+							<div class="subject">
+								<div class="title">Civics</div>
+								<div class="teacher">Mrs. Puff</div>
+							</div>
+							<div class="subject">
+								<div class="title">Civics</div>
+								<div class="teacher">Mrs. Puff</div>
+							</div>
+							<div class="subject">
+								<div class="title">Civics</div>
+								<div class="teacher">Mrs. Puff</div>
+							</div>
+							<div class="subject">
+								<div class="title">Civics</div>
+								<div class="teacher">Mrs. Puff</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="sixteen wide column">
 					<div class="dashboard-filter">
 						<div class="ui five wide column stackable grid">
@@ -86,7 +109,7 @@
 				</div>
 				<div class="sixteen wide column">
 					<div class="dashboard-table">
-						<table id="table" class="ui celled table" style="width:100%">
+						<table id="studentScore" class="ui celled table" style="width:100%">
 							<thead>
 								<tr>
 									<th>Subject</th>
@@ -124,7 +147,9 @@
 
 		$(".ui.dropdown").dropdown();
 
-		$('#table').DataTable();
+		$('#studentScore').DataTable();
+
+		$('#studentSubject').DataTable();
 	});
 </script>
 <!-- End Dropdown script -->
