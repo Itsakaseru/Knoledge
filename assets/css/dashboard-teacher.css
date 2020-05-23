@@ -1,0 +1,338 @@
+body {
+    background-color: #F1F1F1;
+    color: #955F26;
+}
+
+#dashboard {
+    margin-top: 100px;
+}
+
+h1 {
+    font-family: 'Myriad Pro Semibold';
+    font-weight: normal;
+    font-size: 25pt;
+}
+
+h1 span {
+    font-family: 'Myriad Pro Regular';
+}
+
+#studentScore {
+    text-align: center;
+    font-family: 'Myriad Pro Regular';
+    border-radius: .5rem !important;
+}
+
+th {
+    background: #955F26 !important;
+    color: white !important;
+}
+
+tr:nth-child(even) {
+    background: rgb(255, 247, 239) !important;
+}
+
+.right-side {
+    margin-top: 20px;
+}
+
+.reqReview {
+    background-color: #EDCF2E !important;
+    color: #955F26;
+}
+
+.user-container .profile-info {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+    height: 530px;
+}
+
+@media (max-width: 768px) {
+	.user-container .profile-info {
+        height: 100%;
+        padding-bottom: 3% !important;
+    }
+}
+
+.user-container .profile-info img {
+    padding: 8%;
+}
+
+.user-container .name {
+    font-family: 'Myriad Pro Bold';
+    font-size: 18pt;
+    text-align: center;
+}
+
+.user-container .role {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 14pt;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.user-container hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #D5D5D5;
+}
+
+.user-container .profile-info .title {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 11pt;
+}
+
+.user-container .profile-info .content {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+}
+
+.user-container .profile-info .details {
+    margin-left: 10%;
+}
+
+.user-container .profile-info .details .content {
+    margin-bottom: 25px;
+}
+
+.user-info {
+    padding-left: 50px;
+}
+
+.user-info .cards{
+    margin: 20px 0 40px 0 !important;
+}
+
+.average-score {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    height: 190px;
+}
+
+.average-score .average-score-text {
+    font-family: 'Myriad Pro Semibold';
+    position: absolute;
+    top: 79px;
+    left: 215px;
+    font-size: 35pt !important;
+}
+
+@media (max-width: 1199px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 200px;
+        font-size: 25pt !important;
+    }
+}
+
+@media (max-width: 991px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+	.average-score .average-score-text {
+        top: 79px;
+        left: calc(60% - 1em);
+        font-size: 35pt !important;
+    }
+}
+
+.dashboard-filter {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+.dashboard-filter button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-filter button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.dashboard-filter .yes {
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-filter .yes:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
+.dashboard-table {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    padding: 30px !important;
+}
+
+.user-role {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+    border-radius: .5rem !important;
+}
+
+.user-role:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
+.user-role i {
+    background-color: rgba(0,0,0,.2) !important;
+    transition: 0.3s ease-in !important;
+}
+
+.studentSubject {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    height: 190px;
+    padding: 23px;
+}
+
+.subjectList ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.subjectList ::-webkit-scrollbar-thumb {
+    background: #955F26 !important;
+}
+
+.studentSubject .title {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt;
+}
+
+.subject-container {
+    max-height: 121px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding-right: 5px; 
+}
+
+.subject {
+    color: white;
+    background-color: #955F26;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: .5rem;
+}
+
+.subject .title {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 15pt;
+    overflow-x: 100%;
+}
+
+.subject .teacher {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 10pt;
+    overflow-x: 100%;
+}
+
+.filter-button .button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.filter-button .button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.filter-button .button .icon {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Radial Ring */  
+.radial-progress {
+	float: left;
+	margin: 25px;
+	width: 140px;
+	height: 140px;
+	position: relative;
+	background-color: #d7d7d7;
+	border-radius: 50%;
+}
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill,
+.radial-progress .circle .shadow {
+	width: 140px;
+	height: 140px;
+	position: absolute;
+	border-radius: 50%;
+}
+
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill {
+	transition: -webkit-transform 1s;
+	transition: -ms-transform 1s;
+	transition: transform 1s;
+}
+
+.radial-progress .circle .mask.reanimate,
+.radial-progress .circle .fill.reanimate {
+	transition: -webkit-transform 0s;
+	transition: -ms-transform 0s;
+	transition: transform 0s;
+}
+
+.radial-progress .circle .mask.reset,
+.radial-progress .circle .fill.reset {
+	-webkit-transform: rotate(0deg) !important;
+	-ms-transform: rotate(0deg) !important;
+	transform: rotate(0deg) !important;
+}
+
+/* Start Cut <>, <>, <>, x */
+.radial-progress .circle .mask {
+	clip: rect(0px, 140px, 140px, 70px);
+}
+
+
+/* End Cut <>, x, <>, <> */
+.radial-progress .circle .mask .fill {
+	clip: rect(0px, 70px, 140px, 0px);
+	background-color: #ea463d;
+}
+
+.radial-progress .inset {
+	width: 100px !important;
+	height: 100px !important;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -50px !important;
+	background-color: #fbfbfb;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 100px;
+}
+
+.radial-progress .inset {
+    font-size: 19pt;
+}
