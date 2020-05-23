@@ -31,7 +31,7 @@
 			</div>
 			<div class="leftSide-3">
 				<div class="group">
-					<h1 class="quotes"> “Practice makes us right,<br>repetitions make us perfect.” </h1>
+					<h1 class="quotes"> “<?php echo $quote; ?>” </h1>
 				</div>
 			</div>
 			<div class="group-2">
