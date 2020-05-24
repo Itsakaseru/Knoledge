@@ -43,7 +43,7 @@
                             <td><?php echo $student['dob']; ?></td>
                             <td><?php echo $student['email']; ?></td>
 							<td>
-								<a href="<?php echo base_url('Dashboard/users/') . $student['userID']; ?>" 
+								<a href="<?php echo base_url('users/') . $student['userID']; ?>" 
 								class="small ui icon button userInfo" data-tooltip="Student Info" data-position="bottom center">
 								<i class="user icon"></i>
 								</a>
