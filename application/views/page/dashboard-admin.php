@@ -48,8 +48,6 @@
 		});
 
 		$(".ui.dropdown").dropdown();
-
-		$('#table').DataTable();
 		
 		$('.dropdown').dropdown({
 			action: 'select'

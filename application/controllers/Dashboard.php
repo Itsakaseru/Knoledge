@@ -55,31 +55,45 @@ class Dashboard extends CI_Controller {
 
         // Teacher Debug
         // Import CSS, JS, Fonts
-        $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
-        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
-
-        $data['qotd'] = $this->motd->getMotd();
-
-        $data['studentScores'] = $this->student->getData();
-        $data['averageScore'] = $this->student->getAverageScore();
-
-        $this->load->view('page/dashboard-teacher',$data);
-
-        // Admin Debug
         // $data['main'] = $this->load->view('include/main', NULL, TRUE);
         // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         // $data['qotd'] = $this->motd->getMotd();
 
-        // $module['studentScores'] = $this->student->getData();
-        // $module['averageScore'] = $this->student->getAverageScore();
+        // $data['studentScores'] = $this->student->getData();
+        // $data['averageScore'] = $this->student->getAverageScore();
 
-        // // Load admin module
-        // $data['module'] = $this->load->view('admin-module/overview', $module, TRUE);
+        // $this->load->view('page/dashboard-teacher',$data);
 
-        // $this->load->view('page/dashboard-admin',$data);
+        // Admin Debug
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $this->load->model('admin');
+
+        $view = $this->input->get('v', TRUE);
+
+        // Load admin module
+        if(isset($view)){
+            switch($view) {                
+                case "students" :
+                    $module['studentList'] = $this->admin->getStudentList();
+                    $data['module'] = $this->load->view('admin-module/students', $module, TRUE);
+                    break;
+                default :
+                    redirect(base_url() . "dashboard", 'refresh');
+
+            }
+        } else {
+            $module['totalData'] = $this->admin->getTotalData();
+            $module['averageScore'] = $this->admin->getAverageScore();
+            $data['module'] = $this->load->view('admin-module/overview', $module, TRUE);
+        }
+
+        $this->load->view('page/dashboard-admin',$data);
     }
 
     public function request()
