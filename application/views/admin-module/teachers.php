@@ -3,12 +3,12 @@
 		<div class="ui container stackable grid admin-info">
 			<div class="sixteen wide column dashboard-navbar">
 				<div class="ui column stackable grid centered">
-					<div class="two wide column"><button class="ui button">Overview</button></div>
-					<div class="two wide column"><button class="ui button">Students</button></div>
-					<div class="two wide column"><button class="ui button yes">Teachers</button></div>
-					<div class="two wide column"><button class="ui button">Subjects</button></div>
-					<div class="two wide column"><button class="ui button">Class</button></div>
-					<div class="three wide column"><button class="ui button">Users Management</button></div>
+					<div class="two wide column"><a class="ui button">Overview</a></div>
+					<div class="two wide column"><a class="ui button">Students</a></div>
+					<div class="two wide column"><a class="ui button yes">Teachers</a></div>
+					<div class="two wide column"><a class="ui button">Subjects</a></div>
+					<div class="two wide column"><a class="ui button">Class</a></div>
+					<div class="three wide column"><a class="ui button">Users Management</a></div>
 					<div class="two wide column">
 						<div class="ui buttons global-action">
 							<div class="ui floating right labeled dropdown icon button">

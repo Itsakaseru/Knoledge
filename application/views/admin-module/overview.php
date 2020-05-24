@@ -3,12 +3,12 @@
 		<div class="ui container stackable grid admin-info">
 			<div class="sixteen wide column dashboard-navbar">
 				<div class="ui column stackable grid centered">
-					<div class="two wide column"><button class="ui button yes">Overview</button></div>
-					<div class="two wide column"><button class="ui button">Students</button></div>
-					<div class="two wide column"><button class="ui button">Teachers</button></div>
-					<div class="two wide column"><button class="ui button">Subjects</button></div>
-					<div class="two wide column"><button class="ui button">Class</button></div>
-					<div class="three wide column"><button class="ui button">Users Management</button></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard'; ?>" class="ui button yes">Overview</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=students'; ?>" class="ui button">Students</a></div>
+					<div class="two wide column"><a class="ui button">Teachers</a></div>
+					<div class="two wide column"><a class="ui button">Subjects</a></div>
+					<div class="two wide column"><a class="ui button">Class</a></div>
+					<div class="three wide column"><a class="ui button">Users Management</a></div>
 					<div class="two wide column">
 						<div class="ui buttons global-action">
 							<div class="ui floating right labeled dropdown icon button">
@@ -27,11 +27,11 @@
 			<div class="three wide column school-info">
 				<div class="details">
 					<div class="title">Total Students</div>
-					<div class="content">1420</div>
+					<div class="content"><?php echo $totalData['totalStudent']; ?></div>
 					<div class="title">Total Teachers</div>
-					<div class="content">73</div>
+					<div class="content"><?php echo $totalData['totalTeacher']; ?></div>
 					<div class="title">Total Subject</div>
-					<div class="content-last">5</div>
+					<div class="content-last"><?php echo $totalData['totalSubject']; ?></div>
 				</div>
 			</div>
 			<div class="six wide column average-score">
