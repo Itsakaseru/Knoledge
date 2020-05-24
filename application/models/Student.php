@@ -12,20 +12,26 @@ class Student extends CI_Model{
     // Debug for 50% Presentation Only
     public function getData()
     {
-        $query = $this->db->query("SELECT * FROM student_scores WHERE studentID = 13");
+        $this->db->select('*');
+        $this->db->from('student_scores');
+        $this->db->where('studentID', 13);
+        $query = $this->db->get();
+        
         return $query->result_array();
     }
 
     public function getAverageScore()
     {
-        $query = $this->db->query("SELECT TRUNCATE((SUM(assignment)+SUM(midterm)+SUM(finalterm))
-                                    / 
-                                    (COUNT(assignment)+COUNT(midterm)+COUNT(finalterm)), 1) AS averageScore 
-                                    FROM student_scores 
-                                    WHERE studentID = 13 AND
-                                    assignment != 0 AND
-                                    midterm != 0 AND
-                                    finalterm != 0");
+        $this->db->select('TRUNCATE((SUM(assignment)+SUM(midterm)+SUM(finalterm))
+                           / 
+                           (COUNT(assignment)+COUNT(midterm)+COUNT(finalterm)), 1) AS averageScore');
+        $this->db->from('student_scores');
+        $this->db->where('studentID', 13);
+        $this->db->where('assignment !=', 0);
+        $this->db->where('midterm !=', 0);
+        $this->db->where('finalterm !=', 0);
+        $query = $this->db->get();
+
         $result = $query->result_array();
         return $result[0]['averageScore'];
     }
