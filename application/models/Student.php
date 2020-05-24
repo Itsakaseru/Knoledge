@@ -9,8 +9,7 @@ class Student extends CI_Model{
         $this->load->database();
     }
 
-    // Debug for 50% Presentation Only
-    public function getData()
+    public function getScores()
     {
         $this->db->select('*');
         $this->db->from('student_scores');
