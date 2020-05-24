@@ -1,0 +1,274 @@
+-- KNoLedgeDB 0.10 Documentation --
+-- Enable word wrap for better reading. --
+
+-- Update notes (codes)
+-- 0.10
+-- (+) Add genders table and relate genderID to users table
+-- (+) Add genderID and genderName to users view
+-- (+) Add student_currentscores view to query current class' scores, thus current
+--     class' scores will be queried in students_currentscores instead
+-- (+) Add current_class function to query highest class of a student
+-- (+) Add ppPath column (for profile picture path) to users table
+-- (*) Rename student_scores to student_allscores
+-- (*) Alter coordinatorID column in subject table's length to 5 for consistency
+-- 0.9
+-- (+) Add className to student_scores view
+-- (*) View codes optimization
+-- 0.8
+-- (+) Initial production usage version
+
+-- Insert notes
+-- Student's class MUST be added AFTER inserting a new student in user's table.
+-- Default value is 0 from its trigger, but update its assignment row immediately
+-- to the assignment's classID column.
+
+-- Notifications table notes
+-- > notificationID defines ID of the notification for indexing
+-- > description defines text that will be displayed for the notification
+-- > notificationType defines what to change
+--   > 1 for profile, displayed on admin only
+--   > 2 for unscored, so teachers will be redirected to the student's edit score page
+--     (jsonMsg may not be used)
+--   > 3 for score, displayed on teachers only
+-- > target defines userID whose data to be changed
+-- > jsonMsg defines what to change in JSON format (must be < 1024 chars)
+--   > For reference:
+--     <Profile change>
+--     {
+--       "info":  "profile",
+--       "description": "Change profile for his/her userID",
+--       "userID": <userID>,
+--       "firstName": <First Name>,
+--       "lastName": <LastName>,
+--       "dob": <date>,
+--       "email": <email>,
+--       "password": (empty for no change, encrypted with salt for changed)
+--     }
+--     <Score change>
+--     {
+--       "info": "score",
+--       "description": "Change his/her scores",
+--       "userID": <userID>,
+--       "assignment": <Assignment score>,
+--       "midterm": <Mid-term score>,
+--       "lastterm": <Last-term score>
+--     }
+--     Must be created without whitespaces or newlines.
+--     Example:
+--     {"info":"profile","description":"Change profile for his/her userID",
+--     "userID":"12345","firstName":"Nyaruko","lastName":"Nyarlotep",
+--     "dob":"2002-12-12","email":"nyaruko@mail.co.jp",
+--     "password":"fe90a7e910cb3a4739bed9180e807e93fa70c90f25a8915476f5e4bfbac681db"}
+--     Use json_encode and json_decode in PHP to manage them.
+-- > readStatus defines whether the notification has been read
+--   > 0: unread
+--   > 1: read
+
+-- Trigger notes
+-- The trigger added is used for adding new entries for assignment table for all subjects
+-- and notification table to notify teachers in order to add their score.
+
+
+-- Elements
+-- [tables]
+--   > assignments
+--       > studentID [int(5)] PRI FK[users.userID]
+--       > classID [int(2)] PRI FK[classes.classID]
+--       > subjectID [int(2)] PRI FK[subjects.subjectID]
+--       > assignmentScore [int(3)] DEFAULT 0
+--       > midtermScore [int(3)] DEFAULT 0
+--       > finaltermScore [int(3)] DEFAULT 0
+--   > classes
+--       > classID [int(2)] PRI AUTO_INCREMENT
+--       > className [varchar(3)] NULL
+--       > description [varchar(255)] NULL
+--       > instructorID [int(5)] NULL FK[users.userID]
+--   > genders
+--       > genderID [int(1)] PRI AUTO_INCREMENT
+--       > genderName [varchar(63)]
+--       > description [varchar(255)] NULL
+--   > notifications
+--       > notificationID [int(5)] PRI AUTO_INCREMENT
+--       > description [varchar(255)]
+--       > notificationType [int(1)]
+--       > jsonMsg [varchar(1024)]
+--       > readStatus [int(1)] DEFAULT 0
+--   > roles
+--       > roleID [int(2)] PRI AUTO_INCREMENT
+--       > roleName [varchar(64)]
+--       > roleDescription [varchar(255)] NULL
+--   > subjects
+--       > subjectID [int(2)] PRI AUTO_INCREMENT
+--       > subjectName [varchar(64)]
+--       > description [varchar(255)] NULL
+--       > coordinatorID [int(5)] FK[users.userID]
+--   > teachers
+--       > subjectID [int(2)] FK[subjects.subjectID]
+--       > classID [int(2)] FK[classes.classID]
+--       > teacherID [int(5)] PRI FK[users.userID]
+--   > users
+--       > userID [int(5)] PRI
+--       > firstName [varchar(255)]
+--       > lastName [varchar(255)] NULL
+--       > dob [date]
+--       > email [varchar(255)]
+--       > hash [varchar(64)]
+--       > ppPath [varchar(255)] NULL
+--       > salt [varchar(5)]
+--       > genderID [int(1)] FK[genders.genderID]
+--       > roleID [int(2)] FK[roles.roleID]
+-- [views]
+--   > class_maininstructors
+--   > student_allscores
+--   > student_class
+--   > student_classcoors
+--   > student_currentscores
+--   > subject_coors
+--   > teacher_subjects
+--   > user_info
+-- [triggers]
+--   > add_student
+-- [procedures]
+--   > add_missing_student_assignment
+--   > add_missing_student_class
+
+
+-- View description (view name) [columns] <SQL query>
+-- Simply (SELECT * FROM [viewname]) to query them.
+
+-- view class main instructors (class_maininstructors, 0 excluded)
+-- [classID, className, instructorID, instructorName]
+SELECT classID, className, instructorID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS instructorName FROM classes JOIN users ON instructorID=userID AND classID > 0;
+
+-- view for student assignments in all classes attended and attending (student_allscores)
+-- [studentID, fullName, classID, className, subjectID, subjectName, assignment, midterm, finalterm]
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, assignments.classID, classes.className, assignments.subjectID, subjectName, assignmentScore AS assignment, midtermScore AS midterm, finaltermScore AS finalterm FROM assignments JOIN (users, subjects, classes) ON studentID=userID AND assignments.subjectID=subjects.subjectID AND assignments.classID=classes.classID ORDER BY studentID, assignments.classID, assignments.subjectID;
+
+-- view for student name and class (student_class)
+-- [studentID, fullName, classID, className]
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, classes.classID, className FROM users JOIN (assignments, classes) ON userID=studentID AND assignments.classID=classes.classID GROUP BY assignments.studentID;
+
+-- view for student's classID and their instructorID (student_classcoors)
+-- [studentID, fullName, classID, instructorID]
+SELECT studentID, IF(users.lastName='' OR users.lastName IS NULL, users.firstName, CONCAT(users.firstname, ' ', users.lastName)) AS fullName, assignments.classID, classes.instructorID FROM assignments JOIN (users, classes) ON studentID=userID AND assignments.classID=classes.classID GROUP BY fullName;
+
+-- view for student assignments in currently attending class (student_currentscores)
+-- [studentID, fullName, classID, className, subjectID, subjectName, assignment, midterm, finalterm]
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, assignments.classID, classes.className, assignments.subjectID, subjectName, assignmentScore AS assignment, midtermScore AS midterm, finaltermScore AS finalterm FROM assignments JOIN (users, subjects, classes) ON studentID=userID AND assignments.subjectID=subjects.subjectID AND assignments.classID=classes.classID AND assignments.classID=current_class(studentID) ORDER BY studentID, assignments.classID, assignments.subjectID;
+
+-- view for subject name and coordinators (subject_coors)
+-- [subjectID, subjectName, coordinatorID, fullName]
+SELECT subjectID, subjectName, coordinatorID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName FROM subjects JOIN users ON subjects.coordinatorID=users.userID;
+
+-- view for teacher's subject and class to attend (teacher_subjects)
+-- [teacherID, fullName, subjectID, subjectName, classID, className]
+SELECT teacherID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, teachers.subjectID, subjectName, teachers.classID, classes.className FROM teachers JOIN (users, subjects, classes) ON teacherID=userID AND teachers.subjectID=subjects.subjectID AND teachers.classID=classes.classID ORDER BY 1;
+
+-- query every users (user_info)
+-- [userID, fullName, dob, email, genderID, genderName, roleID, roleName]
+SELECT userID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, dob, email, users.genderID, genderName, users.roleID, roleName FROM users JOIN (genders, roles) ON users.genderID=genders.genderID AND users.roleID=roles.roleID ORDER BY userID;
+
+-- Triggers are ran automatically when certain query conditions are met
+-- Trigger to add assignment score to defaults and notifications (completed)
+DELIMITER //
+CREATE TRIGGER add_student
+AFTER INSERT ON users FOR EACH ROW
+BEGIN
+	DECLARE i INTEGER;
+	DECLARE counter INTEGER;
+	DECLARE notificationcount INTEGER;
+	IF NEW.roleID=3 THEN
+		SET i = 0;
+		SET counter = (SELECT COUNT(*) FROM subjects);
+		SET notificationcount = (SELECT COUNT(*) FROM notifications);
+		WHILE i < counter DO
+			INSERT INTO assignments(studentID, subjectID) VALUES(NEW.userID, i + 1);
+			SET i = i + 1;
+		END WHILE;
+		SET notificationcount = notificationcount + 1;
+		INSERT INTO notifications(notificationID, description, notificationType, jsonMsg) VALUES(notificationcount, CONCAT('Add entry for ', NEW.firstName, '\'s scores'), 2, '{"info":"added","description":"New student added"}');
+	END IF;
+END//
+DELIMITER ;
+
+-- Functions are used for certain query operations.
+-- Find highest classID (what class currently attending) (completed)
+DELIMITER //
+CREATE FUNCTION current_class(id INTEGER) RETURNS INTEGER DETERMINISTIC
+BEGIN
+	DECLARE highest INTEGER;
+	DECLARE role INTEGER;
+	SET role = (SELECT roleID FROM users WHERE userID=id);
+	IF role = 3 THEN -- Student's role ID is always 3
+		SET highest = (SELECT classID FROM assignments JOIN users ON studentID=userID AND userid=id AND subjectid=1 ORDER BY classID DESC LIMIT 1);
+	ELSE
+		SET highest = 0;
+	END IF;
+	RETURN highest;
+END//
+DELIMITER ;
+
+-- These procedures are for database troubleshooting purposes only.
+-- May cause duplicates or row inconsistency when ran improperly.
+
+-- Add missing student from assignments table (completed)
+DELIMITER //
+CREATE PROCEDURE add_missing_student_assignment()
+BEGIN
+	DECLARE counter INTEGER;
+	DECLARE i INTEGER;
+	DECLARE j INTEGER;
+	DECLARE exist INTEGER;
+	DECLARE targetrole INTEGER;
+	DECLARE selrow INTEGER;
+	DECLARE subj INTEGER;
+	DECLARE subjcount INTEGER;
+	SET counter = (SELECT COUNT(*) FROM users);
+	SET i = (SELECT userID FROM users WHERE roleID=3 LIMIT 1);
+	WHILE i <= counter DO
+		SET selrow = i - 1;
+		SET targetrole = (SELECT roleID FROM users LIMIT 1 OFFSET selrow);
+		IF targetrole = 3 THEN
+			SET exist = (SELECT COUNT(*) FROM assignments WHERE StudentID=i);
+			IF exist = 1 THEN
+				SET j = 0;
+				SET subjcount = (SELECT COUNT(*) FROM subjcount);
+				WHILE j < counter
+				DO
+					SET subj = j + 1;
+					INSERT INTO assignments(StudentID, SubjectID) VALUES(i, subj);
+					SET j = j + 1;
+				END WHILE;
+			END IF;
+		END IF;
+		SET i = i + 1;
+	END WHILE;
+END//
+DELIMITER ;
+
+-- Add empty class by year (completed)
+DELIMITER //
+CREATE PROCEDURE add_missing_student_class()
+BEGIN
+	DECLARE i INTEGER;
+	DECLARE counter INTEGER;
+	DECLARE added INTEGER;
+	DECLARE birthyear INTEGER;
+	SET i = (SELECT studentID FROM assignments LIMIT 1);
+	SET counter = (SELECT studentID FROM assignments ORDER BY studentID DESC LIMIT 1);
+	WHILE i <= counter	DO
+		SET added = (SELECT IF(classID=0, 0, 1) FROM assignments WHERE studentID = i LIMIT 1);
+		IF added = 0 THEN
+			SET birthyear = (SELECT YEAR(dob) FROM users WHERE userID=i);
+			IF birthyear = '2000' THEN UPDATE assignments SET classID=4 WHERE studentID=i;
+			ELSEIF birthyear = '2001' THEN UPDATE assignments SET classID=3 WHERE studentID=i;
+			ELSEIF birthyear = '2002' THEN
+				IF FLOOR(RAND() * 10 / 5) = 1 THEN UPDATE assignments SET classID=2 WHERE studentID=i;
+				ELSE UPDATE assignments SET classID=1 WHERE studentID=i;
+				END IF;
+			END IF;
+		END IF;
+		SET i = i + 1;
+	END WHILE;
+END//
+DELIMITER ;
