@@ -126,7 +126,7 @@
 									<td><?php echo $score['assignment']; ?></td>
 									<td><?php echo $score['midterm']; ?></td>
 									<td><?php echo $score['finalterm']; ?></td>
-									<td><a href="<?php echo base_url('Dashboard/reqReview'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
+									<td><a href="<?php echo base_url('Dashboard/request'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
 								</tr>
 							<?php } ?>
 							</tbody>
