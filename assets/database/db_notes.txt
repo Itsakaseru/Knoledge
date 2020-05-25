@@ -1,5 +1,21 @@
--- KNoLedgeDB 0.9 Documentation --
+-- KNoLedgeDB 0.10 Documentation --
 -- Enable word wrap for better reading. --
+
+-- Update notes (codes)
+-- 0.10
+-- (+) Add genders table and relate genderID to users table
+-- (+) Add genderID and genderName to users view
+-- (+) Add student_currentscores view to query current class' scores, thus current
+--     class' scores will be queried in students_currentscores instead
+-- (+) Add current_class function to query highest class of a student
+-- (+) Add ppPath column (for profile picture path) to users table
+-- (*) Rename student_scores to student_allscores
+-- (*) Alter coordinatorID column in subject table's length to 5 for consistency
+-- 0.9
+-- (+) Add className to student_scores view
+-- (*) View codes optimization
+-- 0.8
+-- (+) Initial production usage version
 
 -- Insert notes
 -- Student's class MUST be added AFTER inserting a new student in user's table.
@@ -67,6 +83,10 @@
 --       > className [varchar(3)] NULL
 --       > description [varchar(255)] NULL
 --       > instructorID [int(5)] NULL FK[users.userID]
+--   > genders
+--       > genderID [int(1)] PRI AUTO_INCREMENT
+--       > genderName [varchar(63)]
+--       > description [varchar(255)] NULL
 --   > notifications
 --       > notificationID [int(5)] PRI AUTO_INCREMENT
 --       > description [varchar(255)]
@@ -81,7 +101,7 @@
 --       > subjectID [int(2)] PRI AUTO_INCREMENT
 --       > subjectName [varchar(64)]
 --       > description [varchar(255)] NULL
---       > coordinatorID [int(11)] FK[users.userID]
+--       > coordinatorID [int(5)] FK[users.userID]
 --   > teachers
 --       > subjectID [int(2)] FK[subjects.subjectID]
 --       > classID [int(2)] FK[classes.classID]
@@ -93,13 +113,16 @@
 --       > dob [date]
 --       > email [varchar(255)]
 --       > hash [varchar(64)]
+--       > ppPath [varchar(255)] NULL
 --       > salt [varchar(5)]
+--       > genderID [int(1)] FK[genders.genderID]
 --       > roleID [int(2)] FK[roles.roleID]
 -- [views]
 --   > class_maininstructors
+--   > student_allscores
 --   > student_class
 --   > student_classcoors
---   > student_scores
+--   > student_currentscores
 --   > subject_coors
 --   > teacher_subjects
 --   > user_info
@@ -117,6 +140,10 @@
 -- [classID, className, instructorID, instructorName]
 SELECT classID, className, instructorID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS instructorName FROM classes JOIN users ON instructorID=userID AND classID > 0;
 
+-- view for student assignments in all classes attended and attending (student_allscores)
+-- [studentID, fullName, classID, className, subjectID, subjectName, assignment, midterm, finalterm]
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, assignments.classID, classes.className, assignments.subjectID, subjectName, assignmentScore AS assignment, midtermScore AS midterm, finaltermScore AS finalterm FROM assignments JOIN (users, subjects, classes) ON studentID=userID AND assignments.subjectID=subjects.subjectID AND assignments.classID=classes.classID ORDER BY studentID, assignments.classID, assignments.subjectID;
+
 -- view for student name and class (student_class)
 -- [studentID, fullName, classID, className]
 SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, classes.classID, className FROM users JOIN (assignments, classes) ON userID=studentID AND assignments.classID=classes.classID GROUP BY assignments.studentID;
@@ -125,9 +152,9 @@ SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCA
 -- [studentID, fullName, classID, instructorID]
 SELECT studentID, IF(users.lastName='' OR users.lastName IS NULL, users.firstName, CONCAT(users.firstname, ' ', users.lastName)) AS fullName, assignments.classID, classes.instructorID FROM assignments JOIN (users, classes) ON studentID=userID AND assignments.classID=classes.classID GROUP BY fullName;
 
--- view for student assignments (student_scores)
+-- view for student assignments in currently attending class (student_currentscores)
 -- [studentID, fullName, classID, className, subjectID, subjectName, assignment, midterm, finalterm]
-SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, assignments.classID, classes.className, assignments.subjectID, subjectName, assignmentScore AS assignment, midtermScore AS midterm, finaltermScore AS finalterm FROM assignments JOIN (users, subjects, classes) ON studentID=userID AND assignments.subjectID=subjects.subjectID AND assignments.classID=classes.classID ORDER BY studentID, assignments.subjectID;
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, assignments.classID, classes.className, assignments.subjectID, subjectName, assignmentScore AS assignment, midtermScore AS midterm, finaltermScore AS finalterm FROM assignments JOIN (users, subjects, classes) ON studentID=userID AND assignments.subjectID=subjects.subjectID AND assignments.classID=classes.classID AND assignments.classID=current_class(studentID) ORDER BY studentID, assignments.classID, assignments.subjectID;
 
 -- view for subject name and coordinators (subject_coors)
 -- [subjectID, subjectName, coordinatorID, fullName]
@@ -138,11 +165,11 @@ SELECT subjectID, subjectName, coordinatorID, IF(lastName='' OR lastName IS NULL
 SELECT teacherID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, teachers.subjectID, subjectName, teachers.classID, classes.className FROM teachers JOIN (users, subjects, classes) ON teacherID=userID AND teachers.subjectID=subjects.subjectID AND teachers.classID=classes.classID ORDER BY 1;
 
 -- query every users (user_info)
--- [userID, fullName, dob, email, roleID, roleName]
-SELECT userID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, dob, email, users.roleID, roleName FROM users JOIN roles ON users.roleID=roles.roleID;
+-- [userID, fullName, dob, email, genderID, genderName, roleID, roleName]
+SELECT userID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, dob, email, users.genderID, genderName, users.roleID, roleName FROM users JOIN (genders, roles) ON users.genderID=genders.genderID AND users.roleID=roles.roleID ORDER BY userID;
 
--- triggers are ran automatically when certain query conditions are met
--- trigger to add assignment score to defaults and notifications (completed)
+-- Triggers are ran automatically when certain query conditions are met
+-- Trigger to add assignment score to defaults and notifications (completed)
 DELIMITER //
 CREATE TRIGGER add_student
 AFTER INSERT ON users FOR EACH ROW
@@ -164,7 +191,24 @@ BEGIN
 END//
 DELIMITER ;
 
--- These are for database troubleshooting purposes only.
+-- Functions are used for certain query operations.
+-- Find highest classID (what class currently attending) (completed)
+DELIMITER //
+CREATE FUNCTION current_class(id INTEGER) RETURNS INTEGER DETERMINISTIC
+BEGIN
+	DECLARE highest INTEGER;
+	DECLARE role INTEGER;
+	SET role = (SELECT roleID FROM users WHERE userID=id);
+	IF role = 3 THEN -- Student's role ID is always 3
+		SET highest = (SELECT classID FROM assignments JOIN users ON studentID=userID AND userid=id AND subjectid=1 ORDER BY classID DESC LIMIT 1);
+	ELSE
+		SET highest = 0;
+	END IF;
+	RETURN highest;
+END//
+DELIMITER ;
+
+-- These procedures are for database troubleshooting purposes only.
 -- May cause duplicates or row inconsistency when ran improperly.
 
 -- Add missing student from assignments table (completed)
