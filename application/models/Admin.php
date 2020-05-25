@@ -9,7 +9,8 @@ class Admin extends CI_Model{
         $this->load->database();
     }
 
-    public function getTotalData() {
+    public function getTotalData()
+    {
         $this->db->select("SUM(users.roleID = 3) AS 'totalStudent',
                            SUM(users.roleID = 2) AS 'totalTeacher',
                            (SELECT COUNT(subjectID) FROM subjects) AS 'totalSubject'");
@@ -19,10 +20,51 @@ class Admin extends CI_Model{
         return $query->result_array()[0];
     }
 
-    public function getStudentList() {
+    public function getStudentList()
+    {
         $this->db->select('*');
         $this->db->from('user_info');
         $this->db->where('roleId', 3);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getTeacherList()
+    {
+        $this->db->select('*');
+        $this->db->from('user_info');
+        $this->db->where('roleId', 2);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getSubjectList()
+    {
+        $this->db->select('subjects.*, user_info.fullName');
+        $this->db->from('subjects');
+        $this->db->join('user_info', 'subjects.coordinatorID = user_info.userID');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getClassList()
+    {
+        $this->db->select('classes.*, user_info.fullName');
+        $this->db->from('classes');
+        $this->db->where('classId !=', 0);
+        $this->db->join('user_info', 'classes.instructorID = user_info.userID');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+    
+    public function getUserList()
+    {
+        $this->db->select('userID, fullName, dob, email, genderName, roleName');
+        $this->db->from('user_info');
         $query = $this->db->get();
 
         return $query->result_array();
@@ -33,7 +75,7 @@ class Admin extends CI_Model{
         $this->db->select('TRUNCATE((SUM(assignment)+SUM(midterm)+SUM(finalterm))
                            / 
                            (COUNT(assignment)+COUNT(midterm)+COUNT(finalterm)), 1) AS averageScore');
-        $this->db->from('student_scores');
+        $this->db->from('student_currentscores');
         $this->db->where('assignment !=', 0);
         $this->db->where('midterm !=', 0);
         $this->db->where('finalterm !=', 0);
@@ -41,6 +83,16 @@ class Admin extends CI_Model{
         $result = $query->result_array();
 
         return $result[0]['averageScore'];
+    }
+
+    public function getData($id)
+    {
+        $this->db->select('userID, firstName, lastName, dob, email, roleID');
+        $this->db->from('users');
+        $this->db->where('userID', $id);
+        $query = $this->db->get();
+
+        return $query->result_array()[0];
     }
 
 }

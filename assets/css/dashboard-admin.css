@@ -235,6 +235,14 @@ tr:nth-child(even) {
     color: #955F26;
 }
 
+.prevLink {
+    padding: 15px !important;
+}
+
+.prevLink .section {
+    padding: 10px !important;
+    border-radius: .5rem !important;
+}
 
 
 

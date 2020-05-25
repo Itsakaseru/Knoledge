@@ -3,12 +3,12 @@
 		<div class="ui container stackable grid admin-info">
 			<div class="sixteen wide column dashboard-navbar">
 				<div class="ui column stackable grid centered">
-					<div class="two wide column"><a class="ui button">Overview</a></div>
-					<div class="two wide column"><a class="ui button">Students</a></div>
-					<div class="two wide column"><a class="ui button yes">Teachers</a></div>
-					<div class="two wide column"><a class="ui button">Subjects</a></div>
-					<div class="two wide column"><a class="ui button">Class</a></div>
-					<div class="three wide column"><a class="ui button">Users Management</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard'; ?>" class="ui button">Overview</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=students'; ?>" class="ui button">Students</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=teachers'; ?>" class="ui button yes">Teachers</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=subjects'; ?>" class="ui button">Subjects</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=classes'; ?>" class="ui button">Classes</a></div>
+					<div class="three wide column"><a href="<?php echo base_url() . 'dashboard?v=manageusers'; ?>" class="ui button">Users Management</a></div>
 					<div class="two wide column">
 						<div class="ui buttons global-action">
 							<div class="ui floating right labeled dropdown icon button">
@@ -28,21 +28,29 @@
                 <table id="table" class="ui celled table" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Subject</th>
-                            <th>Assignment</th>
-                            <th>Mid Term</th>
-                            <th>Final Term</th>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Date Of Birth</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($studentScores as $score){ ?>
+                    <?php foreach($teacherList as $teacher){ ?>
                         <tr>
-                            <td><?php echo $score['subjectName']; ?></td>
-                            <td><?php echo $score['assignment']; ?></td>
-                            <td><?php echo $score['midterm']; ?></td>
-                            <td><?php echo $score['finalterm']; ?></td>
-                            <td><a href="<?php echo base_url('Dashboard/reqReview'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
+                            <td><?php echo $teacher['userID']; ?></td>
+                            <td><?php echo $teacher['fullName']; ?></td>
+                            <td><?php echo $teacher['dob']; ?></td>
+                            <td><?php echo $teacher['email']; ?></td>
+							<td>
+								<a href="<?php echo base_url('user/') . $teacher['userID']; ?>" 
+								class="small ui icon button userInfo" data-tooltip="Teacher Info" data-position="bottom center">
+								<i class="user icon"></i>
+								</a>
+								<a class="small ui icon button deleteUser" data-tooltip="Delete Teacher" data-position="bottom center">
+								<i class="trash icon"></i>
+								</a>
+							</td>
                         </tr>
                     <?php } ?>
                     </tbody>
@@ -51,3 +59,13 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function () {
+		$('#table').DataTable({
+			'columnDefs': [
+				{ targets: 0, className: 'text-center', width: '5%' },
+				{ targets: 4, className: 'text-center', orderable: false }
+			]
+		});
+	});
+</script>

@@ -5,10 +5,10 @@
 				<div class="ui column stackable grid centered">
 					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard'; ?>" class="ui button yes">Overview</a></div>
 					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=students'; ?>" class="ui button">Students</a></div>
-					<div class="two wide column"><a class="ui button">Teachers</a></div>
-					<div class="two wide column"><a class="ui button">Subjects</a></div>
-					<div class="two wide column"><a class="ui button">Class</a></div>
-					<div class="three wide column"><a class="ui button">Users Management</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=teachers'; ?>" class="ui button">Teachers</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=subjects'; ?>" class="ui button">Subjects</a></div>
+					<div class="two wide column"><a href="<?php echo base_url() . 'dashboard?v=classes'; ?>" class="ui button">Classes</a></div>
+					<div class="three wide column"><a href="<?php echo base_url() . 'dashboard?v=manageusers'; ?>" class="ui button">Users Management</a></div>
 					<div class="two wide column">
 						<div class="ui buttons global-action">
 							<div class="ui floating right labeled dropdown icon button">
