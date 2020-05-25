@@ -1,7 +1,9 @@
--- KNoLedgeDB 0.10 Documentation --
+-- KNoLedgeDB 0.10.1 Documentation --
 -- Enable word wrap for better reading. --
 
 -- Update notes (codes)
+-- 0.10.1
+-- (*) Fix student_class view only query lowest class since fullName is grouped
 -- 0.10
 -- (+) Add genders table and relate genderID to users table
 -- (+) Add genderID and genderName to users view
@@ -146,7 +148,7 @@ SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCA
 
 -- view for student name and class (student_class)
 -- [studentID, fullName, classID, className]
-SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, classes.classID, className FROM users JOIN (assignments, classes) ON userID=studentID AND assignments.classID=classes.classID GROUP BY assignments.studentID;
+SELECT userID AS studentID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS fullName, classes.classID, className FROM users JOIN (assignments, classes) ON userID=studentID AND assignments.classID=classes.classID AND assignments.classID=current_class(userID) GROUP BY assignments.studentID;
 
 -- view for student's classID and their instructorID (student_classcoors)
 -- [studentID, fullName, classID, instructorID]

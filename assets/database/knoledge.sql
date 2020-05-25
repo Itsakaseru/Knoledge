@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2020 at 09:00 AM
+-- Generation Time: May 25, 2020 at 02:03 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -688,7 +688,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `student_class`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `student_class`  AS  select `users`.`userID` AS `studentID`,if(`users`.`lastName` = '' or `users`.`lastName` is null,`users`.`firstName`,concat(`users`.`firstName`,' ',`users`.`lastName`)) AS `fullName`,`classes`.`classID` AS `classID`,`classes`.`className` AS `className` from (`users` join (`assignments` join `classes`) on(`users`.`userID` = `assignments`.`studentID` and `assignments`.`classID` = `classes`.`classID`)) group by `assignments`.`studentID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `student_class`  AS  select `users`.`userID` AS `studentID`,if(`users`.`lastName` = '' or `users`.`lastName` is null,`users`.`firstName`,concat(`users`.`firstName`,' ',`users`.`lastName`)) AS `fullName`,`classes`.`classID` AS `classID`,`classes`.`className` AS `className` from (`users` join (`assignments` join `classes`) on(`users`.`userID` = `assignments`.`studentID` and `assignments`.`classID` = `classes`.`classID` and `assignments`.`classID` = `current_class`(`users`.`userID`))) group by `assignments`.`studentID` ;
 
 -- --------------------------------------------------------
 
