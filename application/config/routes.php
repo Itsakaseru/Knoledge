@@ -57,4 +57,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'Home/login';
 $route['login/action'] = 'Home/action';
 $route['user/(:any)'] = 'user/info/$1';
+
 $route['user/(:any)/edit'] = 'user/editUser/$1';
+$route['user/(:any)/edit/submit'] = 'user/editUserSubmit/$1';

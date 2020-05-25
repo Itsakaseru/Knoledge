@@ -49,7 +49,7 @@
 
 		$(".ui.dropdown").dropdown();
 		
-		$('.dropdown').dropdown({
+		$('.global-dropdown').dropdown({
 			action: 'select'
 		});
 	});

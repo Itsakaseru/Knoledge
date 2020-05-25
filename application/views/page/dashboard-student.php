@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="ui four column stackable grid container" style="padding: 0 !important;">
+		<div class="ui two column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
 					<img class="ui circular image centered" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>" width="85%" />

@@ -87,12 +87,19 @@ class Admin extends CI_Model{
 
     public function getData($id)
     {
-        $this->db->select('userID, firstName, lastName, dob, email, roleID');
+        $this->db->select('users.userID, users.firstName, users.lastName, users.dob, users.email, users.ppPath, users.roleID, genders.genderID, genders.genderName');
         $this->db->from('users');
         $this->db->where('userID', $id);
+        $this->db->join('genders', 'users.genderID = genders.genderID');
         $query = $this->db->get();
 
         return $query->result_array()[0];
+    }
+
+    public function updateUserData($id, $data)
+    {
+        $this->db->where('userID', $id);
+        $this->db->update('users', $data);
     }
 
 }

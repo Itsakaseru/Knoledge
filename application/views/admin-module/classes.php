@@ -1,5 +1,5 @@
 <div class="ui four column stackable grid container" style="padding: 0 !important;">
-	<div class="user-info sixteen wide computer eleven wide tablet column">
+	<div class="user-info sixteen wide computer sixteen wide tablet column">
 		<div class="ui container stackable grid admin-info">
 			<div class="sixteen wide column dashboard-navbar">
 				<div class="ui column stackable grid centered">
@@ -11,7 +11,7 @@
 					<div class="three wide column"><a href="<?php echo base_url() . 'dashboard?v=manageusers'; ?>" class="ui button">Users Management</a></div>
 					<div class="two wide column">
 						<div class="ui buttons global-action">
-							<div class="ui floating right labeled dropdown icon button">
+							<div class="ui floating right labeled dropdown icon button global-dropdown">
 								<span class="text">Global</span>
 								<i class="dropdown icon"></i>
 								<div class="menu">
