@@ -94,6 +94,7 @@ class Dashboard extends CI_Controller {
                     break;
                 case "classes" :
                     $module['classList'] = $this->admin->getClassList();
+                    $module['teacherList'] = $this->admin->getTeacherList();
                     $data['module'] = $this->load->view('admin-module/classes', $module, TRUE);
                     break;
                 case "manageusers" :

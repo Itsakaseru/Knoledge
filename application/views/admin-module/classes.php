@@ -30,7 +30,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Subject</th>
-                            <th>Description</th>
                             <th>Coordinator</th>
                             <th>Action</th>
                         </tr>
@@ -40,16 +39,31 @@
                         <tr>
                             <td><?php echo $class['classID']; ?></td>
                             <td><?php echo $class['className']; ?></td>
-                            <td><?php echo $class['description']; ?></td>
                             <td><?php echo $class['fullName']; ?></td>
 							<td>
-								<a href="<?php echo base_url('subject/') . $class['classID']; ?>" 
-								class="small ui icon button userInfo" data-tooltip="Class Info" data-position="bottom center">
-								<i class="user icon"></i>
-								</a>
-								<a class="small ui icon button deleteUser" data-tooltip="Delete Class" data-position="bottom center">
-								<i class="trash icon"></i>
-								</a>
+								<form class="assignCoordinator">
+									<div class="ui labeled icon top right pointing dropdown small button assigndropdown">
+										<i class="exchange icon"></i>
+										<span class="text">Change Coordinator</span>
+										<div class="menu">
+											<div class="ui search icon input">
+												<input type="text" name="search" placeholder="Search teacher...">
+											</div>
+											<div class="divider"></div>
+											<div class="header">
+												<i class="user icon"></i>
+												Select Teacher
+											</div>
+											<div class="scrolling menu">
+												<?php foreach($teacherList as $teacher) { ?>
+													<a class="item" href="<?php echo base_url() . 'class/' . $class['classID'] . '/assign/' . $teacher['userID']; ?>">
+														<?php echo $teacher['fullName']; ?>
+													</a>
+												<?php } ?>
+											</div>
+										</div>
+									</div>
+								</form>
 							</td>
                         </tr>
                     <?php } ?>
@@ -64,8 +78,12 @@
 		$('#table').DataTable({
 			'columnDefs': [
 				{ targets: 0, className: 'text-center', width: '5%' },
-				{ targets: 4, className: 'text-center', orderable: false }
+				{ targets: 3, className: 'text-center', orderable: false }
 			]
+		});
+
+		$('.dropdown').dropdown({
+			action: 'select'
 		});
 	});
 </script>
