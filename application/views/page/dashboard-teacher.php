@@ -54,6 +54,16 @@
 				</div>
             </div>
             <!-- Show only if teacher = homeroom teacher -->
+			<?php
+				$this->load->query('teacher')
+				if($teacher = $instructorID){
+					query('JOIN teacher ON classes WHERE teacherID = InstructorID');
+				}
+				else{
+					echo "N/A"
+				}
+
+			?>
 			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column right-container">
 				<div class="nine wide computer sixteen wide tablet column right-side">
 					<div class="average-score">
@@ -115,6 +125,15 @@
                                             </div>
                                             <div class="divider"></div>
                                             <!-- print according to teacher teaching subject -->
+											<?php
+												$this->load->query('teacher')
+												if($teacher = $instructorID){
+													query('JOIN teacher ON subjects WHERE teacherID = subjectID');
+												}
+												else{
+													echo "N/A"
+												}
+											?>
                                             <div class="item"></i>Civics</div>
                                             <div class="item"></i>ICT</div>
                                             <div class="item"></i>Mathematics</div>
@@ -157,6 +176,11 @@
 	<?php echo $footer; ?>
 </body>
 <!-- Dropdown script -->
+<?php if (mysql_num_rows($studentScores) > 0){
+	while($row = mysql_fetch_array($studentScores){
+		echo $row['score']
+	}
+}?>
 <script>
 	$(document).ready(function () {
 		$(".ui.toggle.button").click(function () {
@@ -170,6 +194,7 @@
 		$('#studentSubject').DataTable();
 	});
 </script>
+?>
 <!-- End Dropdown script -->
 <!-- Radial Ring script -->
 <script>
