@@ -2,18 +2,22 @@
 	switch($data['roleID']) {
 		case 3:
 			$text = "Students";
+			$role = "Student";
 			$back = "students";
 			break;
 		case 2:
 			$text = "Teachers";
+			$role = "Teacher";
 			$back = "teachers";
 			break;
 		case 1:
 			$text = "Admins";
+			$role = "Admin";
 			$back = "manageusers";
 			break;
 		default: 
 			$text = "N/A";
+			$role = "N/A";
 			$back = "overview";
 	}
 
@@ -37,10 +41,17 @@
 		$age = "N/A";
 	}
 ?>
-<div class="message-container">
+<div id="message-container" style="display: none;">
+<?php if($this->session->flashdata('success')): ?>
 	<div class="ui success message">
-		<p>Profile Updated Successfully!</p>
+		<p><?php echo $this->session->flashdata('success'); ?></p>
 	</div>
+<?php endif; ?>
+<?php if($this->session->flashdata('failed')): ?>
+	<div class="ui error message">
+		<p><?php echo $this->session->flashdata('failed'); ?></p>
+	</div>
+<?php endif; ?>
 </div>
 <div class="ui two column stackable grid container center aligned" style="padding: 0 !important;">
 	<div class="user-info sixteen wide computer eleven wide tablet column">
@@ -62,7 +73,7 @@
 		<div class="ui profile-info">
 			<img class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
 			<div class="name"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></div>
-			<div class="role">Siswa</div>
+			<div class="role"><?php echo $role; ?></div>
 			<hr>
 			<div class="details">
 				<div class="title">Gender</div>
@@ -94,3 +105,13 @@
 		</div>
 	</div>
 </div>
+<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<script>
+	$(document).ready(function () {
+		$('#message-container').transition('drop');
+		setTimeout(function(){
+			$('#message-container').transition('drop');
+		}, 10000);
+	});
+</script>
+<?php endif; ?>

@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed !');
 
-class Generator extends CI_Model{
+class SaltGenerator extends CI_Model{
     
     public function __construct()
     {

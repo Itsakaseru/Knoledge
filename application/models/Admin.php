@@ -99,7 +99,7 @@ class Admin extends CI_Model{
     public function updateUserData($id, $data)
     {
         $this->db->where('userID', $id);
-        $this->db->update('users', $data);
+        if($this->db->update('users', $data)) return true; else false;
     }
 
 }

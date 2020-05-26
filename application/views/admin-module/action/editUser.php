@@ -57,14 +57,13 @@
 	</div>
 	<div class="user-container eight wide computer five wide tablet column">
 		<div class="editProfileForm">
-            <div class="image-container circular" for="uploadImage">
-                <img id="profileImage" class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture; ?>">
-                <label class="changeImage" for="uploadImage">
-                    Change Image
-                </label>
-                <input type="file" class="inputFile" id="uploadImage" onchange="readURL(this);">
-            </div>
-            <form class="ui form <?php if(validation_errors()) echo "error" ?>" method="post" action="<?php echo base_url('user/') . $data['userID'] . '/edit'; ?>">
+            <form class="ui form <?php if(validation_errors()) echo "error" ?>" method="post" action="<?php echo base_url('user/') . $data['userID'] . '/edit'; ?>" enctype="multipart/form-data">
+                <div class="image-container circular" for="uploadImage">
+                    <img id="profileImage" class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture; ?>">
+                    <label class="changeImage" for="uploadImage">
+                        Change Image
+                    </label>
+                </div>
                 <div class="ui error message">
                     <div class="header">Update User Failed!</div>
                     <ul class="list">
@@ -121,6 +120,7 @@
                             <option value="3">Student</option>
                         </select>
                     </div>
+                    <input type="file" name="imageFile" class="inputFile" id="uploadImage" onchange="readURL(this);">
                 </div>
                 <button class="ui button" type="submit">Update User</button>
             </form>
