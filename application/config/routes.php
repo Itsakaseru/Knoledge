@@ -62,3 +62,4 @@ $route['user/(:any)/edit'] = 'user/editUser/$1';
 $route['user/(:any)/assign/class'] = 'user/assignClass/$1';
 
 $route['subject/(:any)/assign/(:any)'] = 'subject/assign/$1/$2';
+$route['class/(:any)/assign/(:any)'] = 'classes/assign/$1/$2';
