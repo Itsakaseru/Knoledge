@@ -23,6 +23,7 @@ class User extends CI_Controller {
 
         $module['userID'] = $id;
         $module['data'] = $this->admin->getData($id);
+        $module['currentClass'] = $this->admin->getCurrentClass($id);
 
         // ONLY LOAD IF USER ID EXIST
         $data['module'] = $this->load->view('admin-module/action/userInfo', $module, TRUE);
@@ -170,6 +171,59 @@ class User extends CI_Controller {
             $this->form_validation->set_message('fileCheck', 'Only JPG, JPEG, PNG files are allowed!');
             return false;
         }
+    }
+
+    public function assignClass($id)
+    {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        // ONLY LOAD IF USER ID EXIST
+        $module['userID'] = $id;
+        $module['data'] = $this->admin->getData($id);
+        $classInfo = $this->admin->getCurrentClass($id);
+        $currentClassID = $classInfo['classID'];
+        $module['currentClass'] = $classInfo;
+        $module['nextClass'] = $this->admin->getNextClass($id, $classInfo);
+
+        // Load Form Validation Library and Configure Form Rules
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+        $this->form_validation->set_rules('classID','Class ID','required',
+        array(
+            'required' => 'ClassID cannot be empty!',
+        ));
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            if($this->form_validation->run() != false){
+                $toClass = $this->input->post('classID');
+                $this->admin->assignClass($id, $toClass);
+                redirect(base_url() . "user/" . $id);
+            } else {
+                $this->session->set_flashdata('msg', 'ClassID cannot be empty!');
+                redirect(base_url() . "user/" . $id . "/assign/class");
+            }
+
+           
+        } else {
+            // NOT A POST REQUEST -> Load normal page
+            $data['module'] = $this->load->view('admin-module/action/assignClass', $module, TRUE);
+            $this->load->view('page/dashboard-admin',$data);
+        }
+
+        
+
+        // Assign class
+        // Show N/A if class is unset
+        // If class not assigned // show popup, so admin know to assign it first.
+        // Admin can only UPGRADE CLASS
+        // If class is not assigned, then update the unassigned value in assigmnets table
+        // if class is assigned, add new data in assignments table for all of the subject
+
+
+        
     }
 
 }

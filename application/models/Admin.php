@@ -102,5 +102,75 @@ class Admin extends CI_Model{
         if($this->db->update('users', $data)) return true; else false;
     }
 
+    public function getCurrentClass($id)
+    {
+        $this->db->select('classID, className');
+        $this->db->from('student_class');
+        $this->db->where('studentID', $id);
+        $query = $this->db->get();
+
+        return $query->result_array()[0];
+    }
+
+    public function getNextClass($id, $currentClass)
+    {
+        $classID = $currentClass['classID'];
+        $classNumber = substr($currentClass['className'], 0, 1);
+        $this->db->select('classID, className');
+        $this->db->from('classes');
+        $this->db->where('LEFT(className, 1) !=', $classNumber);
+        $this->db->where('classID >', $classID);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+    
+    public function assignClass($id, $toClass)
+    {
+        $this->db->select('subjectID');
+        $this->db->from('subjects');
+        $query = $this->db->get();
+
+        $subjects = $query->result_array();
+
+        foreach($subjects as $subject) {
+            $data = array(
+                'studentID' => $id,
+                'classID' => $toClass,
+                'subjectID' => $subject['subjectID'],
+                'assignmentScore' => 0,
+                'midtermScore' => 0,
+                'finaltermScore' => 0
+            );
+            $this->db->insert('assignments', $data);
+        }
+    }
+
+    public function getSubjectAvailable($id, $class)
+    {
+        $this->db->select('student_allscores.classID, subjects.subjectName');
+        $this->db->from('subjects');
+        $this->db->join('student_allscores', 'student_allscores.subjectID = subjects.subjectID');
+        $this->db->where('student_allscores.studentID = ', $id);
+        $this->db->where('student_allscores.classID = ', $class);
+        $this->db->where('student_allscores.subjectID != ', 'subjects.subjectID');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getSubjectChosen($id, $class)
+    {
+        $this->db->select('student_allscores.classID, subjects.subjectName');
+        $this->db->from('subjects');
+        $this->db->join('student_allscores', 'student_allscores.subjectID = subjects.subjectID');
+        $this->db->where('student_allscores.studentID = ', $id);
+        $this->db->where('student_allscores.classID = ', $class);
+        $this->db->where('student_allscores.subjectID = ', 'subjects.subjectID');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 }
 ?>

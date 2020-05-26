@@ -47,9 +47,6 @@
 								class="small ui icon button userInfo" data-tooltip="Subject Info" data-position="bottom center">
 								<i class="user icon"></i>
 								</a>
-								<a class="small ui icon button deleteUser" data-tooltip="Delete Subject" data-position="bottom center">
-								<i class="trash icon"></i>
-								</a>
 							</td>
                         </tr>
                     <?php } ?>

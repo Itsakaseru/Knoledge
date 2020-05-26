@@ -42,14 +42,9 @@
 	}
 ?>
 <div id="message-container" style="display: none;">
-<?php if($this->session->flashdata('success')): ?>
-	<div class="ui success message">
-		<p><?php echo $this->session->flashdata('success'); ?></p>
-	</div>
-<?php endif; ?>
-<?php if($this->session->flashdata('failed')): ?>
+<?php if($this->session->flashdata('msg')): ?>
 	<div class="ui error message">
-		<p><?php echo $this->session->flashdata('failed'); ?></p>
+		<p><?php echo $this->session->flashdata('msg'); ?></p>
 	</div>
 <?php endif; ?>
 </div>
@@ -59,11 +54,13 @@
 			<div class="sixteen wide column dashboard-navbar">
 				<div class="ui column stackable grid prevLink">
                     <div class="ui breadcrumb">
-						<a href="<?php echo base_url() . "dashboard?v=$back"; ?>" class="section">
+                        <a href="<?php echo base_url() . "dashboard?v=$back"; ?>" class="section">
 							<?php echo $text; ?>
 						</a>
+                        <i class="right chevron icon divider"></i>
+                        <a href="<?php echo base_url() . "user/" . $data['userID']; ?>" class="section"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></a>
                         <i class="right arrow icon divider"></i>
-                        <div class="active section"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></div>
+                        <div class="active section">Assign Class</div>
                     </div>
 				</div>
             </div>
@@ -79,32 +76,32 @@
 				<div class="title">Gender</div>
 				<div class="content"><?php echo $data['genderName']; ?></div>
 				<div class="title">Age</div>
-				<div class="content"><?php echo $age->format('%y'); ?></div>
-				<div class="title">Class</div>
-				<div class="content"><?php echo $currentClass['className'] ?></div>
+                <div class="content"><?php echo $age->format('%y'); ?></div>
+                <div class="title">Class</div>
+				<div class="content"><?php echo $currentClass['className']; ?></div>
 			</div>
 		</div>
 	</div>
 	<div class="user-container four wide computer five wide tablet column">
-		<div class="action-navbar">
-			<div class="ui fluid vertical menu action-container">
-				<a class="item">
-					Score List
-				</a>
-				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/edit'; ?>" class="item">
-					Edit Profile
-				</a>
-				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/assign/class'; ?>" class="item">
-					Class Assignment
-				</a>
-				<a class="item delete">
-					Delete Student
-				</a>
-			</div>
+		<div class="action-navbar classForm">
+            <form class="ui form" method="post" action="<?php echo base_url('user/') . $data['userID'] . '/assign/class'; ?>">
+                <div class="field">
+                    <label>Assign Class</label>
+                    <select id="class" class="ui fluid dropdown" name="classID">
+                        <option value="">Class</option>
+                        <?php if(!empty($nextClass)) {
+                            foreach($nextClass as $class){ ?>
+                                <option value="<?php echo $class['classID']; ?>"><?php echo $class['className']; ?></option>
+                            <?php }
+                        } ?>
+                    </select>
+                </div>
+                <button class="ui button" type="submit">Assign Class</button>
+            </form>
 		</div>
-	</div>
+    </div>
 </div>
-<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<?php if($this->session->flashdata('msg')): ?>
 <script>
 	$(document).ready(function () {
 		$('#message-container').transition('drop');

@@ -71,6 +71,7 @@
                         <?php if(form_error('lastName') != NULL) echo form_error('lastName');?>
                         <?php if(form_error('email') != NULL) echo form_error('email');?>
                         <?php if(form_error('password') != NULL) echo form_error('password');?>
+                        <?php if(form_error('password') != NULL) echo form_error('imageFile');?>
                     </ul>
                 </div>
                 <div class="two fields">
