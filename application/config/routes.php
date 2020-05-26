@@ -59,4 +59,4 @@ $route['login/action'] = 'Home/action';
 $route['user/(:any)'] = 'user/info/$1';
 
 $route['user/(:any)/edit'] = 'user/editUser/$1';
-$route['user/(:any)/edit/submit'] = 'user/editUserSubmit/$1';
+$route['user/(:any)/assign/class'] = 'user/assignClass/$1';
