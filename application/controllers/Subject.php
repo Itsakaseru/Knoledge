@@ -27,8 +27,10 @@ class Subject extends CI_Controller {
             $this->db->set('coordinatorID', $teacherID, FALSE);
             $this->db->where('subjectID', $subjectID);
             $this->db->update('subjects');
+            $this->session->set_flashdata('success', 'New coordinator set!');
             redirect(base_url() . "dashboard?v=subjects");
         } else {
+            $this->session->set_flashdata('error', 'Teacher is already a coordinator!');
             redirect(base_url() . "dashboard?v=subjects");
         }
     }

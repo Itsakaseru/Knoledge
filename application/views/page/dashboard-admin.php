@@ -22,6 +22,18 @@
 
 <body>
 	<?php echo $navbar; ?>
+	<div id="message-container" style="display: none;">
+		<?php if($this->session->flashdata('error')): ?>
+			<div class="ui error message">
+				<p><?php echo $this->session->flashdata('error'); ?></p>
+			</div>
+		<?php endif; ?>
+		<?php if($this->session->flashdata('success')): ?>
+		<div class="ui success message">
+			<p><?php echo $this->session->flashdata('success'); ?></p>
+		</div>
+		<?php endif; ?>
+	</div>
 	<div id="dashboard">
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
@@ -73,5 +85,13 @@
 		});
 	}
 	setTimeout(window.randomize, 200);
+	<?php if($this->session->flashdata('error') || $this->session->flashdata('success')): ?>
+		$(document).ready(function () {
+			$('#message-container').transition('drop');
+			setTimeout(function(){
+				$('#message-container').transition('drop');
+			}, 10000);
+		});
+	<?php endif; ?>
 </script>
 <!-- End Radial Ring script -->
