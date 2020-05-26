@@ -102,6 +102,11 @@ class Admin extends CI_Model{
         if($this->db->update('users', $data)) return true; else false;
     }
 
+    public function addUserData($id, $data)
+    {
+        if($this->db->insert('users', $data)) return true; else false;
+    }
+
     public function getCurrentClass($id)
     {
         $this->db->select('classID, className');

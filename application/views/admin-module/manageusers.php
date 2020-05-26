@@ -24,7 +24,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="dashboard-table">
+			<div class="sixteen wide column manageuser-container">
+				<div id="user-small-info" class="three wide computer five wide tablet column right floated">
+					<a href="<?php echo base_url() . 'user/add'; ?>" class="ui labeled icon button right floated addUser" data-position="bottom right">
+						<i class="plus icon"></i>
+						Add User
+					</a>
+				</div>
+			</div>
+			<div class="dashboard-table manage">
                 <table id="table" class="ui celled table" style="width:100%">
                     <thead>
                         <tr>
@@ -68,7 +76,7 @@
 		$('#table').DataTable({
 			'columnDefs': [
 				{ targets: 0, className: 'text-center', width: '5%' },
-				{ targets: 4, className: 'text-center', orderable: false }
+				{ targets: 6, className: 'text-center', orderable: false }
 			]
 		});
 	});

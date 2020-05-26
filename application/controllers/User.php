@@ -35,6 +35,135 @@ class User extends CI_Controller {
         $this->load->view('page/dashboard-admin',$data);
     }
 
+    public function add()
+    {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            // Load Form Validation Library and Configure Form Rules
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<li>', '</li>');
+            $this->form_validation->set_rules('firstName','First Name','required|max_length[255]',
+            array(
+                'required' => 'First Name must not be empty!',
+                'max_length' => 'First Name too long!'
+            ));
+            $this->form_validation->set_rules('lastName','Last Name','max_length[255]',
+            array(
+                'max_length' => 'Last Name too long!'
+            ));
+
+            $this->form_validation->set_rules('email','Email','required|max_length[255]|valid_email|is_unique[users.email]',
+            array(
+                'required' => 'Email must not be empty!',
+                'valid_email' => 'Invalid email address!',
+                'is_unique' => 'Email address already in use!',
+                'max_length' => 'Email address too long!'
+            ));
+
+            $this->form_validation->set_rules('password','Password','required',
+            array(
+                'required' => 'Password is required!',
+            ));
+
+            $this->form_validation->set_rules('dob','Date of Birth','required',
+            array(
+                'required' => 'Date of Birth is required!',
+            ));
+
+            $this->form_validation->set_rules('gender','Gender','required',
+            array(
+                'required' => 'Gender is required!',
+            ));
+
+            $this->form_validation->set_rules('role','Role','required',
+            array(
+                'required' => 'Role is required!',
+            ));
+
+            // File check enable if user want to upload
+            if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
+                $this->form_validation->set_rules('imageFile', 'File', 'callback_fileCheck');
+                
+                // Upload Configuration
+				$config['upload_path'] = './data/users-img/';
+				$config['allowed_types'] = 'png|jpg|jpeg';
+				$config['max_size'] = 10000;
+                $config['file_name'] = md5($id);
+                $config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config);
+            }
+
+            if($this->form_validation->run() != false){
+                // Form validation passed
+                $firstName = $this->input->post('firstName');
+                $lastName = $this->input->post('lastName');
+                $email = $this->input->post('email');
+                $password = $this->input->post('password');
+                $dob = $this->input->post('dob');
+                $gender = $this->input->post('gender');
+                $role = $this->input->post('role');
+
+                $formData = array();
+                $formData['firstName'] = $firstName;
+                $formData['lastName'] = $lastName;
+                $formData['email'] = $email;
+                $formData['dob'] = $dob;
+                $formData['genderID'] = $gender;
+                $formData['roleID'] = $role;
+                // Load random generator model
+                $this->load->model('saltgenerator');
+
+                $salt = $this->saltgenerator->getSalt();
+                $formData['salt'] = $salt;
+                $formData['hash'] = hash('sha256', $password . $salt);
+
+                if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
+                // User want to change profile picture
+                    if($this->upload->do_upload('imageFile')) {
+                        $data = $this->upload->data();
+                        if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
+                        // Insert to database
+                        if($this->admin->addUserData($id, $formData)) {
+                            $this->session->set_flashdata('success', 'User Added Successfully!');
+                            redirect(base_url() . "dashboard?v=manageusers");
+                        } else {
+                            $this->session->set_flashdata('failed', 'Something went wrong');
+                            redirect(base_url() . "dashboard?v=manageusers");
+                        }
+                    }
+                    else {
+                        $this->session->set_flashdata('failed', 'Something went wrong');
+                        redirect(base_url() . "dashboard?v=manageusers");
+                    }
+                // If user DON'T want to change profile picture
+                } else {
+                    // Insert to database
+                    if($this->admin->addUserData($id, $formData)) {
+                        $this->session->set_flashdata('success', 'User Added Successfully!');
+                        redirect(base_url() . "dashboard?v=manageusers");
+                    } else {
+                        $this->session->set_flashdata('failed', 'Something went wrong!');
+                        redirect(base_url() . "dashboard?v=manageusers");
+                    }
+                }
+                
+            } else {
+                $data['module'] = $this->load->view('admin-module/action/addUser', NULL, TRUE);
+                $this->load->view('page/dashboard-admin',$data);
+            }
+        } else {
+            // NOT A POST REQUEST -> Load normal page
+            $data['module'] = $this->load->view('admin-module/action/addUser', NULL, TRUE);
+            $this->load->view('page/dashboard-admin',$data);
+        }
+        
+    }
+
     public function editUser($id)
     {
         // Import CSS, JS, Fonts
@@ -227,6 +356,11 @@ class User extends CI_Controller {
         // if class is assigned, add new data in assignments table for all of the subject
 
 
+        
+    }
+
+    public function delete($id)
+    {
         
     }
 
