@@ -1,7 +1,9 @@
--- KNoLedgeDB 0.10.1 Documentation --
+-- KNoLedgeDB 0.10.2 Documentation --
 -- Enable word wrap for better reading. --
 
 -- Update notes (codes)
+-- 0.10.2
+-- (*) Use auto increment for userID in users table
 -- 0.10.1
 -- (*) Fix student_class view only query lowest class since fullName is grouped
 -- 0.10
@@ -109,7 +111,7 @@
 --       > classID [int(2)] FK[classes.classID]
 --       > teacherID [int(5)] PRI FK[users.userID]
 --   > users
---       > userID [int(5)] PRI
+--       > userID [int(5)] PRI AUTO_INCREMENT
 --       > firstName [varchar(255)]
 --       > lastName [varchar(255)] NULL
 --       > dob [date]
