@@ -37,16 +37,14 @@ tr:nth-child(even) {
 
 .admin-info {
     margin-top: 10px !important;
-    margin-bottom: 30px !important;
 }
 
 .user-container .profile-info {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
     background: #FFFFFF !important;
-    margin-top: 20px !important;
     padding: 0 !important;
-    height: 463px;
+    height: 480px;
 }
 
 @media (max-width: 768px) {
@@ -93,6 +91,7 @@ tr:nth-child(even) {
 
 .user-container .profile-info .details {
     margin-left: 10%;
+    text-align: left;
 }
 
 .user-container .profile-info .details .content {
@@ -235,7 +234,139 @@ tr:nth-child(even) {
     color: #955F26;
 }
 
+.prevLink {
+    padding: 15px !important;
+}
 
+.prevLink .section {
+    padding: 10px !important;
+    border-radius: .5rem !important;
+}
+
+/* Remove blue border when focused */
+:focus {
+    outline:0;
+}
+
+.action-navbar {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 20px;
+}
+
+.action-navbar .action-container {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.action-navbar a {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #955F26 !important;
+    border-radius: .5rem !important;
+}
+
+.action-navbar a.link.item::before {
+    width: 0 !important;
+}
+
+.action-navbar .delete {
+    background-color: rgb(149, 38, 38) !important;
+}
+
+.editProfileForm {
+    font-family: 'Myriad Pro Semibold' !important;
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 30px;
+}
+
+.editProfileForm label {
+    font-family: 'Myriad Pro Semibold' !important;
+    text-align: left;
+    font-size: 12pt !important;
+}
+
+.editProfileForm input {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 11pt !important;
+}
+
+.image-container {
+    margin: 0px 120px;
+}
+
+.image-container .image {
+    transition: 0.3s ease-in-out;
+}
+
+.image-container:hover .image {
+    opacity: 0.5;
+}
+
+.changeImage {
+    background-color: #955F26;
+    color: white;
+    padding: 7px;
+    border-radius: .5rem;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    position: absolute;
+    top: 130px;
+    left: 38%;
+    cursor: pointer;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.image-container:hover .changeImage {
+    opacity: 1;
+}
+
+.editProfileForm img {
+    margin-bottom: 40px;
+}
+
+.editProfileForm input {
+    height: 38px !important;
+}
+
+.editProfileForm button {
+    margin-top: 25px !important;
+    background-color: #955F26 !important;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 13pt !important;
+}
+
+#changePWbtn {
+    height: 38px !important;
+    background-color: #dbb694 !important;;
+}
+
+#message-container {
+    position: absolute;
+    width: 500px !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 14pt;
+    top: 8%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
 
 
 /* Radial Ring */  

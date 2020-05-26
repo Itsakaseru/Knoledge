@@ -61,7 +61,7 @@ class Dashboard extends CI_Controller {
 
         // $data['qotd'] = $this->motd->getMotd();
 
-        // $data['studentScores'] = $this->student->getData();
+        // $data['studentScores'] = $this->student->getScores();
         // $data['averageScore'] = $this->student->getAverageScore();
 
         // $this->load->view('page/dashboard-teacher',$data);
@@ -83,6 +83,23 @@ class Dashboard extends CI_Controller {
                     $module['studentList'] = $this->admin->getStudentList();
                     $data['module'] = $this->load->view('admin-module/students', $module, TRUE);
                     break;
+                case "teachers" :
+                    $module['teacherList'] = $this->admin->getTeacherList();
+                    $data['module'] = $this->load->view('admin-module/teachers', $module, TRUE);
+                    break;
+                case "subjects" :
+                    $module['subjectList'] = $this->admin->getSubjectList();
+                    $data['module'] = $this->load->view('admin-module/subjects', $module, TRUE);
+                    break;
+                case "classes" :
+                    $module['classList'] = $this->admin->getClassList();
+                    $data['module'] = $this->load->view('admin-module/classes', $module, TRUE);
+                    break;
+                case "manageusers" :
+                    $module['userList'] = $this->admin->getUserList();
+                    $data['module'] = $this->load->view('admin-module/manageusers', $module, TRUE);
+                    break;
+
                 default :
                     redirect(base_url() . "dashboard", 'refresh');
 
