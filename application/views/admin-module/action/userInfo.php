@@ -80,26 +80,42 @@
 				<div class="content"><?php echo $data['genderName']; ?></div>
 				<div class="title">Age</div>
 				<div class="content"><?php echo $age->format('%y'); ?></div>
-				<div class="title">Class</div>
-				<div class="content"><?php echo $currentClass['className'] ?></div>
+				<?php if($data['roleID'] == 3) { ?>
+					<div class="title">Class</div>
+					<div class="content"><?php echo $currentClass['className'] ?></div>
+				<?php } ?>
+				<?php if($data['roleID'] == 2) { ?>
+					<div class="title">Class</div>
+					<div class="content">
+						<?php if(empty($homeroomClass[0]['className'])){
+							echo "N/A";
+						} else { echo $homeroomClass[0]['className']; } ?></div>
+				<?php } ?>
+				<?php if($data['roleID'] == 1) { ?>
+					<div class="title">Access</div>
+					<div class="content">
+						Admin
+					</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
 	<div class="user-container four wide computer five wide tablet column">
 		<div class="action-navbar">
 			<div class="ui fluid vertical menu action-container">
-				<a class="item">
+				<?php if($data['roleID'] == 3) { ?>
+					<a class="item">
 					Score List
-				</a>
+					</a>
+				<?php } ?>
 				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/edit'; ?>" class="item">
 					Edit Profile
 				</a>
-				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/assign/class'; ?>" class="item">
-					Class Assignment
-				</a>
-				<a class="item delete">
-					Delete Student
-				</a>
+				<?php if($data['roleID'] == 3) { ?>
+					<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/assign/class'; ?>" class="item">
+						Class Assignment
+					</a>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

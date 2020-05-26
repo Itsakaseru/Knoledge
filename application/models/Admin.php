@@ -112,6 +112,16 @@ class Admin extends CI_Model{
         return $query->result_array()[0];
     }
 
+    public function getHomeroomClass($id)
+    {
+        $this->db->select('classID, className');
+        $this->db->from('classes');
+        $this->db->where('instructorID', $id);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     public function getNextClass($id, $currentClass)
     {
         $classID = $currentClass['classID'];

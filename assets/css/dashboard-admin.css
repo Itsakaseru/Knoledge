@@ -248,6 +248,16 @@ tr:nth-child(even) {
     outline:0;
 }
 
+.assignCoordinator {
+    margin: 0 !important;
+}
+
+.assignCoordinator .button {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    background-color: #955F26 !important;
+}
+
 .action-navbar {
     border-radius: 10px;
     box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);

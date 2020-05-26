@@ -43,9 +43,9 @@
                             <td><?php echo $teacher['dob']; ?></td>
                             <td><?php echo $teacher['email']; ?></td>
 							<td>
-								<a href="<?php echo base_url('user/') . $teacher['userID']; ?>" 
-								class="small ui icon button userInfo" data-tooltip="Teacher Info" data-position="bottom center">
-								<i class="user icon"></i>
+								<a href="<?php echo base_url('user/') . $teacher['userID'] . '/edit'; ?>" 
+								class="small ui icon button userInfo" data-tooltip="Edit Profile" data-position="bottom center">
+								<i class="edit icon"></i>
 								</a>
 								<a class="small ui icon button deleteUser" data-tooltip="Delete Teacher" data-position="bottom center">
 								<i class="trash icon"></i>

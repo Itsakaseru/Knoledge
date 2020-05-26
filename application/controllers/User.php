@@ -23,7 +23,11 @@ class User extends CI_Controller {
 
         $module['userID'] = $id;
         $module['data'] = $this->admin->getData($id);
-        $module['currentClass'] = $this->admin->getCurrentClass($id);
+        if($module['data']['roleID'] == 3){
+            $module['currentClass'] = $this->admin->getCurrentClass($id);
+        } else if($module['data']['roleID'] == 2) {
+            $module['homeroomClass'] = $this->admin->getHomeroomClass($id);
+        }
 
         // ONLY LOAD IF USER ID EXIST
         $data['module'] = $this->load->view('admin-module/action/userInfo', $module, TRUE);

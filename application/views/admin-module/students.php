@@ -44,8 +44,8 @@
                             <td><?php echo $student['email']; ?></td>
 							<td>
 								<a href="<?php echo base_url('user/') . $student['userID']; ?>" 
-								class="small ui icon button userInfo" data-tooltip="Student Info" data-position="bottom center">
-								<i class="user icon"></i>
+								class="small ui icon button userInfo" data-tooltip="More Action" data-position="bottom center">
+								<i class="cogs icon"></i>
 								</a>
 								<a class="small ui icon button deleteUser" data-tooltip="Delete Student" data-position="bottom center">
 								<i class="trash icon"></i>
