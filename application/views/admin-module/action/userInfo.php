@@ -85,7 +85,7 @@
 					<div class="content"><?php echo $currentClass['className'] ?></div>
 				<?php } ?>
 				<?php if($data['roleID'] == 2) { ?>
-					<div class="title">Class</div>
+					<div class="title">Homeroom Class</div>
 					<div class="content">
 						<?php if(empty($homeroomClass[0]['className'])){
 							echo "N/A";
