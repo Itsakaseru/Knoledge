@@ -34,27 +34,62 @@
 	<style>
 		.radial-progress .circle .mask .fill {
 			clip: rect(0px, 70px, 140px, 0px);
-			background-color: <?php
-				if($averageScore > 79) {
-					echo "#EDCF2E";
-				}
-				else if($averageScore > 59) {
-					echo "#002456";
-				}
-				else { echo "#780E0B"; }
+
+			background-color: <?php if($averageScore > 79) {
+				echo "#EDCF2E";
+			}
+
+			else if($averageScore > 59) {
+				echo "#002456";
+			}
+
+			else {
+				echo "#780E0B";
+			}
+
 			?>;
 		}
-		@media only screen and (min-width: 992px){
-			.ui.column.grid>[class*="eight wide computer"].column, .ui.grid>.column.row>[class*="eight wide computer"].column, .ui.grid>.row>[class*="eight wide computer"].column, .ui.grid>[class*="eight wide computer"].column {
-				width: 62%!important;
+
+		@media only screen and (min-width: 992px) {
+
+			.ui.column.grid>[class*="eight wide computer"].column,
+			.ui.grid>.column.row>[class*="eight wide computer"].column,
+			.ui.grid>.row>[class*="eight wide computer"].column,
+			.ui.grid>[class*="eight wide computer"].column {
+				width: 62% !important;
 			}
-			.ui.column.grid>[class*="six wide computer"].column, .ui.grid>.column.row>[class*="six wide computer"].column, .ui.grid>.row>[class*="six wide computer"].column, .ui.grid>[class*="six wide computer"].column {
+
+			.ui.column.grid>[class*="six wide computer"].column,
+			.ui.grid>.column.row>[class*="six wide computer"].column,
+			.ui.grid>.row>[class*="six wide computer"].column,
+			.ui.grid>[class*="six wide computer"].column {
 				padding-right: 0;
 			}
 		}
-		.user-container .profile-info {
-			
+
+		.dashboard-filter a {
+			font-family: 'Myriad Pro Regular' !important;
+			color: #955F26 !important;
+			background-color: transparent !important;
+			transition: 0.3s ease-in !important;
 		}
+
+		.dashboard-filter a:hover {
+			color: rgb(255, 255, 255) !important;
+			background-color: #955F26 !important;
+		}
+
+		.dashboard-filter .yes {
+			color: #FFFFFF !important;
+			background-color: #955F26 !important;
+			transition: 0.3s ease-in !important;
+		}
+
+		.dashboard-filter .yes:hover {
+			color: #FFFFFF !important;
+			background-color: #6D340D !important;
+		}
+
 	</style>
 </head>
 
@@ -64,11 +99,13 @@
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
 				<div class="title">
-					<h1>Hi <?php echo $data['firstName']; ?>, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
+					<h1>Hi <?php echo $data['firstName']; ?>, <span
+							style="font-weight: normal"><?php echo $qotd; ?></span></h1>
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
-				<div class="ui labeled icon button right floated user-role" data-tooltip="<?php echo $role; ?>" data-position="bottom right">
+				<div class="ui labeled icon button right floated user-role" data-tooltip="<?php echo $role; ?>"
+					data-position="bottom right">
 					<i class="user icon"></i>
 					Class <?php echo $currentClass['className']; ?>
 				</div>
@@ -77,7 +114,8 @@
 		<div class="ui two column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
-					<img class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
+					<img class="ui circular image centered"
+						src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
 					<div class="name"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></div>
 					<div class="role"><?php echo $role; ?></div>
 					<hr>
@@ -88,7 +126,8 @@
 						<div class="content"><?php echo $age->format('%y'); ?></div>
 					</div>
 					<div class="editProfile">
-						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>" style="color: #955F26;"> Request Edit Profile </a>
+						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>"
+							style="color: #955F26;"> Request Edit Profile </a>
 					</div>
 				</div>
 			</div>
@@ -112,6 +151,7 @@
 
 		$('#studentSubject').DataTable();
 	});
+
 </script>
 <!-- End Dropdown script -->
 <!-- Radial Ring script -->
@@ -126,11 +166,13 @@
 			var fill_rotation = rotation;
 			var fix_rotation = rotation * 2;
 			for (i in transform_styles) {
-				$(this).find('.circle .fill, .circle .mask.full').css(transform_styles[i], 'rotate(' + fill_rotation + 'deg)');
+				$(this).find('.circle .fill, .circle .mask.full').css(transform_styles[i], 'rotate(' +
+					fill_rotation + 'deg)');
 				$(this).find('.circle .fill.fix').css(transform_styles[i], 'rotate(' + fix_rotation + 'deg)');
 			}
 		});
 	}
 	setTimeout(window.randomize, 200);
+
 </script>
 <!-- End Radial Ring script -->
