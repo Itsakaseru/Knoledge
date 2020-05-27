@@ -41,7 +41,7 @@
                             <td><?php echo $subject['subjectName']; ?></td>
                             <td><?php echo $subject['fullName']; ?></td>
 							<td>
-								<form class="assignCoordinator">
+								<div class="assignCoordinator">
 									<div class="ui labeled icon top right pointing dropdown small button assigndropdown">
 										<i class="exchange icon"></i>
 										<span class="text">Change Coordinator</span>
@@ -63,7 +63,8 @@
 											</div>
 										</div>
 									</div>
-								</form>
+									<a href="<?php echo base_url() . 'subject/' . $subject['subjectID'] . '/view';?>" class="small ui button"><i class="exclamation circle icon"></i>Subject Info</a>
+								</div>
 							</td>
                         </tr>
                     <?php } ?>
