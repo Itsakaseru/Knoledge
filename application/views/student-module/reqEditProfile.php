@@ -34,10 +34,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/reqEditProfile.css'); ?>">
 
 	<style>
-		.dashboard-navbar {
-			margin-top: 100px !important;
-		}
-
 		.judul {
 			margin-top: 0.2rem !important;
 			color: #955F26 !important;
@@ -47,11 +43,6 @@
             margin-top: 6rem !important;
         }
 
-        @media only screen and (max-width: 767px){
-            .dashboard-navbar {
-			    margin-top: 200px !important;
-		    }
-        }
 	</style>
 </head>
 
@@ -160,6 +151,23 @@
 	</div>
 	<?php echo $footer; ?>
 </body>
+
+<!-- Dropdown script -->
+<script>
+	$(document).ready(function () {
+		$(".ui.toggle.button").click(function () {
+			$(".mobile.only.grid .ui.vertical.menu").toggle(100);
+		});
+
+		$(".userDropdownButton").dropdown();
+		
+		$('.global-dropdown').dropdown({
+			action: 'select'
+		});
+	});
+</script>
+<!-- End Dropdown script -->
+
 <script>
     $(document).ready(function () {
 		$('#role').dropdown('set selected', <?php echo $data['roleID']; ?>);
