@@ -6,6 +6,7 @@ class Classes extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('admin');
     }
 
     public function index()
@@ -32,6 +33,21 @@ class Classes extends CI_Controller {
             $this->session->set_flashdata('error', 'Teacher is already a instructor!');
             redirect(base_url() . "dashboard?v=classes");
         }
+    }
+
+    public function view($classID)
+    {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $module['subjectList'] = $this->admin->getClassInfo($classID);
+        $module['teacherList'] = $this->admin->getTeacherList();
+        $module['classID'] = $classID;
+        $data['module'] = $this->load->view('admin-module/action/viewClass', $module, TRUE);
+
+        $this->load->view('page/dashboard-admin',$data);
     }
 
 }

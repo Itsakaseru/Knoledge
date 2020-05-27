@@ -82,7 +82,7 @@
 				<div class="content"><?php echo $age->format('%y'); ?></div>
 				<?php if($data['roleID'] == 3) { ?>
 					<div class="title">Class</div>
-					<div class="content"><?php echo $currentClass['className'] ?></div>
+					<div class="content"><?php if(isset($currentClass['className'])) echo $currentClass['className']; else echo "Unassigned"; ?></div>
 				<?php } ?>
 				<?php if($data['roleID'] == 2) { ?>
 					<div class="title">Homeroom Class</div>
@@ -102,12 +102,15 @@
 	</div>
 	<div class="user-container four wide computer five wide tablet column">
 		<div class="action-navbar">
+			<?php if(isset($currentClass)) {
+				if(empty($currentClass['className'] && $data['roleID'] == 3)) {?>
+				<div class="ui warning message">
+					<div class="header">Class Assignment</div>
+					<p>This student has not been put into any classes.</p>
+				</div>
+			<?php } 
+			} ?>
 			<div class="ui fluid vertical menu action-container">
-				<?php if($data['roleID'] == 3) { ?>
-					<a class="item">
-					Score List
-					</a>
-				<?php } ?>
 				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/edit'; ?>" class="item">
 					Edit Profile
 				</a>

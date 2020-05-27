@@ -107,6 +107,41 @@ class Admin extends CI_Model{
         if($this->db->insert('users', $data)) return true; else false;
     }
 
+    public function deleteUserData($id, $role)
+    {
+        if($role == "3") {
+            $this->db->where('studentID', $id);
+            $this->db->delete('assignments');
+        }
+        if($role == "2") {
+            // Check for teacher status as coordinator and instructor
+            $this->db->select('*');
+            $this->db->from('subjects');
+            $this->db->where('coordinatorID', $id);
+            $subject = $this->db->get();
+
+            $this->db->select('*');
+            $this->db->from('classes');
+            $this->db->where('instructorID', $id);
+            $classes = $this->db->get();
+
+            $this->db->select('*');
+            $this->db->from('teachers');
+            $this->db->where('teacherID', $id);
+            $teacher = $this->db->get();
+
+            if($subject->num_rows() == 0 && $classes->num_rows() == 0 && $teacher->num_rows() == 0) {
+                $this->db->where('userID', $id);
+                $this->db->delete('users');
+                return true;
+            } else { return false; }
+        } else {
+            $this->db->where('userID', $id);
+            $this->db->delete('users');
+            return true;
+        }
+    }
+
     public function getCurrentClass($id)
     {
         $this->db->select('classID, className');
@@ -140,24 +175,48 @@ class Admin extends CI_Model{
         return $query->result_array();
     }
     
-    public function assignClass($id, $toClass)
+    public function assignClass($id, $currentClass, $toClass)
     {
+        // Assign class
+        // Show N/A if class is unset
+        // If class not assigned // show popup, so admin know to assign it first.
+        // Admin can only UPGRADE CLASS
+        // If class is not assigned, then update the unassigned value in assigmnets table
+        // if class is assigned, add new data in assignments table for all of the subject
+
         $this->db->select('subjectID');
         $this->db->from('subjects');
         $query = $this->db->get();
 
         $subjects = $query->result_array();
 
-        foreach($subjects as $subject) {
-            $data = array(
-                'studentID' => $id,
-                'classID' => $toClass,
-                'subjectID' => $subject['subjectID'],
-                'assignmentScore' => 0,
-                'midtermScore' => 0,
-                'finaltermScore' => 0
-            );
-            $this->db->insert('assignments', $data);
+        if($currentClass == "0") {
+            foreach($subjects as $subject) {
+                $data = array(
+                    'studentID' => $id,
+                    'classID' => $toClass,
+                    'subjectID' => $subject['subjectID'],
+                    'assignmentScore' => 0,
+                    'midtermScore' => 0,
+                    'finaltermScore' => 0
+                );
+                $this->db->where('studentID', $id);
+                $this->db->where('classID', 0);
+                $this->db->where('subjectID', $subject['subjectID']);
+                $this->db->update('assignments', $data);
+            }
+        } else {
+            foreach($subjects as $subject) {
+                $data = array(
+                    'studentID' => $id,
+                    'classID' => $toClass,
+                    'subjectID' => $subject['subjectID'],
+                    'assignmentScore' => 0,
+                    'midtermScore' => 0,
+                    'finaltermScore' => 0
+                );
+                $this->db->insert('assignments', $data);
+            }
         }
     }
 
@@ -187,5 +246,30 @@ class Admin extends CI_Model{
         return $query->result_array();
     }
 
+    public function getClassInfo($classID)
+    {
+        $this->db->select('classes.className, subjects.subjectID, subjects.subjectName, user_info.fullName');
+        $this->db->from('teachers');
+        $this->db->join('subjects', 'teachers.subjectID = subjects.subjectID');
+        $this->db->join('user_info', 'teachers.teacherID = user_info.userID');
+        $this->db->join('classes', 'teachers.classID = classes.classID');
+        $this->db->where('teachers.classID', $classID);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getSubjectInfo($subjectID)
+    {
+        $this->db->select('classes.classID ,classes.className, subjects.subjectID, subjects.subjectName, user_info.fullName');
+        $this->db->from('teachers');
+        $this->db->join('subjects', 'teachers.subjectID = subjects.subjectID');
+        $this->db->join('user_info', 'teachers.teacherID = user_info.userID');
+        $this->db->join('classes', 'teachers.classID = classes.classID');
+        $this->db->where('teachers.subjectID', $subjectID);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 }
 ?>

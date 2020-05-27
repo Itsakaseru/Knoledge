@@ -63,3 +63,11 @@ $route['user/(:num)/assign/class'] = 'user/assignClass/$1';
 
 $route['subject/(:num)/assign/(:num)'] = 'subject/assign/$1/$2';
 $route['class/(:num)/assign/(:num)'] = 'classes/assign/$1/$2';
+
+$route['subject/(:num)/view'] = 'subject/view/$1';
+$route['class/(:num)/view'] = 'classes/view/$1';
+$route['teacher/assign/(:num)/(:num)/(:num)'] = 'subject/teacherAssign/$1/$2/$3';
+$route['subject/assign/(:num)/(:num)/(:num)'] = 'subject/subjectAssign/$1/$2/$3';
+
+
+$route['user/(:num)/delete'] = 'user/delete/$1';
