@@ -1,7 +1,19 @@
 <div class="ui two column stackable grid container center aligned" style="padding: 0 !important;">
     <div class="user-info sixteen wide computer eleven wide tablet column">
-        <h1>Add User</h1>
-    </div>
+		<div class="ui container stackable grid admin-info">
+			<div class="sixteen wide column dashboard-navbar">
+				<div class="ui column stackable grid prevLink">
+                    <div class="ui breadcrumb">
+						<a href="<?php echo base_url() . "dashboard?v=manageusers"; ?>" class="section">
+							Users Management
+						</a>
+                        <i class="right arrow icon divider"></i>
+                        <div class="active section">Add User</div>
+                    </div>
+				</div>
+            </div>
+		</div>
+	</div>
     <div class="user-container eight wide computer five wide tablet column">
         <div class="editProfileForm">
             <form class="ui form <?php if(validation_errors()) echo "error" ?>" method="post" action="<?php echo base_url('user/add'); ?>" enctype="multipart/form-data">

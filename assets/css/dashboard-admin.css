@@ -398,8 +398,10 @@ tr:nth-child(even) {
 
 .classForm label {
     font-family: 'Myriad Pro Semibold' !important;
-    text-align: left;
-    font-size: 12pt !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+    font-size: 13pt !important;
 }
 
 .classForm input {
@@ -503,4 +505,31 @@ tr:nth-child(even) {
 
 .radial-progress .inset {
     font-size: 19pt;
+}
+
+.iunderstand {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+#confirmDeletion label {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt !important;
+    margin-bottom: 20px !important;
+    margin-top: 15px !important;
+}
+
+#confirmDeletion button {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    background-color: rgb(149, 38, 38) !important;
+    border-radius: .5rem !important;
+}
+
+#confirmDeletion a {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    margin-left: 20px;
+    background-color: #955F26 !important;
+    border-radius: .5rem !important;
 }

@@ -332,35 +332,50 @@ class User extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
             if($this->form_validation->run() != false){
                 $toClass = $this->input->post('classID');
-                $this->admin->assignClass($id, $toClass);
+                $this->admin->assignClass($id, $currentClassID, $toClass);
                 redirect(base_url() . "user/" . $id);
             } else {
                 $this->session->set_flashdata('msg', 'ClassID cannot be empty!');
                 redirect(base_url() . "user/" . $id . "/assign/class");
             }
-
-           
         } else {
             // NOT A POST REQUEST -> Load normal page
             $data['module'] = $this->load->view('admin-module/action/assignClass', $module, TRUE);
             $this->load->view('page/dashboard-admin',$data);
         }
-
-        
-
-        // Assign class
-        // Show N/A if class is unset
-        // If class not assigned // show popup, so admin know to assign it first.
-        // Admin can only UPGRADE CLASS
-        // If class is not assigned, then update the unassigned value in assigmnets table
-        // if class is assigned, add new data in assignments table for all of the subject
-
-
-        
     }
 
     public function delete($id)
     {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        // ONLY LOAD IF USER ID EXIST
+        $module['userID'] = $id;
+        $module['data'] = $this->admin->getData($id);
+        $role = $module['data']['roleID'];
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            if($this->admin->deleteUserData($id, $role)) {
+                $this->session->set_flashdata('success', 'User Deleted Successfully!');
+                redirect(base_url() . "dashboard?v=manageusers");
+            } else {
+                if($role == "2") {
+                    $this->session->set_flashdata('error', 'Teacher must not be assigned to any subject and classes first!');
+                } else {
+                    $this->session->set_flashdata('error', 'Delete User Failed!');
+                }
+                redirect(base_url() . "dashboard?v=manageusers");
+            }
+            
+        } else {
+            // NOT A POST REQUEST -> Load normal page
+            $data['module'] = $this->load->view('admin-module/action/deleteUser', $module, TRUE);
+            $this->load->view('page/dashboard-admin',$data);
+        }
+
         
     }
 

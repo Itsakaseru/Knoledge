@@ -78,7 +78,7 @@
 				<div class="title">Age</div>
                 <div class="content"><?php echo $age->format('%y'); ?></div>
                 <div class="title">Class</div>
-				<div class="content"><?php echo $currentClass['className']; ?></div>
+				<div class="content"><?php if(isset($currentClass['className'])) echo $currentClass['className']; else echo "Unassigned"; ?></div>
 			</div>
 		</div>
 	</div>
@@ -101,6 +101,11 @@
 		</div>
     </div>
 </div>
+<script>
+	$(document).ready(function () {
+		$('.dropdown').dropdown();
+	});
+</script>
 <?php if($this->session->flashdata('msg')): ?>
 <script>
 	$(document).ready(function () {

@@ -47,7 +47,7 @@
 								class="small ui icon button userInfo" data-tooltip="Edit Profile" data-position="bottom center">
 								<i class="edit icon"></i>
 								</a>
-								<a class="small ui icon button deleteUser" data-tooltip="Delete Teacher" data-position="bottom center">
+								<a href="<?php echo base_url('user/') . $teacher['userID'] . '/delete'; ?>" class="small ui icon button deleteUser" data-tooltip="Delete Teacher" data-position="bottom center">
 								<i class="trash icon"></i>
 								</a>
 							</td>
