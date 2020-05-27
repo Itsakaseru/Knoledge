@@ -63,3 +63,5 @@ $route['user/(:num)/assign/class'] = 'user/assignClass/$1';
 
 $route['subject/(:num)/assign/(:num)'] = 'subject/assign/$1/$2';
 $route['class/(:num)/assign/(:num)'] = 'classes/assign/$1/$2';
+
+$route['user/(:num)/delete'] = 'user/delete/$1';
