@@ -34,5 +34,15 @@ class Subject extends CI_Controller {
         }
     }
 
+    public function teacherAssign($classID, $subjectID, $teacherID)
+    {
+        $this->db->set('teacherID', $teacherID, FALSE);
+        $this->db->where('subjectID', $subjectID);
+        $this->db->where('classID', $classID);
+        $this->db->update('teachers');
+        $this->session->set_flashdata('success', 'Teacher subject class assignment set!');
+        redirect(base_url() . "class/" . $classID . "/view");
+    }
+
 }
 ?>

@@ -41,10 +41,10 @@
                             <td><?php echo $class['className']; ?></td>
                             <td><?php echo $class['fullName']; ?></td>
 							<td>
-								<form class="assignCoordinator">
+								<div class="assignCoordinator">
 									<div class="ui labeled icon top right pointing dropdown small button assigndropdown">
 										<i class="exchange icon"></i>
-										<span class="text">Change Coordinator</span>
+										<span class="text">Change Instructor</span>
 										<div class="menu">
 											<div class="ui search icon input">
 												<input type="text" name="search" placeholder="Search teacher...">
@@ -63,7 +63,8 @@
 											</div>
 										</div>
 									</div>
-								</form>
+									<a href="<?php echo base_url() . 'class/' . $class['classID'] . '/view';?>" class="small ui button"><i class="exclamation circle icon"></i>Class Info</a>
+								</div>
 							</td>
                         </tr>
                     <?php } ?>

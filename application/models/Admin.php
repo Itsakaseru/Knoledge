@@ -246,5 +246,17 @@ class Admin extends CI_Model{
         return $query->result_array();
     }
 
+    public function getClassInfo($classID)
+    {
+        $this->db->select('classes.className, subjects.subjectID, subjects.subjectName, user_info.fullName');
+        $this->db->from('teachers');
+        $this->db->join('subjects', 'teachers.subjectID = subjects.subjectID');
+        $this->db->join('user_info', 'teachers.teacherID = user_info.userID');
+        $this->db->join('classes', 'teachers.classID = classes.classID');
+        $this->db->where('teachers.classID', $classID);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 }
 ?>
