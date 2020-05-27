@@ -75,21 +75,21 @@
                     </ul>
                 </div>
                 <div class="two fields">
-                    <div class="field">
+                    <div class="field <?php if(form_error('firstName') != NULL) echo "error";?>">
                         <label>First Name</label>
                         <input type="text" name="firstName" value="<?php echo $data['firstName'];?>">
                     </div>
-                    <div class="field">
+                    <div class="field <?php if(form_error('lastName') != NULL) echo "error";?>">
                         <label>Last Name</label>
                         <input type="text" name="lastName" value="<?php echo $data['lastName'];?>">
                     </div>
                 </div>
                 <div class="two fields">
-                    <div class="field">
+                    <div class="field <?php if(form_error('email') != NULL) echo "error";?>">
                         <label>Email</label>
                         <input type="text" name="email" value="<?php echo $data['email'];?>">
                     </div>
-                    <div id="changePwField" class="field">
+                    <div id="changePwField" class="field <?php if(form_error('password') != NULL) echo "error";?>">
                         <label>Password</label>
                         <a id="changePWbtn" class="ui button left floated" onclick="changePassword();">Change Password</a>
                     </div>

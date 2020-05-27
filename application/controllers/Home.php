@@ -71,5 +71,12 @@ class Home extends CI_Controller {
         }
     }
 
+    public function logout()
+    {
+        if(isset($_SESSION['id'])) unset($_SESSION['id']);
+        if(isset($_SESSION['logged'])) unset($_SESSION['logged']);
+        redirect(base_url());
+    }
+
 }
 ?>

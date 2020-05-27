@@ -111,11 +111,6 @@
 			<?php } 
 			} ?>
 			<div class="ui fluid vertical menu action-container">
-				<?php if($data['roleID'] == 3) { ?>
-					<a class="item">
-					Score List
-					</a>
-				<?php } ?>
 				<a href="<?php echo base_url() . 'user/' . $data['userID'] . '/edit'; ?>" class="item">
 					Edit Profile
 				</a>

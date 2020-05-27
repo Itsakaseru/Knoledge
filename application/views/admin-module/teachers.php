@@ -15,16 +15,17 @@
 								<span class="text">Global</span>
 								<i class="dropdown icon"></i>
 								<div class="menu">
-									<div class="item"><i class="delete icon"></i>Revoke all session</div>
-									<div class="item"><i class="delete icon"></i>Revoke students session</div>
-									<div class="item"><i class="delete icon"></i>Revoke teachers session</div>
+									<div class="item"><i class="disabled delete icon"></i>Revoke all session</div>
+									<div class="item"><i class="disabled delete icon"></i>Revoke students session</div>
+									<div class="item"><i class="disabled delete icon"></i>Revoke teachers session</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="dashboard-table">
+			<div id="loading" class="ui active centered inline loader"></div>
+			<div class="dashboard-table" style="display: none;">
                 <table id="table" class="ui celled table" style="width:100%">
                     <thead>
                         <tr>
@@ -65,7 +66,11 @@
 			'columnDefs': [
 				{ targets: 0, className: 'text-center', width: '5%' },
 				{ targets: 4, className: 'text-center', orderable: false }
-			]
+			],
+			"initComplete": function( settings, json ) {
+    			$('#loading').remove();
+    			$('.dashboard-table').attr('style', 'display: initial;');
+  			}
 		});
 	});
 </script>

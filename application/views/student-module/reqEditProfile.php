@@ -156,27 +156,26 @@
 	<?php echo $footer; ?>
 </body>
 <script>
-	$(document).ready(function () {
-		$('#role').dropdown('set selected', < ? php echo $data['roleID']; ? > );
-		$('#gender').dropdown('set selected', < ? php echo $data['genderID']; ? > );
+    $(document).ready(function () {
+		$('#role').dropdown('set selected', <?php echo $data['roleID']; ?>);
+		$('#gender').dropdown('set selected', <?php echo $data['genderID']; ?>);
 	});
 
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-			reader.onload = function (e) {
-				$('#profileImage')
-					.attr('src', e.target.result);
-			};
+            reader.onload = function (e) {
+                $('#profileImage')
+                    .attr('src', e.target.result);
+            };
 
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-	function changePassword() {
-		$('#changePwField').attr('style', 'display: none;');
-		$('#changePassword').attr('style', 'display: initial;');
-	}
-
+    function changePassword () {
+        $('#changePwField').attr('style', 'display: none;');
+        $('#changePassword').attr('style', 'display: initial;');
+    }
 </script>
