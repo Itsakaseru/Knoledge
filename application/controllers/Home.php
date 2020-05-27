@@ -57,7 +57,6 @@ class Home extends CI_Controller {
                 );
 
                 $this->session->set_userdata('id', $user['userID']);
-                $this->session->set_userdata('logged', 1);
                 redirect(base_url() . 'dashboard');
             }
             else

@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('user');
 
         // if session doesn't exist, return to login page
-        if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
+        if(!isset($_SESSION['id']))
         {
             redirect(base_url() . 'login');
             exit();
