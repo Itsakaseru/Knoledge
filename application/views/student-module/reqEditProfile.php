@@ -35,7 +35,7 @@
 
 	<style>
 		.dashboard-navbar {
-			margin-top: 100px;
+			margin-top: 100px !important;
 		}
 
 		.judul {
@@ -47,6 +47,11 @@
             margin-top: 6rem !important;
         }
 
+        @media only screen and (max-width: 767px){
+            .dashboard-navbar {
+			    margin-top: 200px !important;
+		    }
+        }
 	</style>
 </head>
 
