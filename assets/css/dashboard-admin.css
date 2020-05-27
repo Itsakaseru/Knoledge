@@ -533,3 +533,7 @@ tr:nth-child(even) {
     background-color: #955F26 !important;
     border-radius: .5rem !important;
 }
+
+#loading {
+    margin-top: 30px !important;
+}

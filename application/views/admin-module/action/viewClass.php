@@ -12,7 +12,8 @@
                     </div>
                 </div>
             </div>
-			<div class="dashboard-table">
+			<div id="loading" class="ui active centered inline loader"></div>
+			<div class="dashboard-table" style="display: none;">
                 <table id="table" class="ui celled table" style="width:100%">
                     <thead>
                         <tr>
@@ -67,7 +68,11 @@
 			'columnDefs': [
 				{ targets: 0, className: 'text-center', width: '5%' },
 				{ targets: 3, className: 'text-center', orderable: false }
-			]
+			],
+			"initComplete": function( settings, json ) {
+    			$('#loading').remove();
+    			$('.dashboard-table').attr('style', 'display: initial;');
+  			}
 		});
 
 		$('.dropdown').dropdown({

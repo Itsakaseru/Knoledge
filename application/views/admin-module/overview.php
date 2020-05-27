@@ -15,9 +15,9 @@
 								<span class="text">Global</span>
 								<i class="dropdown icon"></i>
 								<div class="menu">
-									<div class="item"><i class="delete icon"></i>Revoke all session</div>
-									<div class="item"><i class="delete icon"></i>Revoke students session</div>
-									<div class="item"><i class="delete icon"></i>Revoke teachers session</div>
+									<div class="disabled item"><i class="delete icon"></i>Revoke all session</div>
+									<div class="disabled item"><i class="delete icon"></i>Revoke students session</div>
+									<div class="disabled item"><i class="delete icon"></i>Revoke teachers session</div>
 								</div>
 							</div>
 						</div>
