@@ -12,7 +12,7 @@ class Dashboard extends CI_Controller {
         // if session doesn't exist, return to login page
         if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
         {
-            echo "<script>window.location.href = \"" . base_url('login') . "\"</script>";
+            redirect(base_url() . 'login');
             exit();
         }
 
@@ -78,7 +78,7 @@ class Dashboard extends CI_Controller {
 
         // Load admin module
         if(isset($view)){
-            switch($view) {                
+            switch($view) {
                 case "students" :
                     $module['studentList'] = $this->admin->getStudentList();
                     $data['module'] = $this->load->view('admin-module/students', $module, TRUE);
