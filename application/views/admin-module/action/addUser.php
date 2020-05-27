@@ -37,31 +37,31 @@
                     </ul>
                 </div>
                 <div class="two fields">
-                    <div class="field">
+                    <div class="field <?php if(form_error('firstName') != NULL) echo "error";?>">
                         <label>First Name</label>
                         <input type="text" name="firstName">
                     </div>
-                    <div class="field">
+                    <div class="field <?php if(form_error('lastName') != NULL) echo "error";?>">
                         <label>Last Name</label>
                         <input type="text" name="lastName">
                     </div>
                 </div>
                 <div class="two fields">
-                    <div class="field">
+                    <div class="field <?php if(form_error('email') != NULL) echo "error";?>">
                         <label>Email</label>
                         <input type="text" name="email">
                     </div>
-                    <div id="changePassword" class="field">
+                    <div id="changePassword" class="field <?php if(form_error('password') != NULL) echo "error";?>">
                         <label>Password</label>
                         <input type="password" name="password">
                     </div>
                 </div>
                 <div class="three fields">
-                    <div class="field">
+                    <div class="field <?php if(form_error('dob') != NULL) echo "error";?>">
                         <label>Date Of Birth</label>
                         <input type="date" name="dob">
                     </div>
-                    <div class="field">
+                    <div class="field <?php if(form_error('gender') != NULL) echo "error";?>">
                         <label>Gender</label>
                         <select id="gender" class="ui fluid dropdown" name="gender">
                             <option value="">Gender</option>
@@ -70,7 +70,7 @@
                             <option value="3">Unspecified</option>
                         </select>
                     </div>
-                    <div class="field">
+                    <div class="field <?php if(form_error('role') != NULL) echo "error";?>">
                         <label>Role</label>
                         <select id="role" class="ui fluid dropdown" name="role">
                             <option value="">Role</option>
