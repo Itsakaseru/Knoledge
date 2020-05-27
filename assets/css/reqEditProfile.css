@@ -1,0 +1,535 @@
+body {
+    background-color: #F1F1F1;
+    color: #955F26;
+}
+
+#dashboard {
+    margin-top: 100px;
+}
+
+h1 {
+    font-family: 'Myriad Pro Semibold';
+    font-weight: normal;
+    font-size: 25pt;
+}
+
+h1 span {
+    font-family: 'Myriad Pro Regular';
+}
+
+#table {
+    font-family: 'Myriad Pro Regular';
+    border-radius: 10px !important;
+}
+
+th {
+    background: #955F26 !important;
+    color: white !important;
+}
+
+tr:nth-child(even) {
+    background: rgb(255, 247, 239) !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.admin-info {
+    margin-top: 10px !important;
+}
+
+.user-container .profile-info {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 0 !important;
+    height: 530px;
+}
+
+@media (max-width: 768px) {
+	.user-container .profile-info {
+        height: 100%;
+        padding-bottom: 3% !important;
+    }
+}
+
+.user-container .profile-info img {
+    padding: 8%;
+}
+
+.user-container .name {
+    font-family: 'Myriad Pro Bold';
+    font-size: 18pt;
+    text-align: center;
+}
+
+.user-container .role {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 14pt;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.user-container hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #D5D5D5;
+}
+
+.user-container .profile-info .title {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 11pt;
+}
+
+.user-container .profile-info .content {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+}
+
+.user-container .profile-info .details {
+    margin-left: 10%;
+    text-align: left;
+}
+
+.user-container .profile-info .details .content {
+    margin-bottom: 25px;
+}
+
+.user-info {
+    padding-left: 50px;
+}
+
+.user-info .cards{
+    margin: 20px 0 40px 0 !important;
+}
+
+.average-score {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    width: 420px;
+}
+
+.average-score .average-score-text {
+    font-family: 'Myriad Pro Semibold';
+    position: absolute;
+    top: 80px;
+    left: 200px;
+}
+
+.dashboard-navbar {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    margin-bottom: 40px;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+.dashboard-navbar a {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-navbar a:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.dashboard-navbar .yes {
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+}
+
+.dashboard-navbar .yes:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
+.global-action .button {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.global-action .button:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
+.global-action .button .icon {
+    background-color: transparent !important;
+}
+
+.dashboard-table {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF;
+    padding: 30px !important;
+}
+
+.user-role {
+    font-family: 'Myriad Pro Regular' !important;
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+    border-radius: 10px !important;
+}
+
+.user-role:hover {
+    color: #FFFFFF !important;
+    background-color: #6D340D !important;
+}
+
+.user-role i {
+    background-color: rgba(0,0,0,.2) !important;
+    transition: 0.3s ease-in !important;
+}
+
+.school-info {
+    margin-right: 30px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.15) !important;
+    background-color: #FFFFFF !important;
+    width: 200px;
+    border-radius: 10px !important;
+}
+
+.school-info .details {
+    height: 100%;
+    padding: 25px;
+}
+
+.school-info .details .title {
+    font-family: 'Myriad Pro Semibold';
+    color: #CBAC93;
+    font-size: 11pt;
+}
+
+.school-info .details .content {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+    margin-bottom: 12px;
+}
+
+.school-info .details .content-last {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 18pt;
+    margin: 0 !important;
+}
+
+.userInfo {
+    background-color: #EDCF2E !important;
+    color: #955F26;
+}
+
+.deleteUser {
+    background-color: rgb(250, 71, 71) !important;
+    color: #955F26;
+}
+
+.prevLink {
+    padding: 15px !important;
+}
+
+.prevLink .section {
+    padding: 10px !important;
+    border-radius: .5rem !important;
+}
+
+/* Remove blue border when focused */
+:focus {
+    outline:0;
+}
+
+.manageuser-container {
+    padding: 0 !important;
+}
+
+.addUser {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 12pt !important;
+    color: #FFFFFF !important;
+    background-color: #955F26 !important;
+    transition: 0.3s ease-in !important;
+    border-radius: .5rem .5rem 0 0!important;
+    box-shadow: -10px -5px 30px 0px rgba(0,0,0,0.20) !important;
+}
+
+.dashboard-table.manage {
+    border-radius: 10px 0px 10px 10px !important;
+}
+
+.addUser:hover {
+    color: #FFFFFF !important;
+    background-color: rgb(156, 75, 21) !important;
+}
+
+.addUser i {
+    background-color: rgba(0,0,0,.2) !important;
+    transition: 0.3s ease-in !important;
+}
+
+.assignCoordinator {
+    margin: 0 !important;
+}
+
+.assignCoordinator .button {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    background-color: #955F26 !important;
+}
+
+.action-navbar {
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 20px;
+}
+
+.action-navbar .action-container {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.action-navbar a {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #955F26 !important;
+    border-radius: .5rem !important;
+}
+
+.action-navbar a.link.item::before {
+    width: 0 !important;
+}
+
+.action-navbar .delete {
+    background-color: rgb(149, 38, 38) !important;
+}
+
+.editProfileForm {
+    font-family: 'Myriad Pro Semibold' !important;
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 30px;
+}
+
+.editProfileForm label {
+    font-family: 'Myriad Pro Semibold' !important;
+    text-align: left;
+    font-size: 12pt !important;
+}
+
+.editProfileForm input {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 11pt !important;
+}
+
+.image-container {
+    margin: 0px 120px;
+}
+
+.image-container .image {
+    transition: 0.3s ease-in-out;
+}
+
+.image-container:hover .image {
+    opacity: 0.5;
+}
+
+.changeImage {
+    background-color: #955F26;
+    color: white;
+    padding: 7px;
+    border-radius: .5rem;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    position: absolute;
+    top: 130px;
+    left: 38%;
+    cursor: pointer;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.image-container:hover .changeImage {
+    opacity: 1;
+}
+
+.editProfileForm img {
+    margin-bottom: 40px;
+}
+
+.editProfileForm input {
+    height: 38px !important;
+}
+
+.editProfileForm button {
+    margin-top: 25px !important;
+    background-color: #955F26 !important;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 13pt !important;
+}
+
+.classForm {
+    font-family: 'Myriad Pro Semibold' !important;
+    border-radius: 10px;
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background: #FFFFFF !important;
+    padding: 30px;
+}
+
+.classForm label {
+    font-family: 'Myriad Pro Semibold' !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+    font-size: 13pt !important;
+}
+
+.classForm input {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 11pt !important;
+}
+
+.classForm button {
+    margin-top: 25px !important;
+    background-color: #955F26 !important;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 13pt !important;
+}
+
+#changePWbtn {
+    height: 38px !important;
+    background-color: #dbb694 !important;;
+}
+
+#message-container {
+    position: absolute;
+    width: 500px !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 14pt;
+    top: 8%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
+/* Radial Ring */  
+.radial-progress {
+	float: left;
+	margin: 25px;
+	width: 140px;
+	height: 140px;
+	position: relative;
+	background-color: #d7d7d7;
+	border-radius: 50%;
+}
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill,
+.radial-progress .circle .shadow {
+	width: 140px;
+	height: 140px;
+	position: absolute;
+	border-radius: 50%;
+}
+
+
+.radial-progress .circle .mask,
+.radial-progress .circle .fill {
+	transition: -webkit-transform 1s;
+	transition: -ms-transform 1s;
+	transition: transform 1s;
+}
+
+.radial-progress .circle .mask.reanimate,
+.radial-progress .circle .fill.reanimate {
+	transition: -webkit-transform 0s;
+	transition: -ms-transform 0s;
+	transition: transform 0s;
+}
+
+.radial-progress .circle .mask.reset,
+.radial-progress .circle .fill.reset {
+	-webkit-transform: rotate(0deg) !important;
+	-ms-transform: rotate(0deg) !important;
+	transform: rotate(0deg) !important;
+}
+
+/* Start Cut <>, <>, <>, x */
+.radial-progress .circle .mask {
+	clip: rect(0px, 140px, 140px, 70px);
+}
+
+
+/* End Cut <>, x, <>, <> */
+.radial-progress .circle .mask .fill {
+	clip: rect(0px, 70px, 140px, 0px);
+	background-color: #ea463d;
+}
+
+.radial-progress .inset {
+	width: 100px !important;
+	height: 100px !important;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -50px !important;
+	background-color: #fbfbfb;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 100px;
+}
+
+.radial-progress .inset {
+    font-size: 19pt;
+}
+
+.iunderstand {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+#confirmDeletion label {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt !important;
+    margin-bottom: 20px !important;
+    margin-top: 15px !important;
+}
+
+#confirmDeletion button {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    background-color: rgb(149, 38, 38) !important;
+    border-radius: .5rem !important;
+}
+
+#confirmDeletion a {
+    font-family: 'Myriad Pro Semibold' !important;
+    color: white !important;
+    margin-left: 20px;
+    background-color: #955F26 !important;
+    border-radius: .5rem !important;
+}
