@@ -55,12 +55,12 @@
             </div>
             <!-- Show only if teacher = homeroom teacher -->
 			<?php
-				$this->load->query('teacher')
+				$this->load->query('teacher');
 				if($teacher = $instructorID){
 					query('JOIN teacher ON classes WHERE teacherID = InstructorID');
 				}
 				else{
-					echo "N/A"
+					echo "N/A";
 				}
 
 			?>
@@ -90,10 +90,12 @@
 					<div class="studentSubject">
 						<div class="title">Teaching Subject</div>
 						<div class="subject-container">
-							<div class="subject">
-								<div class="title">Civics</div>
-								<div class="teacher">Class 1-A</div>
-							</div>
+							<div class="subject"><?php foreach($subject as $subjectID){
+								if($subject >= 1){?>
+								<div class="title">Civics</div><?php echo ['subjecttitle'];?>
+								<div class="teacher">Class 1-A</div><?php echo ['teacher'];?>
+							</div><?php }?>
+							<?php }?>
 							<div class="subject">
 								<div class="title">Civics</div>
 								<div class="teacher">Class 1-A</div>
@@ -126,12 +128,12 @@
                                             <div class="divider"></div>
                                             <!-- print according to teacher teaching subject -->
 											<?php
-												$this->load->query('teacher')
+												$this->load->query('teacher');
 												if($teacher = $instructorID){
 													query('JOIN teacher ON subjects WHERE teacherID = subjectID');
 												}
 												else{
-													echo "N/A"
+													echo "N/A";
 												}
 											?>
                                             <div class="item"></i>Civics</div>
@@ -176,11 +178,6 @@
 	<?php echo $footer; ?>
 </body>
 <!-- Dropdown script -->
-<?php if (mysql_num_rows($studentScores) > 0){
-	while($row = mysql_fetch_array($studentScores){
-		echo $row['score']
-	}
-}?>
 <script>
 	$(document).ready(function () {
 		$(".ui.toggle.button").click(function () {
