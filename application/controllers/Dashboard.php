@@ -12,155 +12,141 @@ class Dashboard extends CI_Controller {
         // if session doesn't exist, return to login page
         if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
         {
-            echo "<script>window.location.href = \"" . base_url('login') . "\"</script>";
+            redirect(base_url() . "login");
             exit();
-        }
-
-        // role query
-        $query = $this->user->getRole($_SESSION['id']);
-        foreach($query as $row) $roleid = $row['roleID'];
-        unset($query);
-
-        // If Admin load this
-        if($roleid == 1)
-        {
-            // admin
-        }
-        // If Teacher load this
-        else if($roleid == 2)
-        {
-            // teacher
-        }
-        // If Student load this
-        else if($roleid == 3)
-        {
-            $this->load->model('student');
         }
     }
 
     public function index()
     {
-        // Student Debug
+        // role query
+        $query = $this->user->getRole($_SESSION['id']);
+        foreach($query as $row) $roleid = $row['roleID'];
+        unset($query);
+
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $data['qotd'] = $this->motd->getMotd();
- 
-        $student['userID'] = $_SESSION['id'];
-        $student['data'] = $this->student->getStudentInfo($_SESSION['id']);
-        $student['currentClass'] = $this->student->getStudentClass($_SESSION['id']);
-        if($student['data']['roleID'] == 3){
-            $student['currentClass'] = $this->student->getCurrentClass($_SESSION['id']);
-        }
+        // If Admin load this
+        if($roleid == 1)
+        {
+            // Import CSS, JS, Fonts
+            $data['main'] = $this->load->view('include/main', NULL, TRUE);
+            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+            $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        // ONLY LOAD IF USER ID EXIST
-        $data['student'] = $this->load->view('page/dashboard-student', $student, TRUE);
+            $this->load->model('admin');
 
-        $view = $this->input->get('v', TRUE);
+            $view = $this->input->get('v', TRUE);
 
-        //Load student module
-        if(isset($view)){
-            switch($view) {                
-                case "showAll" :
-                    $student['allSubject'] = $this->student->getAllSubject($_SESSION['id']);
-                    $student['allScores'] = $this->student->getAllScores($_SESSION['id']);
-                    $student['averageScore'] = $this->student->getAllAverage($_SESSION['id']);
-                    $data['student'] = $this->load->view('student-module/showAll', $student, TRUE);
-                    break;
-                case "Class1" :
-                    $student['class1Subject'] = $this->student->getClass1Subject($_SESSION['id']);
-                    $student['class1Scores'] = $this->student->getClass1Scores($_SESSION['id']);
-                    $student['averageScore'] = $this->student->getClass1Average($_SESSION['id']);
-                    $data['student'] = $this->load->view('student-module/class1', $student, TRUE);
-                    break;
-                case "Class2" :
-                    $student['class2Subject'] = $this->student->getClass2Subject($_SESSION['id']);
-                    $student['class2Scores'] = $this->student->getClass2Scores($_SESSION['id']);
-                    $student['averageScore'] = $this->student->getClass2Average($_SESSION['id']);
-                    $data['student'] = $this->load->view('student-module/class2', $student, TRUE);
-                    break;
-                case "Class3" :
-                    $student['class3Subject'] = $this->student->getClass3Subject($_SESSION['id']);
-                    $student['class3Scores'] = $this->student->getClass3Scores($_SESSION['id']);
-                    $student['averageScore'] = $this->student->getClass3Average($_SESSION['id']);
-                    $data['student'] = $this->load->view('student-module/class3', $student, TRUE);
-                    break;
-
-                default :
-                    redirect(base_url() . "dashboard", 'refresh');
-
+            // Load admin module
+            if(isset($view)) {
+                switch($view) {
+                    case "students" :
+                        $module['studentList'] = $this->admin->getStudentList();
+                        $data['module'] = $this->load->view('admin-module/students', $module, TRUE);
+                        break;
+                    case "teachers" :
+                        $module['teacherList'] = $this->admin->getTeacherList();
+                        $data['module'] = $this->load->view('admin-module/teachers', $module, TRUE);
+                        break;
+                    case "subjects" :
+                        $module['subjectList'] = $this->admin->getSubjectList();
+                        $module['teacherList'] = $this->admin->getTeacherList();
+                        $data['module'] = $this->load->view('admin-module/subjects', $module, TRUE);
+                        break;
+                    case "classes" :
+                        $module['classList'] = $this->admin->getClassList();
+                        $module['teacherList'] = $this->admin->getTeacherList();
+                        $data['module'] = $this->load->view('admin-module/classes', $module, TRUE);
+                        break;
+                    case "manageusers" :
+                        $module['userList'] = $this->admin->getUserList();
+                        $data['module'] = $this->load->view('admin-module/manageusers', $module, TRUE);
+                        break;
+                    default :
+                        redirect(base_url() . "dashboard", 'refresh');
+                }
+            } else {
+                $module['totalData'] = $this->admin->getTotalData();
+                $module['averageScore'] = $this->admin->getAverageScore();
+                $data['module'] = $this->load->view('admin-module/overview', $module, TRUE);
             }
-        } else {
-            $student['currentSubject'] = $this->student->getCurrentSubject($_SESSION['id']);
-            $student['currentScores'] = $this->student->getCurrentScores($_SESSION['id']);
-            $student['averageScore'] = $this->student->getCurrentAverage($_SESSION['id']);
-            $data['student'] = $this->load->view('student-module/current', $student, TRUE);
+
+            $this->load->view('page/dashboard-admin',$data);
         }
+        // If Teacher load this
+        else if($roleid == 2)
+        {
+            $data['qotd'] = $this->motd->getMotd();
 
-        $this->load->view('page/dashboard-student',$data);
+            $data['studentScores'] = $this->student->getScores();
+            $data['averageScore'] = $this->student->getAverageScore();
 
-        // Teacher Debug
-        // Import CSS, JS, Fonts
-        // $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
-        // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+            $this->load->view('page/dashboard-teacher',$data);
+        }
+        // If Student load this
+        else if($roleid == 3)
+        {
+            $this->load->model('student');
 
-        // $data['qotd'] = $this->motd->getMotd();
+            $data['qotd'] = $this->motd->getMotd();
 
-        // $data['studentScores'] = $this->student->getScores();
-        // $data['averageScore'] = $this->student->getAverageScore();
+            $student['userID'] = $_SESSION['id'];
+            $student['data'] = $this->student->getStudentInfo($_SESSION['id']);
+            $student['currentClass'] = $this->student->getStudentClass($_SESSION['id']);
+            if($student['data']['roleID'] == 3){
+                $student['currentClass'] = $this->student->getCurrentClass($_SESSION['id']);
+            }
 
-        // $this->load->view('page/dashboard-teacher',$data);
+            // ONLY LOAD IF USER ID EXIST
+            $data['student'] = $this->load->view('page/dashboard-student', $student, TRUE);
 
-        // Admin Debug
-        // Import CSS, JS, Fonts
-        // $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        // $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
-        // $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+            $view = $this->input->get('v', TRUE);
 
-        // $this->load->model('admin');
+            //Load student module
+            if(isset($view)) {
+                switch($view) {
+                    case "showAll" :
+                        $student['allSubject'] = $this->student->getAllSubject($_SESSION['id']);
+                        $student['allScores'] = $this->student->getAllScores($_SESSION['id']);
+                        $student['averageScore'] = $this->student->getAllAverage($_SESSION['id']);
+                        $data['student'] = $this->load->view('student-module/showAll', $student, TRUE);
+                        break;
+                    case "Class1" :
+                        $student['class1Subject'] = $this->student->getClass1Subject($_SESSION['id']);
+                        $student['class1Scores'] = $this->student->getClass1Scores($_SESSION['id']);
+                        $student['averageScore'] = $this->student->getClass1Average($_SESSION['id']);
+                        $data['student'] = $this->load->view('student-module/class1', $student, TRUE);
+                        break;
+                    case "Class2" :
+                        $student['class2Subject'] = $this->student->getClass2Subject($_SESSION['id']);
+                        $student['class2Scores'] = $this->student->getClass2Scores($_SESSION['id']);
+                        $student['averageScore'] = $this->student->getClass2Average($_SESSION['id']);
+                        $data['student'] = $this->load->view('student-module/class2', $student, TRUE);
+                        break;
+                    case "Class3" :
+                        $student['class3Subject'] = $this->student->getClass3Subject($_SESSION['id']);
+                        $student['class3Scores'] = $this->student->getClass3Scores($_SESSION['id']);
+                        $student['averageScore'] = $this->student->getClass3Average($_SESSION['id']);
+                        $data['student'] = $this->load->view('student-module/class3', $student, TRUE);
+                        break;
 
-        // $view = $this->input->get('v', TRUE);
+                    default :
+                        redirect(base_url() . "dashboard", 'refresh');
 
-        // // Load admin module
-        // if(isset($view)){
-        //     switch($view) {                
-        //         case "students" :
-        //             $module['studentList'] = $this->admin->getStudentList();
-        //             $data['module'] = $this->load->view('admin-module/students', $module, TRUE);
-        //             break;
-        //         case "teachers" :
-        //             $module['teacherList'] = $this->admin->getTeacherList();
-        //             $data['module'] = $this->load->view('admin-module/teachers', $module, TRUE);
-        //             break;
-        //         case "subjects" :
-        //             $module['subjectList'] = $this->admin->getSubjectList();
-        //             $module['teacherList'] = $this->admin->getTeacherList();
-        //             $data['module'] = $this->load->view('admin-module/subjects', $module, TRUE);
-        //             break;
-        //         case "classes" :
-        //             $module['classList'] = $this->admin->getClassList();
-        //             $module['teacherList'] = $this->admin->getTeacherList();
-        //             $data['module'] = $this->load->view('admin-module/classes', $module, TRUE);
-        //             break;
-        //         case "manageusers" :
-        //             $module['userList'] = $this->admin->getUserList();
-        //             $data['module'] = $this->load->view('admin-module/manageusers', $module, TRUE);
-        //             break;
+                }
+            } else {
+                $student['currentSubject'] = $this->student->getCurrentSubject($_SESSION['id']);
+                $student['currentScores'] = $this->student->getCurrentScores($_SESSION['id']);
+                $student['averageScore'] = $this->student->getCurrentAverage($_SESSION['id']);
+                $data['student'] = $this->load->view('student-module/current', $student, TRUE);
+            }
 
-        //         default :
-        //             redirect(base_url() . "dashboard", 'refresh');
-
-        //     }
-        // } else {
-        //     $module['totalData'] = $this->admin->getTotalData();
-        //     $module['averageScore'] = $this->admin->getAverageScore();
-        //     $data['module'] = $this->load->view('admin-module/overview', $module, TRUE);
-        // }
-
-        // $this->load->view('page/dashboard-admin',$data);
+            $this->load->view('page/dashboard-student',$data);
+        }
     }
 
     public function reqEditProfile($id)
@@ -210,7 +196,7 @@ class Dashboard extends CI_Controller {
             // File check enable if user want to upload
             if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
                 $this->form_validation->set_rules('imageFile', 'File', 'callback_fileCheck');
-                
+
                 // Upload Configuration
 				$config['upload_path'] = './data/users-img/';
 				$config['allowed_types'] = 'png|jpg|jpeg';
@@ -277,7 +263,7 @@ class Dashboard extends CI_Controller {
                          redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                      }
                 }
-                
+
             } else {
                 $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
                 $this->load->view('student-module/reqEditProfile',$data);
@@ -372,6 +358,18 @@ class Dashboard extends CI_Controller {
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         $this->load->view('page/updateScore',$data);
+    }
+
+    public function notification()
+    {
+        // Only admin and teacher can access this
+
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $this->load->view('page/notificationList',$data);
     }
 
 }

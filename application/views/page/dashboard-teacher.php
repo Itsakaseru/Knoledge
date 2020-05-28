@@ -32,24 +32,35 @@
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
 				<div class="ui labeled icon button right floated user-role" data-tooltip="Siswa" data-position="bottom right">
 					<i class="user plus icon"></i>
-					Teacher
+					Teacher 
 				</div>
 			</div>
 		</div>
+		<?php
+		
+			if(isset($_GET['teacher'])){
+				$teacher = $_GET['teacher'];
+				$get_teacher = $mysql->query('SELECT * FROM teacher WHERE teacherID');
+				if ($get_teacher->num_rows == 1){
+					$profile_data = $get_teacher->fetch_assoc();
+				}
+			}
+
+		?>
 		<div class="ui four column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
 					<img class="ui circular image centered" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>" width="85%" />
-					<div class="name">Kal'tsit</div>
-					<div class="role">Teacher</div>
+					<div class="name">Kal'tsit</div> <?php echo $profile_data['teacherName'];?>
+					<div class="role">Teacher</div> <?php echo['roles'];?>
 					<hr>
 					<div class="details">
-						<div class="title">Gender</div>
-						<div class="content">Female</div>
-						<div class="title">Age</div>
-                        <div class="content">N/A</div>
+						<div class="title">Gender</div> 
+						<div class="content">Female</div> <?php echo $profile_data['gender'];?>
+						<div class="title">Age</div> 
+                        <div class="content">N/A</div> <?php echo $profile_data['age'];?>
                         <div class="title">Homeroom Teacher</div>
-						<div class="content">Class 1-A</div>
+						<div class="content">Class 1-A</div> <?php echo $profile_data['classID'];?>
 					</div>
 				</div>
             </div>
@@ -80,9 +91,9 @@
 							<div class="inset"><?php echo $averageScore; ?></div>
 						</div>
 						<div class="average-score-text">
-							<span style="font-weight: bold;">CLASS 1-A</span><br><br>
+							<span style="font-weight: bold;">CLASS 1-A</span><br><br><?php echo ['classID'];?>
 							<span style="font-size: 15pt;">AVERAGE</span><br>
-							<span style="font-size: 15pt;">SCORE</span>
+							<span style="font-size: 15pt;">SCORE</span> <?php echo ['score'];?>
 						</div>
 					</div>
 				</div>
@@ -91,10 +102,12 @@
 						<div class="title">Teaching Subject</div>
 						<div class="subject-container">
 							<div class="subject"><?php foreach($subject as $subjectID){
-								if($subject >= 1){?>
-								<div class="title">Civics</div><?php echo ['subjecttitle'];?>
+								while ($row = $result->fetch_assoc()){
+								if($subject >= 1 && $class >=1){?>
+								<div class="title">Civics</div><?php echo ['teacher_subject'];?>
 								<div class="teacher">Class 1-A</div><?php echo ['teacher'];?>
 							</div><?php }?>
+								<?php }?>
 							<?php }?>
 							<div class="subject">
 								<div class="title">Civics</div>
@@ -130,7 +143,7 @@
 											<?php
 												$this->load->query('teacher');
 												if($teacher = $instructorID){
-													query('JOIN teacher ON subjects WHERE teacherID = subjectID');
+													$this->load->query('JOIN teacher ON subjects WHERE teacherID = subjectID');
 												}
 												else{
 													echo "N/A";
