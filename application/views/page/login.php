@@ -9,7 +9,14 @@
             <div class="ui image header">
                 <img class="image" src="<?php echo base_url('assets/images/logo.svg'); ?>">
             </div>
-            <form class="ui large form" action="<?php echo base_url('login/action'); ?>" method="post">
+            <form class="ui large form <?php if(validation_errors() || isset($pw_false)) echo "error" ?>" action="<?php echo base_url('login/action'); ?>" method="post">
+                <div class="ui error message">
+                    <ul class="list">
+                        <?php if(form_error('email') != NULL) echo form_error('email'); ?>
+                        <?php if(form_error('password') != NULL) echo form_error('password'); ?>
+                        <?php if($pw_false == 1) echo "<li>Wrong email or password.</li>"; ?>
+                    </ul>
+                </div>
                 <div class="field">
                     <input type="text" name="email" placeholder="Email">
                 </div>
