@@ -14,7 +14,7 @@
                     <ul class="list">
                         <?php if(form_error('email') != NULL) echo form_error('email'); ?>
                         <?php if(form_error('password') != NULL) echo form_error('password'); ?>
-                        <?php if($pw_false == 1) echo "<li>Wrong email or password.</li>"; ?>
+                        <?php if(isset($pw_false) && $pw_false == 1) echo "<li>Wrong email or password.</li>"; ?>
                     </ul>
                 </div>
                 <div class="field">
