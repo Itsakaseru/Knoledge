@@ -47,7 +47,6 @@ class Dashboard extends CI_Controller {
 
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         // If Admin load this
@@ -55,8 +54,26 @@ class Dashboard extends CI_Controller {
         {
             // Import CSS, JS, Fonts
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
-            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+            $notifications = $this->admin->getNotifications();
+            $nav['notifications'] = array();
+            foreach($notifications as $row) {
+                // get img from ppPath
+                $ppPath = $this->admin->getProfImg($row['targetID']);
+                if($ppPath == NULL || $ppPath == "") $temp['userImg'] = "placeholder.jpg";
+                else $temp['userImg'] = $ppPath;
+                unset($ppPath);
+                if($row['currentLastName'] == NULL || $row['currentLastName'] == "") $temp['fullName'] = $row['currentFirstName'];
+                else $temp['fullName'] = $row['currentFirstName'] . " " . $row['currentLastName'];
+                $temp['description'] = $row['description'];
+
+                array_push($nav['notifications'], $temp);
+                unset($temp);
+            }
+            unset($notifications);
+            $data['navbar'] = $this->load->view('include/navbar', $nav, TRUE);
+            unset($nav);
 
             $this->load->model('admin');
 

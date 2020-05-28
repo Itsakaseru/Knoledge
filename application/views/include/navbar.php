@@ -106,13 +106,13 @@
 							echo '<div class="ui link celled selection list" style="padding: 4px;width: 280px;">';
 								foreach($notifications as $row) {
 									echo '<div class="item">';
-										echo '<img class="ui avatar image" src="' . base_url('data/users-img/' . $userImg) . '" style="height: 3.2rem; width: auto;">';
+										echo '<img class="ui avatar image" src="' . base_url('data/users-img/' . $row['userImg']) . '" style="height: 3.2rem; width: auto;">';
 										echo '<div class="content">';
-											echo '<a class="header">' . $targetName . '</a>';
+											echo '<a class="header">' . $row['fullName'] . '</a>';
 											// move description to controller directly
 											// echo '<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just now. </div>';
 											echo '<div class="description">';
-												echo "Sent Request<br> <a><b>Profile change</b></a> just now";
+												echo $row['description'];
 											echo '</div>';
 										echo '</div>';
 									echo '</div>';
