@@ -120,9 +120,10 @@ class Dashboard extends CI_Controller {
         {
             $data['qotd'] = $this->motd->getMotd();
 
-            $data['studentScores'] = $this->teacher->getScores();
-            $data['averageScore'] = $this->teacher->getAverageScore();
-            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+            $data['teacherID'] = $this->teacher->getTeacher();
+            
+            $data['studentScores'] = $this->student->getScores();
+            $data['averageScore'] = $this->student->getAverageScore();
 
             $this->load->view('page/dashboard-teacher',$data);
         }
