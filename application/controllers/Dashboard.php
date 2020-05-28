@@ -325,5 +325,17 @@ class Dashboard extends CI_Controller {
         $this->load->view('page/updateScore',$data);
     }
 
+    public function notification()
+    {
+        // Only admin and teacher can access this
+
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        $this->load->view('page/notificationList',$data);
+    }
+
 }
 ?>
