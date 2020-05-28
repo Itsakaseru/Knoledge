@@ -80,7 +80,7 @@
 							<div class="inset"><?php echo $averageScore; ?></div>
 						</div>
 						<div class="average-score-text">
-							<span style="font-weight: bold;">CLASS 1-A</span><br><br>
+							<span style="font-weight: bold;">CLASS 1-A</span><br><br><?php echo ['classID'];?>
 							<span style="font-size: 15pt;">AVERAGE</span><br>
 							<span style="font-size: 15pt;">SCORE</span>
 						</div>
@@ -91,7 +91,7 @@
 						<div class="title">Teaching Subject</div>
 						<div class="subject-container">
 							<div class="subject"><?php foreach($subject as $subjectID){
-								if($subject >= 1){?>
+								if($subject >= 1 && $class >=1){?>
 								<div class="title">Civics</div><?php echo ['subjecttitle'];?>
 								<div class="teacher">Class 1-A</div><?php echo ['teacher'];?>
 							</div><?php }?>
