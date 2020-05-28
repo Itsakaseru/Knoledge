@@ -12,8 +12,29 @@ class Dashboard extends CI_Controller {
         // if session doesn't exist, return to login page
         if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
         {
-            redirect(base_url() . "login");
+            echo "<script>window.location.href = \"" . base_url('login') . "\"</script>";
             exit();
+        }
+
+        // role query
+        $query = $this->user->getRole($_SESSION['id']);
+        foreach($query as $row) $roleid = $row['roleID'];
+        unset($query);
+
+        // If Admin load this
+        if($roleid == 1)
+        {
+            $this->load->model('admin');
+        }
+        // If Teacher load this
+        else if($roleid == 2)
+        {
+            $this->load->model('teacher');
+        }
+        // If Student load this
+        else if($roleid == 3)
+        {
+            $this->load->model('student');
         }
     }
 
@@ -82,8 +103,8 @@ class Dashboard extends CI_Controller {
         {
             $data['qotd'] = $this->motd->getMotd();
 
-            $data['studentScores'] = $this->student->getScores();
-            $data['averageScore'] = $this->student->getAverageScore();
+            $data['studentScores'] = $this->teacher->getScores();
+            $data['averageScore'] = $this->teacher->getAverageScore();
 
             $this->load->view('page/dashboard-teacher',$data);
         }
