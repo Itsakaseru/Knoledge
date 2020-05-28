@@ -88,7 +88,12 @@
 		<div class=" right menu">
 			<div class="item notification">
 				<a href="#"><span class="iconify" data-icon="uil-bell" data-inline="false"></span></a>
-				<span class="noti_count">5</span>
+				<span class="noti_count">
+					<?php
+						if(isset($notifications)) echo count($notifications);
+						else echo "0";
+					?>
+				</span>
 			</div>
 			<!-- dropdown notification -->
 			<div class="ui wide notification popup bottom left transition">
