@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2020 at 05:18 PM
+-- Generation Time: May 28, 2020 at 06:10 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -366,16 +366,73 @@ INSERT INTO `genders` (`genderID`, `genderName`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notifications`
+-- Table structure for table `reqeditprofile`
 --
 
-CREATE TABLE `notifications` (
+CREATE TABLE `reqeditprofile` (
   `notificationID` int(5) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `notificationType` int(1) NOT NULL,
-  `jsonMsg` varchar(1024) NOT NULL,
-  `readStatus` int(1) NOT NULL DEFAULT 0
+  `targetID` int(5) NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reqeditprofile`
+--
+
+INSERT INTO `reqeditprofile` (`notificationID`, `description`, `targetID`, `firstName`, `lastName`, `email`) VALUES
+(1, 'change email from chitanda.eru@mail.com to eru.chitanda@mail.com', 43, NULL, NULL, 'eru.chitanda@mail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reqreview`
+--
+
+CREATE TABLE `reqreview` (
+  `notificationID` int(5) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `targetID` int(5) NOT NULL,
+  `subjectID` int(2) NOT NULL,
+  `requestType` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `request_editprofile`
+-- (See below for the actual view)
+--
+CREATE TABLE `request_editprofile` (
+`notificationID` int(5)
+,`description` varchar(255)
+,`targetID` int(5)
+,`currentFirstName` varchar(255)
+,`currentLastName` varchar(255)
+,`currentEmail` varchar(255)
+,`firstName` varchar(255)
+,`lastName` varchar(255)
+,`email` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `request_review`
+-- (See below for the actual view)
+--
+CREATE TABLE `request_review` (
+`notificationID` int(5)
+,`description` varchar(255)
+,`targetID` int(5)
+,`fullName` varchar(511)
+,`subjectID` int(2)
+,`subjectName` varchar(64)
+,`requestType` int(1)
+,`requested` varchar(12)
+);
 
 -- --------------------------------------------------------
 
@@ -586,7 +643,7 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `dob`, `email`, `hash`, 
 (10, 'Sakura', 'Karasuma', '1983-10-19', 'sakura.karasuma@knoledge.com', 'aa98477838d5639972fcb2b28be6cfb21401eb05aa90f7d23e96e92e00dde10b', NULL, 'ynjae', 2, 2),
 (11, 'Sawako', 'Yamanaka', '1984-01-31', 'sawako.yamanaka@knoledge.com', '8703c5d18d8d734ef8ed5cd0fc3d467e6946c0554804b36a69d40d32e36aaaf2', NULL, 'vpkvj', 2, 2),
 (12, 'Glenn', 'Radars', '1989-05-27', 'glenn.radars@knoledge.com', '154935f5ac926604bef8907c55fde84e3d3eb706aba9bb1515f51b0fa762555f', NULL, 'cnoxw', 1, 2),
-(13, 'Kaguya', 'Shinomiya', '2001-03-19', 'kaguya.shinomiya@mail.com', '72a46946787c354019db1f57ce33f461a095b4938ba9a05e2c7d38611c4e5911', NULL, 'fshgb', 2, 3),
+(13, 'Kaguya', 'Shinomiya', '2001-03-19', 'kaguya.shinomiya@mail.com', '72a46946787c354019db1f57ce33f461a095b4938ba9a05e2c7d38611c4e5911', 'c51ce410c124a10e0db5e4b97fc2af39.jpg', 'fshgb', 2, 3),
 (14, 'Chika', 'Fujiwara', '2001-06-22', 'chika.fujiwara@mail.com', '59fdd86439ac9fac7a5f7356d8408d5e532b4e44dbab91e816e3590dfee8901e', NULL, 'sqjah', 2, 3),
 (15, 'Miyuki', 'Shirogane', '2001-01-20', 'miyuki.shirogane@mail.com', 'e70cdb2c29040bc0a14bdbe7f7ca7e4d4db46e80cc893c8e8b9d671373211e62', NULL, 'zdexg', 2, 3),
 (16, 'Yuu', 'Ishigami', '2001-04-11', 'yuu.ishigami@mail.com', '5355af2e4ae2d3ecd64c1c35d7157f52535db5b35c65b0de610bff329b12dc1c', NULL, 'xnvts', 1, 3),
@@ -671,6 +728,24 @@ CREATE TABLE `user_info` (
 DROP TABLE IF EXISTS `class_maininstructors`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `class_maininstructors`  AS  select `classes`.`classID` AS `classID`,`classes`.`className` AS `className`,`classes`.`instructorID` AS `instructorID`,if(`users`.`lastName` = '' or `users`.`lastName` is null,`users`.`firstName`,concat(`users`.`firstName`,' ',`users`.`lastName`)) AS `instructorName` from (`classes` join `users` on(`classes`.`instructorID` = `users`.`userID` and `classes`.`classID` > 0)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `request_editprofile`
+--
+DROP TABLE IF EXISTS `request_editprofile`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `request_editprofile`  AS  select `reqeditprofile`.`notificationID` AS `notificationID`,`reqeditprofile`.`description` AS `description`,`reqeditprofile`.`targetID` AS `targetID`,`users`.`firstName` AS `currentFirstName`,`users`.`lastName` AS `currentLastName`,`reqeditprofile`.`email` AS `currentEmail`,`reqeditprofile`.`firstName` AS `firstName`,`reqeditprofile`.`lastName` AS `lastName`,`reqeditprofile`.`email` AS `email` from (`reqeditprofile` join `users` on(`reqeditprofile`.`targetID` = `users`.`userID`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `request_review`
+--
+DROP TABLE IF EXISTS `request_review`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `request_review`  AS  select `reqreview`.`notificationID` AS `notificationID`,`reqreview`.`description` AS `description`,`reqreview`.`targetID` AS `targetID`,if(`users`.`lastName` = '' or `users`.`lastName` is null,`users`.`firstName`,concat(`users`.`firstName`,' ',`users`.`lastName`)) AS `fullName`,`reqreview`.`subjectID` AS `subjectID`,`subjects`.`subjectName` AS `subjectName`,`reqreview`.`requestType` AS `requestType`,if(`reqreview`.`requestType` = 1,'Assignment',if(`reqreview`.`requestType` = 2,'Mid-term',if(`reqreview`.`requestType` = 3,'Final-term','Unknown type'))) AS `requested` from (`reqreview` join (`users` join `subjects`) on(`reqreview`.`targetID` = `users`.`userID` and `reqreview`.`subjectID` = `subjects`.`subjectID`)) ;
 
 -- --------------------------------------------------------
 
@@ -761,10 +836,19 @@ ALTER TABLE `genders`
   ADD PRIMARY KEY (`genderID`);
 
 --
--- Indexes for table `notifications`
+-- Indexes for table `reqeditprofile`
 --
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`notificationID`);
+ALTER TABLE `reqeditprofile`
+  ADD PRIMARY KEY (`notificationID`),
+  ADD KEY `targetID` (`targetID`);
+
+--
+-- Indexes for table `reqreview`
+--
+ALTER TABLE `reqreview`
+  ADD PRIMARY KEY (`notificationID`),
+  ADD KEY `targetID` (`targetID`),
+  ADD KEY `subjectID` (`subjectID`);
 
 --
 -- Indexes for table `roles`
@@ -812,10 +896,16 @@ ALTER TABLE `genders`
   MODIFY `genderID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `notifications`
+-- AUTO_INCREMENT for table `reqeditprofile`
 --
-ALTER TABLE `notifications`
-  MODIFY `notificationID` int(5) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `reqeditprofile`
+  MODIFY `notificationID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `reqreview`
+--
+ALTER TABLE `reqreview`
+  MODIFY `notificationID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -852,6 +942,19 @@ ALTER TABLE `assignments`
 --
 ALTER TABLE `classes`
   ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`instructorID`) REFERENCES `users` (`userID`);
+
+--
+-- Constraints for table `reqeditprofile`
+--
+ALTER TABLE `reqeditprofile`
+  ADD CONSTRAINT `reqeditprofile_ibfk_1` FOREIGN KEY (`targetID`) REFERENCES `users` (`userID`);
+
+--
+-- Constraints for table `reqreview`
+--
+ALTER TABLE `reqreview`
+  ADD CONSTRAINT `reqreview_ibfk_1` FOREIGN KEY (`targetID`) REFERENCES `users` (`userID`),
+  ADD CONSTRAINT `reqreview_ibfk_2` FOREIGN KEY (`subjectID`) REFERENCES `subjects` (`subjectID`);
 
 --
 -- Constraints for table `subjects`

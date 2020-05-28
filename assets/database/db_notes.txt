@@ -1,7 +1,13 @@
--- KNoLedgeDB 0.10.2 Documentation --
+-- KNoLedgeDB 0.11 Documentation --
 -- Enable word wrap for better reading. --
 
 -- Update notes (codes)
+-- 0.11
+-- (+) Add reqreview and reqeditprofile table as combining to notification table
+--     at once adds spaghetti codes
+-- (+) Also add view for both requests (request_editprofile and review) for ease
+--     of querying
+-- (-) Delete notification table as now uses 3 tables for different roles
 -- 0.10.2
 -- (*) Use auto increment for userID in users table
 -- 0.10.1
@@ -27,46 +33,7 @@
 -- to the assignment's classID column.
 
 -- Notifications table notes
--- > notificationID defines ID of the notification for indexing
--- > description defines text that will be displayed for the notification
--- > notificationType defines what to change
---   > 1 for profile, displayed on admin only
---   > 2 for unscored, so teachers will be redirected to the student's edit score page
---     (jsonMsg may not be used)
---   > 3 for score, displayed on teachers only
--- > target defines userID whose data to be changed
--- > jsonMsg defines what to change in JSON format (must be < 1024 chars)
---   > For reference:
---     <Profile change>
---     {
---       "info":  "profile",
---       "description": "Change profile for his/her userID",
---       "userID": <userID>,
---       "firstName": <First Name>,
---       "lastName": <LastName>,
---       "dob": <date>,
---       "email": <email>,
---       "password": (empty for no change, encrypted with salt for changed)
---     }
---     <Score change>
---     {
---       "info": "score",
---       "description": "Change his/her scores",
---       "userID": <userID>,
---       "assignment": <Assignment score>,
---       "midterm": <Mid-term score>,
---       "lastterm": <Last-term score>
---     }
---     Must be created without whitespaces or newlines.
---     Example:
---     {"info":"profile","description":"Change profile for his/her userID",
---     "userID":"12345","firstName":"Nyaruko","lastName":"Nyarlotep",
---     "dob":"2002-12-12","email":"nyaruko@mail.co.jp",
---     "password":"fe90a7e910cb3a4739bed9180e807e93fa70c90f25a8915476f5e4bfbac681db"}
---     Use json_encode and json_decode in PHP to manage them.
--- > readStatus defines whether the notification has been read
---   > 0: unread
---   > 1: read
+-- > Instead of using JSON, use reqreview (for teachers) and reqeditprofile (for admins).
 
 -- Trigger notes
 -- The trigger added is used for adding new entries for assignment table for all subjects
@@ -91,12 +58,6 @@
 --       > genderID [int(1)] PRI AUTO_INCREMENT
 --       > genderName [varchar(63)]
 --       > description [varchar(255)] NULL
---   > notifications
---       > notificationID [int(5)] PRI AUTO_INCREMENT
---       > description [varchar(255)]
---       > notificationType [int(1)]
---       > jsonMsg [varchar(1024)]
---       > readStatus [int(1)] DEFAULT 0
 --   > roles
 --       > roleID [int(2)] PRI AUTO_INCREMENT
 --       > roleName [varchar(64)]
@@ -106,6 +67,20 @@
 --       > subjectName [varchar(64)]
 --       > description [varchar(255)] NULL
 --       > coordinatorID [int(5)] FK[users.userID]
+--   > reqeditprofile (note birthdate and gender can't be changed, while hash
+--     and role can be changed by other controller)
+--       > notificationID [int(5)] PRI AUTO_INCREMENT
+--       > description [varchar(255)]
+--       > targetID [int(5)] FK[users.userID]
+--       > firstName [varchar(255)] NULL
+--       > lastName [varchar(255)] NULL
+--       > email [varchar(255)] NULL
+--   > reqreview
+--       > notificationID [int(5)] PRI AUTO_INCREMENT
+--       > description [varchar(255)]
+--       > targetID [int(5)] FK[users.userID]
+--       > subjectID [int(2)] FK[subjects.subjectID]
+--       > requestType [int(1)] -- 1 = assignment, 2 = midterm, 3 = finalterm
 --   > teachers
 --       > subjectID [int(2)] FK[subjects.subjectID]
 --       > classID [int(2)] FK[classes.classID]
@@ -123,6 +98,8 @@
 --       > roleID [int(2)] FK[roles.roleID]
 -- [views]
 --   > class_maininstructors
+--   > request_editprofile
+--   > request_review
 --   > student_allscores
 --   > student_class
 --   > student_classcoors
@@ -143,6 +120,14 @@
 -- view class main instructors (class_maininstructors, 0 excluded)
 -- [classID, className, instructorID, instructorName]
 SELECT classID, className, instructorID, IF(lastName='' OR lastName IS NULL, firstName, CONCAT(firstname, ' ', lastName)) AS instructorName FROM classes JOIN users ON instructorID=userID AND classID > 0;
+
+-- view for profile change requests (request_editprofile, note firstName, lastName and email here is what being requested)
+-- [notificationID, description, targetID, currentFirstName, currentLastName, currentEmail, firstName, lastName, email]
+SELECT notificationID, description, targetID, users.firstName AS currentFirstName, users.lastName AS currentLastName, reqeditprofile.email AS currentEmail, reqeditprofile.firstName, reqeditprofile.lastName, reqeditprofile.email FROM reqeditprofile JOIN users ON targetID=userID;
+
+-- view for review score requests (request_review)
+-- [notificationID, description, targetID, fullName, subjectID, subjectName, requestType, requested]
+SELECT notificationID, reqreview.description, targetID, IF(users.lastName='' OR users.lastName IS NULL, users.firstName, CONCAT(users.firstName, ' ', users.lastName)) AS fullName, reqreview.subjectID, subjectName, requestType, IF(requestType=1, "Assignment", IF(requestType=2, "Mid-term", IF(requestType=3, "Final-term", "Unknown type"))) AS requested FROM reqreview JOIN (users, subjects) ON targetID=userID AND reqreview.subjectID=subjects.subjectID;
 
 -- view for student assignments in all classes attended and attending (student_allscores)
 -- [studentID, fullName, classID, className, subjectID, subjectName, assignment, midterm, finalterm]
