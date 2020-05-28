@@ -122,12 +122,14 @@ class Dashboard extends CI_Controller {
 
             $data['studentScores'] = $this->teacher->getScores();
             $data['averageScore'] = $this->teacher->getAverageScore();
+            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
 
             $this->load->view('page/dashboard-teacher',$data);
         }
         // If Student load this
         else if($roleid == 3)
         {
+            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
             $this->load->model('student');
 
             $data['qotd'] = $this->motd->getMotd();
