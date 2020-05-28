@@ -30,6 +30,14 @@
     font-family: 'Myriad Pro Semibold';
 }
 
+.content {
+    padding: 6px 0px 0 .5em !important;
+}
+
+.ui.popup {
+    padding-bottom: 20px;
+}
+
 .user-dropdownButton {
     border-left: 1px solid rgba(109, 51, 13, 0.5) !important;
 }
