@@ -252,29 +252,31 @@ class Dashboard extends CI_Controller {
                     if($this->upload->do_upload('imageFile')) {
                         $data = $this->upload->data();
                         if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
-                        // Insert to database
-                        // if($this->admin->updateUserData($id, $formData)) {
-                        //     $this->session->set_flashdata('success', 'Profile Updated Successfully!');
-                        //     redirect(base_url() . "user/" . $id);
-                        // } else {
-                        //     $this->session->set_flashdata('failed', 'Something went wrong');
-                        //     redirect(base_url() . "user/" . $id);
-                        // }
+                        //Insert to database
+                        $Json_data = json_encode($formData);
+                         if($this->student->updateUserData($id, $Json_data)) {
+                             $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                             redirect(base_url() . "dashboard");
+                         } else {
+                             $this->session->set_flashdata('failed', 'Something went wrong');
+                             redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                         }
                     }
                     else {
                         $this->session->set_flashdata('failed', 'Something went wrong');
-                        redirect(base_url() . "user/" . $id);
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                     }
                 // If user DON'T want to change profile picture
                 } else {
-                    // Insert to database
-                    // if($this->admin->updateUserData($id, $formData)) {
-                    //     $this->session->set_flashdata('success', 'Profile Updated Successfully!');
-                    //     redirect(base_url() . "user/" . $id);
-                    // } else {
-                    //     $this->session->set_flashdata('failed', 'Something went wrong!');
-                    //     redirect(base_url() . "user/" . $id);
-                    // }
+                     //Insert to database
+                     $Json_data = json_encode($formData);
+                     if($this->student->updateUserData($id, $Json_data)) {
+                         $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                         redirect(base_url() . "dashboard");
+                     } else {
+                         $this->session->set_flashdata('failed', 'Something went wrong!');
+                         redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                     }
                 }
                 
             } else {
@@ -285,6 +287,23 @@ class Dashboard extends CI_Controller {
             // NOT A POST REQUEST -> Load normal page
             $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
             $this->load->view('student-module/reqEditProfile',$data);
+        }
+    }
+
+    public function fileCheck($str){
+        $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG);
+        $detectedType = exif_imagetype($_FILES['imageFile']['tmp_name']);
+        if(in_array($detectedType, $allowedTypes)){
+            // Check file size
+            if(filesize($_FILES['imageFile']['tmp_name']) > 10000000) {
+                $this->form_validation->set_message('fileCheck', 'Image size exceeds maximum allowable size (10MB)');
+                return false;
+            }else {
+                return true;
+            }
+        }else{
+            $this->form_validation->set_message('fileCheck', 'Only JPG, JPEG, PNG files are allowed!');
+            return false;
         }
     }
 

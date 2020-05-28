@@ -73,8 +73,7 @@
             Request Edit Profile
             </h1>
 			<div class="editProfileForm">
-				<form class="ui form <?php if(validation_errors()) echo "error" ?>" method="post"
-					action="<?php echo base_url('Dashboard/') . $data['userID'] . '/send'; ?>"
+				<form class="ui form <?php if(validation_errors()) echo "error" ?>" method="post" action="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>"
 					enctype="multipart/form-data">
 					<div class="image-container circular" for="uploadImage">
 						<img id="profileImage" class="ui circular image centered"

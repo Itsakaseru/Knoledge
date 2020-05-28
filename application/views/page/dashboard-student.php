@@ -111,6 +111,18 @@
 				</div>
 			</div>
 		</div>
+		<div id="message-container" style="display: none;">
+			<?php if($this->session->flashdata('success')): ?>
+			<div class="ui success message">
+				<p><?php echo $this->session->flashdata('success'); ?></p>
+			</div>
+			<?php endif; ?>
+			<?php if($this->session->flashdata('failed')): ?>
+			<div class="ui error message">
+				<p><?php echo $this->session->flashdata('failed'); ?></p>
+			</div>
+			<?php endif; ?>
+		</div>
 		<div class="ui two column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
@@ -176,3 +188,16 @@
 
 </script>
 <!-- End Radial Ring script -->
+
+
+<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<script>
+	$(document).ready(function () {
+		$('#message-container').transition('drop');
+		setTimeout(function () {
+			$('#message-container').transition('drop');
+		}, 10000);
+	});
+
+</script>
+<?php endif; ?>

@@ -9,6 +9,11 @@ class Student extends CI_Model{
         $this->load->database();
     }
 
+    public function updateUserData($id, $data)
+    {
+        if($this->db->insert('notifications', array('description' => 'Request for Edit Profile', 'notificationType' => 1, 'jsonMsg' => $data, 'readStatus' => 0))) return true; else false;
+    }
+
     public function getStudentInfo($id)
     {
         $this->db->select('users.userID, users.firstName, users.lastName, users.dob, users.email, users.ppPath, users.roleID, genders.genderID, genders.genderName');
