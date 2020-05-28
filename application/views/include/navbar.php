@@ -95,6 +95,31 @@
 				<h2 class="ui horizontal divider header judulNotif">
 					Notification
 				</h2>
+				<?php
+					if(isset($notifications) && count($notifications) != 0) {
+						echo '<div class="notification-container">';
+							echo '<div class="ui link celled selection list" style="padding: 4px;width: 280px;">';
+								foreach($notifications as $row) {
+									echo '<div class="item">';
+										echo '<img class="ui avatar image" src="' . base_url('data/users-img/' . $userImg) . '" style="height: 3.2rem; width: auto;">';
+										echo '<div class="content">';
+											echo '<a class="header">' . $targetName . '</a>';
+											// move description to controller directly
+											// echo '<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just now. </div>';
+											echo '<div class="description">';
+												echo "Sent Request<br> <a><b>Profile change</b></a> just now";
+											echo '</div>';
+										echo '</div>';
+									echo '</div>';
+								}
+							echo '</div>';
+						echo '</div>';
+					}
+					else {
+						echo '<p style="padding: 4px; width: 280px; text-align: center;">No notifications</p>';
+					}
+				?>
+				<!--
 				<div class="notification-container">
 					<div class="ui link celled selection list" style="padding: 4px;width: 280px;">
 						<div class="item">
@@ -158,6 +183,7 @@
 						</div>
 					</div>
 				</div>
+				-->
 			</div>
 			<!-- End dropdown notification -->
 
