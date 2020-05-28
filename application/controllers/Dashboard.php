@@ -225,14 +225,6 @@ class Dashboard extends CI_Controller {
                 ));
             }
 
-            // Only check if password want to be changed
-            if($this->input->post('password') != NULL) {
-                $this->form_validation->set_rules('password','Password','required',
-                array(
-                    'required' => 'Password is required!',
-                ));
-            }
-
             // File check enable if user want to upload
             if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
                 $this->form_validation->set_rules('imageFile', 'File', 'callback_fileCheck');
@@ -252,25 +244,14 @@ class Dashboard extends CI_Controller {
                 $firstName = $this->input->post('firstName');
                 $lastName = $this->input->post('lastName');
                 $email = $this->input->post('email');
-                $password = $this->input->post('password');
-                $dob = $this->input->post('dob');
 
                 $formData = array();
-                $formData['info'] = "profile";
-                $formData['description'] = "Change profile for his or her userID";
-                $formData['userID'] = $_SESSION['id'];
+                $formData['description'] = "Change profile for his/her userID";
+                $formData['targetID'] = $_SESSION['id'];
                 if(isset($firstName)) $formData['firstName'] = $firstName;
                 if(isset($lastName)) $formData['lastName'] = $lastName;
                 if(isset($email)) $formData['email'] = $email;
-                if(isset($dob)) $formData['dob'] = $dob;
-                if(isset($password) && $password != NULL) {
-                    // Load random generator model
-                    $this->load->model('saltgenerator');
 
-                    $salt = $this->saltgenerator->getSalt();
-                    $formData['salt'] = $salt;
-                    $formData['hash'] = hash('sha256', $password . $salt);
-                }
 
                 if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
                 // User want to change profile picture
@@ -278,8 +259,7 @@ class Dashboard extends CI_Controller {
                         $data = $this->upload->data();
                         if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
                         //Insert to database
-                        $Json_data = json_encode($formData);
-                         if($this->student->reqEditProfile($id, $Json_data)) {
+                         if($this->student->reqEditProfile($id, $formData)) {
                              $this->session->set_flashdata('success', 'Request Successfully Sent!');
                              redirect(base_url() . "dashboard");
                          } else {
@@ -294,8 +274,7 @@ class Dashboard extends CI_Controller {
                 // If user DON'T want to change profile picture
                 } else {
                      //Insert to database
-                     $Json_data = json_encode($formData);
-                     if($this->student->reqEditProfile($id, $Json_data)) {
+                     if($this->student->reqEditProfile($id, $formData)) {
                          $this->session->set_flashdata('success', 'Request Successfully Sent!');
                          redirect(base_url() . "dashboard");
                      } else {

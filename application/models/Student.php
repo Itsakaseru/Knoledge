@@ -11,7 +11,7 @@ class Student extends CI_Model{
 
     public function reqEditProfile($id, $data)
     {
-        if($this->db->insert('notifications', array('description' => 'Request for Edit Profile', 'notificationType' => 1, 'jsonMsg' => $data, 'readStatus' => 0))) return true; else false;
+        if($this->db->insert('reqeditprofile', $data)) return true; else false;
     }
 
     public function reqReview($id, $data)
