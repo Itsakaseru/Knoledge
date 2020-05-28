@@ -85,6 +85,7 @@
 		});
 	}
 	setTimeout(window.randomize, 200);
+	
 	<?php if($this->session->flashdata('error') || $this->session->flashdata('success')): ?>
 		$(document).ready(function () {
 			$('#message-container').transition('drop');

@@ -42,11 +42,6 @@
 	}
 ?>
 <div id="message-container" style="display: none;">
-<?php if($this->session->flashdata('success')): ?>
-	<div class="ui success message">
-		<p><?php echo $this->session->flashdata('success'); ?></p>
-	</div>
-<?php endif; ?>
 <?php if($this->session->flashdata('failed')): ?>
 	<div class="ui error message">
 		<p><?php echo $this->session->flashdata('failed'); ?></p>
@@ -123,7 +118,7 @@
 		</div>
 	</div>
 </div>
-<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<?php if($this->session->flashdata('failed')): ?>
 <script>
 	$(document).ready(function () {
 		$('#message-container').transition('drop');
