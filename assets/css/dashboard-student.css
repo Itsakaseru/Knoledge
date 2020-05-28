@@ -344,3 +344,7 @@ tr:nth-child(even) {
     margin-right: auto;
     text-align: center;
 }
+
+.notification{
+    display: none !important;
+}

@@ -122,6 +122,7 @@
 							<label>Date Of Birth</label>
 							<input type="date" name="dob" value="<?php echo $data['dob'];?>">
 						</div>
+
 						<input type="file" name="imageFile" class="inputFile" id="uploadImage"
 							onchange="readURL(this);">
 					</div>

@@ -232,6 +232,7 @@ class Dashboard extends CI_Controller {
                 $formData = array();
                 $formData['info'] = "profile";
                 $formData['description'] = "Change profile for his or her userID";
+                $formData['userID'] = $_SESSION['id'];
                 if(isset($firstName)) $formData['firstName'] = $firstName;
                 if(isset($lastName)) $formData['lastName'] = $lastName;
                 if(isset($email)) $formData['email'] = $email;
@@ -252,7 +253,7 @@ class Dashboard extends CI_Controller {
                         if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
                         //Insert to database
                         $Json_data = json_encode($formData);
-                         if($this->student->updateUserData($id, $Json_data)) {
+                         if($this->student->reqEditProfile($id, $Json_data)) {
                              $this->session->set_flashdata('success', 'Request Successfully Sent!');
                              redirect(base_url() . "dashboard");
                          } else {
@@ -268,7 +269,7 @@ class Dashboard extends CI_Controller {
                 } else {
                      //Insert to database
                      $Json_data = json_encode($formData);
-                     if($this->student->updateUserData($id, $Json_data)) {
+                     if($this->student->reqEditProfile($id, $Json_data)) {
                          $this->session->set_flashdata('success', 'Request Successfully Sent!');
                          redirect(base_url() . "dashboard");
                      } else {
@@ -305,13 +306,61 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function request()
+    public function request($id)
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
+        // ONLY LOAD IF SUBJECT ID EXIST
+        $data['subjectID'] = $id;
+        $data['subjectInfo'] = $this->student->getSubjectInfo($_SESSION['id'], $id);
+        $student['studentClass'] = $this->student->getStudentClass($_SESSION['id']);
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            // Load Form Validation Library and Configure Form Rules
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<li>', '</li>');
+            $this->form_validation->set_rules('reason','Reason','required|min_length[20]',
+            array(
+                'required' => 'Reason must not be empty!',
+                'max_length' => 'The reason is too short!'
+            ));
+
+            $this->form_validation->set_rules('score','Score','required',
+            array(
+                'required' => 'You need to select Score!',
+            ));
+
+            if($this->form_validation->run() != false){
+                // Form validation passed
+                $subject = $this->input->post('subject');
+                $score = $this->input->post('score');
+                $reason = $this->input->post('reason');
+
+                $formData = array();
+                $formData['info'] = "score";
+                if(isset($reason)) $formData['description'] = $reason;
+                $formData['userID'] = $_SESSION['id'];
+                $formData['subjectID'] = $id;
+                $formData['teacherID'] = $data['subjectInfo']['teacherID'];
+                $formData['classID'] = $student['studentClass']['classID'];
+                if(isset($score)) $formData['score'] = $score;
+
+                $Json_data = json_encode($formData);
+                if($this->student->reqReview($id, $Json_data)) {
+                    $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                    redirect(base_url() . "dashboard");
+                } else {
+                    $this->session->set_flashdata('failed', 'Something went wrong');
+                    redirect(base_url() . "dashboard/request/" . $id);
+                }
+
+            }else{
+                $this->load->view('page/reqReview',$data);
+            }
+        }
         $this->load->view('page/reqReview',$data);
     }
 
