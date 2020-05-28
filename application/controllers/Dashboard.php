@@ -82,6 +82,8 @@ class Dashboard extends CI_Controller {
         {
             $data['qotd'] = $this->motd->getMotd();
 
+            $data['teacherID'] = $this->teacher->getTeacher();
+            
             $data['studentScores'] = $this->student->getScores();
             $data['averageScore'] = $this->student->getAverageScore();
 
