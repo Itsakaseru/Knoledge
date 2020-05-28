@@ -47,7 +47,7 @@ tr:nth-child(even) {
     background: #FFFFFF !important;
     margin-top: 20px !important;
     padding: 0 !important;
-    height: 463px;
+    height: 516px;
 }
 
 @media (max-width: 768px) {
@@ -64,6 +64,12 @@ tr:nth-child(even) {
 .user-container .name {
     font-family: 'Myriad Pro Bold';
     font-size: 18pt;
+    text-align: center;
+}
+
+.user-container .editProfile {
+    font-family: 'Myriad Pro Semibold';
+    font-size: 12pt;
     text-align: center;
 }
 
@@ -140,6 +146,9 @@ tr:nth-child(even) {
 	.average-score .average-score-text {
         top: 79px;
         left: calc(60% - 1em);
+    }
+    .user-container .profile-info {
+        padding-bottom: 6rem !important;
     }
 }
 
@@ -321,4 +330,17 @@ tr:nth-child(even) {
 
 .radial-progress .inset {
     font-size: 19pt;
+}
+
+#message-container {
+    position: absolute;
+    width: 500px !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 14pt;
+    top: 8%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }

@@ -14,7 +14,7 @@
 		background: transparent !important;
 	}
 
-	.judul {
+	.judulNotif {
 		font-family: 'Myriad Pro Semibold' !important;
 		color: #955F26 !important;
 	}
@@ -30,7 +30,7 @@
 			width: 680px;
 		}
 
-		.judul {
+		.judulNotif {
 			font-size: 18pt !important;
 		}
 	}
@@ -41,7 +41,7 @@
 			width: 650px;
 		}
 
-		.judul {
+		.judulNotif {
 			font-size: 16pt !important;
 		}
 	}
@@ -52,7 +52,7 @@
 			width: 600px;
 		}
 
-		.judul {
+		.judulNotif {
 			font-size: 16pt !important;
 		}
 	}
@@ -63,7 +63,7 @@
 			width: 500px;
 		}
 
-		.judul {
+		.judulNotif {
 			font-size: 16pt !important;
 		}
 	}
@@ -74,7 +74,7 @@
 			width: 424px;
 		}
 
-		.judul {
+		.judulNotif {
 			font-size: 14pt !important;
 		}
 	}
@@ -92,13 +92,13 @@
 			</div>
 			<!-- dropdown notification -->
 			<div class="ui wide notification popup bottom left transition">
-				<h2 class="ui horizontal divider header judul">
+				<h2 class="ui horizontal divider header judulNotif">
 					Notification
 				</h2>
 				<div class="notification-container">
 					<div class="ui link celled selection list" style="padding: 4px;width: 280px;">
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/Kuma.jpg'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/Kuma.jpg'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Kuma</a>
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Itsakaseru</a>
@@ -118,7 +118,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Kaltsit</a>
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Kaltsit</a>
@@ -138,7 +138,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Kaltsit</a>
@@ -148,7 +148,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>"
+							<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
 								style="height: 3.2rem; width: auto;">
 							<div class="content">
 								<a class="header">Itsakaseru</a>
@@ -205,13 +205,13 @@
 				class="noti_count">3</span>Notification</a>
 		<!-- dropdown notification -->
 		<div class="ui wide notification popup bottom left transition">
-			<h2 class="ui horizontal divider header judul">
+			<h2 class="ui horizontal divider header judulNotif">
 				Notification
 			</h2>
 			<div class="notification-container">
 				<div class="ui link celled selection list smallNotification">
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/Kuma.jpg'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/Kuma.jpg'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Kuma</a>
@@ -221,7 +221,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Itsakaseru</a>
@@ -231,7 +231,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Kaltsit</a>
@@ -241,7 +241,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Kaltsit</a>
@@ -251,7 +251,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/kaltsit.png'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Kaltsit</a>
@@ -261,7 +261,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="ui avatar image" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>"
+						<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
 							style="height: 3.2rem; width: auto;">
 						<div class="content">
 							<a class="header">Itsakaseru</a>

@@ -1,3 +1,30 @@
+<?php
+	if($data['roleID'] == 3) {
+		$text = "Students";
+		$role = "Student";
+	}
+
+	if(isset($data['ppPath']))
+	{
+		if($data['ppPath'] == NULL) {
+			$profilePicture = "placeholder.jpg";
+		} else {
+			$profilePicture = $data['ppPath'];
+		}
+	} else {
+		$profilePicture = "placeholder.jpg";
+	}
+
+	if(isset($data['dob']))
+	{
+		$today = date("Y-m-d");
+		$dob = $data['dob'];
+		$age = date_diff(date_create($dob), date_create($today));
+	} else {
+		$age = "N/A";
+	}
+?>
+
 <head>
 	<title>Test</title>
 	<?php echo $main; ?>
@@ -7,16 +34,62 @@
 	<style>
 		.radial-progress .circle .mask .fill {
 			clip: rect(0px, 70px, 140px, 0px);
-			background-color: <?php
-				if($averageScore > 79) {
-					echo "#EDCF2E";
-				}
-				else if($averageScore > 59) {
-					echo "#002456";
-				}
-				else { echo "#780E0B"; }
+
+			background-color: <?php if($averageScore > 79) {
+				echo "#EDCF2E";
+			}
+
+			else if($averageScore > 59) {
+				echo "#002456";
+			}
+
+			else {
+				echo "#780E0B";
+			}
+
 			?>;
 		}
+
+		@media only screen and (min-width: 992px) {
+
+			.ui.column.grid>[class*="eight wide computer"].column,
+			.ui.grid>.column.row>[class*="eight wide computer"].column,
+			.ui.grid>.row>[class*="eight wide computer"].column,
+			.ui.grid>[class*="eight wide computer"].column {
+				width: 62% !important;
+			}
+
+			.ui.column.grid>[class*="six wide computer"].column,
+			.ui.grid>.column.row>[class*="six wide computer"].column,
+			.ui.grid>.row>[class*="six wide computer"].column,
+			.ui.grid>[class*="six wide computer"].column {
+				padding-right: 0;
+			}
+		}
+
+		.dashboard-filter a {
+			font-family: 'Myriad Pro Regular' !important;
+			color: #955F26 !important;
+			background-color: transparent !important;
+			transition: 0.3s ease-in !important;
+		}
+
+		.dashboard-filter a:hover {
+			color: rgb(255, 255, 255) !important;
+			background-color: #955F26 !important;
+		}
+
+		.dashboard-filter .yes {
+			color: #FFFFFF !important;
+			background-color: #955F26 !important;
+			transition: 0.3s ease-in !important;
+		}
+
+		.dashboard-filter .yes:hover {
+			color: #FFFFFF !important;
+			background-color: #6D340D !important;
+		}
+
 	</style>
 </head>
 
@@ -26,113 +99,52 @@
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
 				<div class="title">
-					<h1>Hi Lemuel, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
+					<h1>Hi <?php echo $data['firstName']; ?>, <span
+							style="font-weight: normal"><?php echo $qotd; ?></span></h1>
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
-				<div class="ui labeled icon button right floated user-role" data-tooltip="Siswa" data-position="bottom right">
+				<div class="ui labeled icon button right floated user-role" data-tooltip="<?php echo $role; ?>"
+					data-position="bottom right">
 					<i class="user icon"></i>
-					Class 1-A
+					Class <?php echo $currentClass['className']; ?>
 				</div>
 			</div>
+		</div>
+		<div id="message-container" style="display: none;">
+			<?php if($this->session->flashdata('success')): ?>
+			<div class="ui success message">
+				<p><?php echo $this->session->flashdata('success'); ?></p>
+			</div>
+			<?php endif; ?>
+			<?php if($this->session->flashdata('failed')): ?>
+			<div class="ui error message">
+				<p><?php echo $this->session->flashdata('failed'); ?></p>
+			</div>
+			<?php endif; ?>
 		</div>
 		<div class="ui two column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
-					<img class="ui circular image centered" src="<?php echo base_url('data/user-data/itsakaseru.png'); ?>" width="85%" />
-					<div class="name">Remueru Itsakaseru</div>
-					<div class="role">Siswa</div>
+					<img class="ui circular image centered"
+						src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
+					<div class="name"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></div>
+					<div class="role"><?php echo $role; ?></div>
 					<hr>
 					<div class="details">
 						<div class="title">Gender</div>
-						<div class="content">Male</div>
+						<div class="content"><?php echo $data['genderName']; ?></div>
 						<div class="title">Age</div>
-						<div class="content">20</div>
+						<div class="content"><?php echo $age->format('%y'); ?></div>
+					</div>
+					<div class="editProfile">
+						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>"
+							style="color: #955F26;"> Request Edit Profile </a>
 					</div>
 				</div>
 			</div>
 			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column">
-				<div class="eight wide computer sixteen wide tablet column right-side">
-					<div class="average-score">
-						<div class="radial-progress" data-score="<?php echo $averageScore / 10; ?>">
-							<div class="circle">
-								<div class="mask full">
-									<div class="fill"></div>
-								</div>
-								<div class="mask half">
-									<div class="fill"></div>
-									<div class="fill fix"></div>
-								</div>
-							</div>
-							<div class="inset"><?php echo $averageScore; ?></div>
-						</div>
-						<div class="average-score-text">
-							<span style="font-size: 35pt; font-weight: bold;">YOUR</span><br><br>
-							<span style="font-size: 15pt;">AVERAGE</span><br>
-							<span style="font-size: 15pt;">SCORE</span>
-						</div>
-					</div>
-				</div>
-				<div class="six wide computer sixteen wide tablet column right-side subjectList">
-					<div class="studentSubject">
-						<div class="title">Subject List</div>
-						<div class="subject-container">
-							<div class="subject">
-								<div class="title">Civics</div>
-								<div class="teacher">Mrs. Puff</div>
-							</div>
-							<div class="subject">
-								<div class="title">Civics</div>
-								<div class="teacher">Mrs. Puff</div>
-							</div>
-							<div class="subject">
-								<div class="title">Civics</div>
-								<div class="teacher">Mrs. Puff</div>
-							</div>
-							<div class="subject">
-								<div class="title">Civics</div>
-								<div class="teacher">Mrs. Puff</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="sixteen wide column filter-container">
-					<div class="dashboard-filter">
-						<div class="ui five wide column stackable grid">
-							<div class="four wide column"><button class="ui button yes">Current Class</button></div>
-							<div class="three wide column"><button class="ui button">Show all</button></div>
-							<div class="three wide column"><button class="ui button">Class 1</button></div>
-							<div class="three wide column"><button class="ui button">Class 2</button></div>
-							<div class="three wide column"><button class="ui button">Class 3</button></div>
-						</div>
-					</div>
-				</div>
-				<div class="sixteen wide column score-container">
-					<div class="dashboard-table">
-						<table id="studentScore" class="ui celled table" style="width:100%">
-							<thead>
-								<tr>
-									<th>Subject</th>
-									<th>Assignment</th>
-									<th>Mid Term</th>
-									<th>Final Term</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-							<?php foreach($studentScores as $score){ ?>
-								<tr>
-									<td><?php echo $score['subjectName']; ?></td>
-									<td><?php echo $score['assignment']; ?></td>
-									<td><?php echo $score['midterm']; ?></td>
-									<td><?php echo $score['finalterm']; ?></td>
-									<td><a href="<?php echo base_url('Dashboard/request'); ?>" class="tiny ui button reqReview">Request Re-review</a></td>
-								</tr>
-							<?php } ?>
-							</tbody>
-						</table>
-					</div>
-				</div>
+				<?php echo $student; ?>
 			</div>
 		</div>
 	</div>
@@ -151,6 +163,7 @@
 
 		$('#studentSubject').DataTable();
 	});
+
 </script>
 <!-- End Dropdown script -->
 <!-- Radial Ring script -->
@@ -165,11 +178,26 @@
 			var fill_rotation = rotation;
 			var fix_rotation = rotation * 2;
 			for (i in transform_styles) {
-				$(this).find('.circle .fill, .circle .mask.full').css(transform_styles[i], 'rotate(' + fill_rotation + 'deg)');
+				$(this).find('.circle .fill, .circle .mask.full').css(transform_styles[i], 'rotate(' +
+					fill_rotation + 'deg)');
 				$(this).find('.circle .fill.fix').css(transform_styles[i], 'rotate(' + fix_rotation + 'deg)');
 			}
 		});
 	}
 	setTimeout(window.randomize, 200);
+
 </script>
 <!-- End Radial Ring script -->
+
+
+<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<script>
+	$(document).ready(function () {
+		$('#message-container').transition('drop');
+		setTimeout(function () {
+			$('#message-container').transition('drop');
+		}, 10000);
+	});
+
+</script>
+<?php endif; ?>
