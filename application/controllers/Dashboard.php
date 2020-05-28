@@ -228,16 +228,14 @@ class Dashboard extends CI_Controller {
                 $email = $this->input->post('email');
                 $password = $this->input->post('password');
                 $dob = $this->input->post('dob');
-                $gender = $this->input->post('gender');
-                $role = $this->input->post('role');
 
                 $formData = array();
+                $formData['info'] = "profile";
+                $formData['description'] = "Change profile for his or her userID";
                 if(isset($firstName)) $formData['firstName'] = $firstName;
                 if(isset($lastName)) $formData['lastName'] = $lastName;
                 if(isset($email)) $formData['email'] = $email;
                 if(isset($dob)) $formData['dob'] = $dob;
-                if(isset($gender)) $formData['genderID'] = $gender;
-                if(isset($role)) $formData['roleID'] = $role;
                 if(isset($password) && $password != NULL) {
                     // Load random generator model
                     $this->load->model('saltgenerator');

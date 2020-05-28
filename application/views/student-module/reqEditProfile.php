@@ -117,28 +117,10 @@
 							<input type="password" name="password">
 						</div>
 					</div>
-					<div class="three fields">
+					<div class="two fields">
 						<div class="field">
 							<label>Date Of Birth</label>
 							<input type="date" name="dob" value="<?php echo $data['dob'];?>">
-						</div>
-						<div class="field">
-							<label>Gender</label>
-							<select id="gender" class="ui fluid dropdown" name="gender">
-								<option value="">Gender</option>
-								<option value="1">Male</option>
-								<option value="2">Female</option>
-								<option value="3">Unspecified</option>
-							</select>
-						</div>
-						<div class="field">
-							<label>Role</label>
-							<select id="role" class="ui fluid dropdown" name="role">
-								<option value="">Role</option>
-								<option value="1">Admin</option>
-								<option value="2">Teacher</option>
-								<option value="3">Student</option>
-							</select>
 						</div>
 						<input type="file" name="imageFile" class="inputFile" id="uploadImage"
 							onchange="readURL(this);">
