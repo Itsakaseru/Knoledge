@@ -16,7 +16,7 @@ class Student extends CI_Model{
 
     public function reqReview($id, $data)
     {
-        if($this->db->insert('notifications', array('description' => 'Request for Re-review', 'notificationType' => 3, 'jsonMsg' => $data, 'readStatus' => 0))) return true; else false;
+        if($this->db->insert('reqreview', $data)) return true; else false;
     }
 
     public function getStudentInfo($id)

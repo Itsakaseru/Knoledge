@@ -329,10 +329,11 @@ class Dashboard extends CI_Controller {
             // Load Form Validation Library and Configure Form Rules
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<li>', '</li>');
-            $this->form_validation->set_rules('reason','Reason','required|min_length[20]',
+            $this->form_validation->set_rules('reason','Reason','required|min_length[20]|max_length[255]',
             array(
                 'required' => 'Reason must not be empty!',
-                'max_length' => 'The reason is too short!'
+                'min_length' => 'The reason is too short!',
+                'max_length' => 'The reason is too long!'
             ));
 
             $this->form_validation->set_rules('score','Score','required',
@@ -347,16 +348,12 @@ class Dashboard extends CI_Controller {
                 $reason = $this->input->post('reason');
 
                 $formData = array();
-                $formData['info'] = "score";
                 if(isset($reason)) $formData['description'] = $reason;
-                $formData['userID'] = $_SESSION['id'];
+                $formData['targetID'] = $_SESSION['id'];
                 $formData['subjectID'] = $id;
-                $formData['teacherID'] = $data['subjectInfo']['teacherID'];
-                $formData['classID'] = $student['studentClass']['classID'];
-                if(isset($score)) $formData['score'] = $score;
+                if(isset($score)) $formData['requestType'] = $score;
 
-                $Json_data = json_encode($formData);
-                if($this->student->reqReview($id, $Json_data)) {
+                if($this->student->reqReview($id, $formData)) {
                     $this->session->set_flashdata('success', 'Request Successfully Sent!');
                     redirect(base_url() . "dashboard");
                 } else {
