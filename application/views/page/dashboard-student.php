@@ -65,6 +65,11 @@
 			.ui.grid>[class*="six wide computer"].column {
 				padding-right: 0;
 			}
+
+			.ui.fluid.button, .ui.fluid.buttons {
+				border-bottom-right-radius: 5px;
+    			border-bottom-left-radius: 5px;
+			}
 		}
 
 		.dashboard-filter a {
@@ -139,7 +144,9 @@
 					</div>
 					<div class="editProfile">
 						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>"
-							style="color: #955F26;"> Request Edit Profile </a>
+							style="color: #955F26;"> Request Edit Profile </a><br><br>
+						<a href="<?php echo base_url('dashboard/reqEditPassword/') . $data['userID']; ?>"
+						class="ui fluid button brown submitBtn"> Change My Password </a>
 					</div>
 				</div>
 			</div>
