@@ -9,9 +9,14 @@ class Student extends CI_Model{
         $this->load->database();
     }
 
-    public function updateUserData($id, $data)
+    public function reqEditProfile($id, $data)
     {
-        if($this->db->insert('notifications', array('description' => 'Request for Edit Profile', 'notificationType' => 1, 'jsonMsg' => $data, 'readStatus' => 0))) return true; else false;
+        if($this->db->insert('reqeditprofile', $data)) return true; else false;
+    }
+
+    public function reqReview($id, $data)
+    {
+        if($this->db->insert('reqreview', $data)) return true; else false;
     }
 
     public function getStudentInfo($id)
@@ -209,6 +214,12 @@ class Student extends CI_Model{
     {
         $query = $this->db->query("SELECT studentID, student_allscores.fullName, student_allscores.classID, student_allscores.className, student_allscores.subjectID, teacher_subjects.subjectName, teacherID, teacher_subjects.fullName AS teacherName FROM student_allscores JOIN teacher_subjects ON student_allscores.subjectID=teacher_subjects.subjectID AND student_allscores.classID=teacher_subjects.classID WHERE studentID = $id AND student_allscores.className LIKE '%3%' ESCAPE '!'"); 
         return $query->result_array();
+    }
+
+    public function getSubjectInfo($id, $subjectID)
+    {
+        $query = $this->db->query("SELECT studentID, student_allscores.fullName, student_allscores.classID, student_allscores.className, student_allscores.subjectID, teacher_subjects.subjectName, teacherID, teacher_subjects.fullName AS teacherName FROM student_allscores JOIN teacher_subjects ON student_allscores.subjectID=teacher_subjects.subjectID AND student_allscores.classID=teacher_subjects.classID WHERE studentID = $id AND teacher_subjects.subjectID = $subjectID"); 
+        return $query->result_array()[0];
     }
     
 }

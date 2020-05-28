@@ -1,12 +1,31 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed !');
 
 class Admin extends CI_Model{
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
+    }
+
+    public function getNotifications()
+    {
+        $this->db->select("*");
+        $this->db->from('request_editprofile');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function getProfImg($id)
+    {
+        $this->db->select("ppPath");
+        $this->db->from('users');
+        $this->db->where("userID", $id);
+        $query = $this->db->get();
+
+        return $query->result_array()[0]['ppPath'];
     }
 
     public function getTotalData()
@@ -60,7 +79,7 @@ class Admin extends CI_Model{
 
         return $query->result_array();
     }
-    
+
     public function getUserList()
     {
         $this->db->select('userID, fullName, dob, email, genderName, roleName');
@@ -73,7 +92,7 @@ class Admin extends CI_Model{
     public function getAverageScore()
     {
         $this->db->select('TRUNCATE((SUM(assignment)+SUM(midterm)+SUM(finalterm))
-                           / 
+                           /
                            (COUNT(assignment)+COUNT(midterm)+COUNT(finalterm)), 1) AS averageScore');
         $this->db->from('student_currentscores');
         $this->db->where('assignment !=', 0);
@@ -174,7 +193,7 @@ class Admin extends CI_Model{
 
         return $query->result_array();
     }
-    
+
     public function assignClass($id, $currentClass, $toClass)
     {
         // Assign class

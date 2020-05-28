@@ -107,21 +107,8 @@
 							<label>Email</label>
 							<input type="text" name="email" value="<?php echo $data['email'];?>">
 						</div>
-						<div id="changePwField" class="field">
-							<label>Password</label>
-							<a id="changePWbtn" class="ui button left floated" onclick="changePassword();">Change
-								Password</a>
-						</div>
-						<div id="changePassword" class="field" style="display: none;">
-							<label>Password</label>
-							<input type="password" name="password">
-						</div>
 					</div>
 					<div class="two fields">
-						<div class="field">
-							<label>Date Of Birth</label>
-							<input type="date" name="dob" value="<?php echo $data['dob'];?>">
-						</div>
 						<input type="file" name="imageFile" class="inputFile" id="uploadImage"
 							onchange="readURL(this);">
 					</div>
