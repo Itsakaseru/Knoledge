@@ -7,6 +7,7 @@ class Notification extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user');
+        
     }
 
     public function index()
@@ -17,8 +18,19 @@ class Notification extends CI_Controller {
     public function open($notificationID)
     {
         header('Content-Type: application/json');
-        
         echo json_encode($this->user->loadNotificationAdmin($notificationID));
+    }
+    
+    public function openTeacher($notificationID)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($this->user->loadNotificationTeacher($notificationID));
+    }
+
+    public function remove($notificationID)
+    {
+        $this->user->deleteNotificationTeacher($notificationID);
+        redirect($_SERVER['HTTP_REFERER']);
     }
     
     public function accept($notificationID)

@@ -79,7 +79,9 @@
 		}
 	}
 </style>
-
+<?php
+	$sessionRoleID = $_SESSION['roleID'];
+?>
 
 <div class="ui tablet computer only padded grid">
 	<div class="ui secondary top fixed fluid menu">
@@ -249,7 +251,7 @@
 		<div class="ui two column grid">
 			<div class="column info">
 				<div class="title">Before</div>
-				<img class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
+				<img id="ReqProfileBeforeImg" class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
 				<div class="change-container">
 					<label>Name</label>
 					<div id="ReqProfileCurrName"></div>
@@ -260,7 +262,7 @@
 			</div>
 			<div class="column info">
 				<div class="title">After</div>
-				<img class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
+				<img id="ReqProfileAfterImg" class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
 				<div class="change-container">
 					<label>Name</label>
 					<div id="ReqProfileAfterName">Kaguya Shino</div>
@@ -277,34 +279,109 @@
 		</div>
 	</div>
 </div>
+<div id="reqReview" class="ui modal">
+	<div class="header">Request Re-review</div>
+	<div class="content">
+		<div class="ui one column grid">
+			<div class="column info">
+				<img id="reqReviewPP" class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
+				<div class="change-container">
+					<label>Name</label>
+					<div id="ReqReviewName">Kaguya Shinomiya</div>
+					<hr>
+					<label>Subject</label>
+					<div id="ReqReviewSubject">Matemathics</div>
+					<hr>
+					<label>Type</label>
+					<div id="ReqReviewType">Mid-term Score</div>
+					<hr>
+					<label>Descripttion</label>
+					<div id="ReqReviewDesc">Could you please re-review my answer, I exchange my answer afterwards with my friends and I think i have similiar answer.</div>
+				</div>
+			</div>
+			<div class="sixteen wide column button-container">
+				<a id="ReqReviewUpdateURL" class="ui button confirmBtn">Update Score</a>
+				<a class="ui button closeBtn">Close</a>
+				<a id="ReqReviewRejectURL" class="ui button denyBtn">Remove Request</a>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
+	<?php if($sessionRoleID == "1") { ?>
+		function openNotification(id) {
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: 'notification/api/' + id,
+				cache: false,
+				//check this in Firefox browser
+				success: function (response) {
+					console.log(response);
+					var url = '<?php echo base_url('notification/api/accept/');?>' + response.notificationID;
+					if(response.currImg == null) {
+						var beforeimg = '<?php echo base_url('data/users-img/placeholder.jpg');?>';
+					} else var beforeimg = '<?php echo base_url('data/users-img/');?>' + response.currImg;
+					
+					if(response.ppPath == null) {
+						var afterimg = '<?php echo base_url('data/users-img/placeholder.jpg');?>';
+					} else var afterimg = '<?php echo base_url('data/users-img/');?>' + response.ppPath;
+					
+					// Insert data here
+					$('#ReqProfileBeforeImg').attr('src', beforeimg)
+					$('#ReqProfileAfterImg').attr('src', afterimg)
+					$('#ReqProfileCurrName').text(response.currentFirstName + ' ' + response.currentLastName);
+					$('#ReqProfileCurrEmail').text(response.currentEmail);
+					$('#ReqProfileConfirmURL').attr('href', url);
+
+					if(response.firstName == null) $('#ReqProfileAfterName').text(response.currentFirstName + ' ' + response.currentLastName);else $('#ReqProfileAfterName').text(response.firstName + ' ' + response.lastName);
+
+					if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
+					
+					$('#reqProfile').modal('show');
+				},
+				error: function() {
+					console.log("error occured");
+				}
+			});
+			return false;
+		}
+	<?php } ?>
+	<?php if($sessionRoleID == "2") { ?>
 	function openNotification(id) {
-		$.ajax({
-			type: "POST",
-			dataType: 'json',
-			url: 'notification/api/' + id,
-			cache: false,
-			//check this in Firefox browser
-			success: function (response) {
-				console.log(response);
-				var url = '<?php echo base_url('notification/api/accept/');?>' + response.notificationID;
-				// Insert data here
-				$('#ReqProfileCurrName').text(response.currentFirstName + ' ' + response.currentLastName);
-				$('#ReqProfileCurrEmail').text(response.currentEmail);
-				$('#ReqProfileConfirmURL').attr('href', url);
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: 'notification/api/teacher/' + id,
+				cache: false,
+				//check this in Firefox browser
+				success: function (response) {
+					console.log(response);
+					var url = '<?php echo base_url('student/update/');?>' + response.targetID + '/' + response.classID + '/' + response.subjectID;
+					var removeurl = '<?php echo base_url('notification/remove/');?>' + response.notificationID;
+					var urlPhoto = '<?php echo base_url('data/users-img/');?>' + response.ppPath;
+					// Insert data here
+					$('#reqReviewPP').attr('src', urlPhoto);
+					$('#ReqReviewName').text(response.fullName);
+					$('#ReqReviewSubject').text(response.subjectName);
+					$('#ReqReviewType').text(response.requested);
+					$('#ReqReviewUpdateURL').attr('href', url);
+					$('#ReqReviewRejectURL').attr('href', removeurl);
 
-				if(response.firstName == null) $('#ReqProfileAfterName').text(response.currentFirstName + ' ' + response.currentLastName);else $('#ReqProfileAfterName').text(response.firstName + ' ' + response.lastName);
+					if(response.firstName == null) $('#ReqProfileAfterName').text(response.currentFirstName + ' ' + response.currentLastName);else $('#ReqProfileAfterName').text(response.firstName + ' ' + response.lastName);
 
-				if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
-				
-				$('.ui.modal').modal('show');
-			},
-			error: function() {
-				console.log("error occured");
-			}
-		});
-		return false;
-	}
+					if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
+					
+					$('#reqReview').modal('show');
+				},
+				error: function() {
+					console.log("error occured");
+				}
+			});
+			return false;
+		}
+	<?php } ?>
+	
 </script>
 <!-- popup list-->
 <script>

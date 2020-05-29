@@ -55,6 +55,7 @@ class Home extends CI_Controller {
                     $user['email'] = $row['email'];
                     $user['hash'] = $row['hash'];
                     $user['salt'] = $row['salt'];
+                    $user['roleID'] = $row['roleID'];
                     $found = 1;
                 }
                 unset($query);
@@ -73,6 +74,7 @@ class Home extends CI_Controller {
                         );
 
                         $this->session->set_userdata('id', $user['userID']);
+                        $this->session->set_userdata('roleID', $user['roleID']);
                         $this->session->set_userdata('logged', 1);
                         echo "<script>window.location.href = \"" . base_url('dashboard') . "\" </script>";
                     }
@@ -113,6 +115,7 @@ class Home extends CI_Controller {
     {
         if(isset($_SESSION['id'])) unset($_SESSION['id']);
         if(isset($_SESSION['logged'])) unset($_SESSION['logged']);
+        if(isset($_SESSION['roleID'])) unset($_SESSION['roleID']);
         redirect(base_url());
     }
 

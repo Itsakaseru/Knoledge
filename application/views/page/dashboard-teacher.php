@@ -209,7 +209,7 @@
 									<td><?php echo $score['assignmentScore']; ?></td>
 									<td><?php echo $score['midtermScore']; ?></td>
 									<td><?php echo $score['finaltermScore']; ?></td>
-									<td><a href="<?php echo base_url('Dashboard/update'); ?>" class="tiny ui button reqReview">Update Score</a></td>
+									<td><a href="<?php echo base_url('student/update/') . $score['userID'] . '/' . $score['classID'] . '/' . $score['subjectID']; ?>" class="tiny ui button reqReview">Update Score</a></td>
 								</tr>
 							<?php } ?>
 							</tbody>

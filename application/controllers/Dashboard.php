@@ -117,8 +117,27 @@ class Dashboard extends CI_Controller {
         {
             $data['qotd'] = $this->motd->getMotd();
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
-            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+            $notifications = $this->teacher->getNotifications($_SESSION['id']);
+
+            $nav['notifications'] = array();
+            foreach($notifications as $row) {
+                // get img from ppPath
+                $ppPath = $this->teacher->getProfImg($row['targetID']);
+                $temp['notificationID'] = $row['notificationID'];
+                if($ppPath == NULL || $ppPath == "") $temp['userImg'] = "placeholder.jpg";
+                else $temp['userImg'] = $ppPath;
+                unset($ppPath);
+                $temp['fullName'] = $row['fullName'];
+                $temp['description'] = "Score Re-Review Request";
+
+                array_push($nav['notifications'], $temp);
+                unset($temp);
+            }
+            unset($notifications);
+            $data['navbar'] = $this->load->view('include/navbar', $nav, TRUE);
+            unset($nav);
 
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
             $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
@@ -468,7 +487,6 @@ class Dashboard extends CI_Controller {
                 // Form validation passed
                 $password = $this->input->post('password');
 
-
                 $formData = array();
                 if(isset($password) && $password != NULL) {
                     // Load random generator model
@@ -498,14 +516,64 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function update()
+    public function update($userID, $classID, $subjectID)
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $this->load->view('page/updateScore',$data);
+        $teacherID = $_SESSION['id'];
+        $data['studentInfo'] = $this->teacher->getStudentInfo($userID);
+        $data['studentScore'] = $this->teacher->getStudentScore($teacherID, $userID, $classID, $subjectID);
+        $data['studentID'] = $userID;
+        $data['classID'] = $classID;
+        $data['subjectID'] = $subjectID;
+
+        // Load Form Validation Library and Configure Form Rules
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+
+        // Only check if password want to be changed
+        $this->form_validation->set_rules('assignment','assignment','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+        $this->form_validation->set_rules('middleTest','middleTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+        $this->form_validation->set_rules('finalTest','finalTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            if($this->form_validation->run() != false) {
+                $formData['assignmentScore'] = $this->input->post('assignment');
+                $formData['midtermScore'] = $this->input->post('middleTest');
+                $formData['finaltermScore'] = $this->input->post('finalTest');
+
+                if($this->teacher->updateStudentScore($teacherID, $userID, $classID, $subjectID, $formData)) {
+                    $this->session->set_flashdata('success', 'Student score updated!');
+                    redirect(base_url() . "dashboard");
+                } else {
+                    $this->session->set_flashdata('failed', 'Access Denied!');
+                    redirect(base_url() . "dashboard");
+                }
+            } else {
+                $this->session->set_flashdata('failed', 'Harap isi form dengan benar!');
+                $this->load->view('page/updateScore',$data);
+            }
+        } else {
+            $this->load->view('page/updateScore',$data);
+        }
     }
 
     public function notification()
