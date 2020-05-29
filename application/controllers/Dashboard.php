@@ -123,7 +123,9 @@ class Dashboard extends CI_Controller {
 
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
             $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
-            $data['homeroomClassAverage'] = $this->teacher->getAverageScoreClass($data['homeroomClassInfo']['className']);
+            if(isset($data['homeroomClassInfo']['className'])) {
+                $data['homeroomClassAverage'] = $this->teacher->getAverageScoreClass($data['homeroomClassInfo']['className']);
+            }
             $data['teachingSubjects'] = $this->teacher->getTeachingSubject($_SESSION['id']);
             $data['subjectList'] = $this->teacher->getSubjectList();
 
@@ -227,7 +229,14 @@ class Dashboard extends CI_Controller {
 
         // ONLY LOAD IF USER ID EXIST
         $module['userID'] = $id;
-        $module['data'] = $this->student->getStudentInfo($id);
+
+        // role query
+        $query = $this->user->getRole($_SESSION['id']);
+        foreach($query as $row) $roleid = $row['roleID'];
+        unset($query);
+
+        if($roleid == 3) $module['data'] = $this->student->getStudentInfo($id);
+        if($roleid == 2) $module['data'] = $this->teacher->getTeacherInfo($id);
 
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
             // Load Form Validation Library and Configure Form Rules
@@ -288,13 +297,28 @@ class Dashboard extends CI_Controller {
                         $data = $this->upload->data();
                         if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
                         //Insert to database
-                         if($this->student->reqEditProfile($id, $formData)) {
-                             $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                             redirect(base_url() . "dashboard");
-                         } else {
-                             $this->session->set_flashdata('failed', 'Something went wrong');
-                             redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                         }
+                        if($roleid == 3) {
+                            if($this->student->reqEditProfile($id, $formData)) {
+                                $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                                redirect(base_url() . "dashboard");
+                            } else {
+                                $this->session->set_flashdata('failed', 'Something went wrong');
+                                redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                            }
+                        } else
+                        if($roleid == 2) {
+                            if($this->teacher->reqEditProfile($id, $formData)) {
+                                $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                                redirect(base_url() . "dashboard");
+                            } else {
+                                $this->session->set_flashdata('failed', 'Something went wrong');
+                                redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                            }
+                        } else {
+                            $this->session->set_flashdata('failed', 'Something went wrong');
+                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                        }
+                        
                     }
                     else {
                         $this->session->set_flashdata('failed', 'Something went wrong');
@@ -303,15 +327,28 @@ class Dashboard extends CI_Controller {
                 // If user DON'T want to change profile picture
                 } else {
                      //Insert to database
-                     if($this->student->reqEditProfile($id, $formData)) {
-                         $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                         redirect(base_url() . "dashboard");
-                     } else {
-                         $this->session->set_flashdata('failed', 'Something went wrong!');
-                         redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                     }
+                     if($roleid == 3) {
+                        if($this->student->reqEditProfile($id, $formData)) {
+                            $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                            redirect(base_url() . "dashboard");
+                        } else {
+                            $this->session->set_flashdata('failed', 'Something went wrong!');
+                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                        }
+                    } else
+                    if($roleid == 2) {
+                        if($this->teacher->reqEditProfile($id, $formData)) {
+                            $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                            redirect(base_url() . "dashboard");
+                        } else {
+                            $this->session->set_flashdata('failed', 'Something went wrong!');
+                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                        }
+                    } else {
+                        $this->session->set_flashdata('failed', 'Something went wrong!');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
                 }
-
             } else {
                 $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
                 $this->load->view('student-module/reqEditProfile',$data);
@@ -397,14 +434,21 @@ class Dashboard extends CI_Controller {
 
     public function reqEditPassword($id)
     {
+        // role query
+        $query = $this->user->getRole($_SESSION['id']);
+        foreach($query as $row) $roleid = $row['roleID'];
+        unset($query);
+        
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+        $this->load->model('user');
 
         // ONLY LOAD IF USER ID EXIST
         $module['userID'] = $id;
-        $module['data'] = $this->student->getStudentInfo($id);
+        if($roleid == 3) $module['data'] = $this->student->getStudentInfo($id);
+        if($roleid == 2) $module['data'] = $this->teacher->getTeacherInfo($id);
 
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
             // Load Form Validation Library and Configure Form Rules
@@ -434,8 +478,8 @@ class Dashboard extends CI_Controller {
                     $formData['hash'] = hash('sha256', $password . $salt);
                 }
 
-                if($this->student->updatePassword($id, $formData)) {
-                    $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                if($this->user->updatePassword($id, $formData)) {
+                    $this->session->set_flashdata('success', 'Password changed Successfully!');
                     redirect(base_url() . "dashboard");
                 } else {
                     $this->session->set_flashdata('failed', 'Something went wrong');

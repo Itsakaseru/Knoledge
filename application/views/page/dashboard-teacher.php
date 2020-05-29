@@ -66,6 +66,18 @@
 
 <body>
 	<?php echo $navbar; ?>
+	<div id="message-container" style="display: none;">
+	<?php if($this->session->flashdata('success')): ?>
+		<div class="ui success message">
+			<p><?php echo $this->session->flashdata('success'); ?></p>
+		</div>
+		<?php endif; ?>
+		<?php if($this->session->flashdata('failed')): ?>
+		<div class="ui error message">
+			<p><?php echo $this->session->flashdata('failed'); ?></p>
+		</div>
+	<?php endif; ?>
+	</div>
 	<div id="dashboard">
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
@@ -95,10 +107,17 @@
                         <div class="title">Homeroom Teacher</div>
 						<div class="content"><?php echo $homeroomClass; ?></div>
 					</div>
+					<div class="editProfile">
+						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $teacherInfo['userID']; ?>"
+							style="color: #955F26;"> Request Edit Profile </a><br><br>
+						<a href="<?php echo base_url('dashboard/reqEditPassword/') . $teacherInfo['userID']; ?>"
+						class="ui fluid button brown submitBtn"> Change My Password </a>
+					</div>
 				</div>
             </div>
             <!-- Show only if teacher = homeroom teacher -->
 			<div class="ui stackable grid user-info twelve wide computer eleven wide tablet column right-container">
+			<?php if(isset($homeroomClassAverage)) { ?>
 				<div class="nine wide computer sixteen wide tablet column right-side">
 					<div class="average-score">
 						<div class="radial-progress" data-score="<?php echo $homeroomClassAverage / 10; ?>">
@@ -120,6 +139,7 @@
 						</div>
 					</div>
 				</div>
+			<?php } ?>
 				<div class="six wide computer sixteen wide tablet column right-side subjectList">
 					<div class="studentSubject">
 						<div class="title">Teaching Subject</div>
@@ -136,8 +156,10 @@
 				<div class="sixteen wide column filter-container">
 					<div class="dashboard-filter">
 						<div class="ui five wide column stackable grid">
-							<div class="three wide column"><a href="<?php echo base_url() . "dashboard";?>" class="ui button <?php if($showall == true) echo "yes"; ?>">Show All</a></div>
-							<div class="five wide column"><a href="<?php echo base_url() . "dashboard?v=homeroom";?>" class="ui button <?php if($homeroomNav == true) echo "yes"; ?>">Homeroom Class</a></div>
+							<div class="four wide column"><a href="<?php echo base_url() . "dashboard";?>" class="ui button <?php if($showall == true) echo "yes"; ?>">Show All Subject</a></div>
+							<?php if(isset($homeroomClassAverage)) { ?>
+								<div class="five wide column"><a href="<?php echo base_url() . "dashboard?v=homeroom";?>" class="ui button <?php if($homeroomNav == true) echo "yes"; ?>">Homeroom Class</a></div>
+							<?php } ?>
 							<div class="six wide computer eight wide tablet column right floated right aligned">
                                 <div class="ui buttons filter-button">
                                     <div id="filterDropdown" class="ui floating labeled dropdown icon button">
@@ -153,6 +175,7 @@
                                             </div>
                                             <div class="divider"></div>
                                             <!-- print according to teacher teaching subject -->
+											<div class="item" data-value="none"></i>Unfiltered</div>
 											<?php foreach($subjectList as $subject) { ?>
 												<div class="item"></i><?php echo $subject['subjectName']?></div>
 											<?php } ?>
@@ -215,16 +238,24 @@
 		$('#filterDropdown').dropdown({
 			action: 'activate',
 			onChange: function($selectedItem) {
-				window.location.href = "<?php echo base_url() . "dashboard?v=homeroom&f="; ?>" + $selectedItem;
+				if($selectedItem == "none") {
+					window.location.href = "<?php echo base_url() . "dashboard?v=homeroom"; ?>";
+				} else {
+					window.location.href = "<?php echo base_url() . "dashboard?v=homeroom&f="; ?>" + $selectedItem;
+				}
 			}
 		});
 		<?php } else {?>
-			$('#filterDropdown').dropdown({
-				action: 'activate',
-				onChange: function($selectedItem) {
+		$('#filterDropdown').dropdown({
+			action: 'activate',
+			onChange: function($selectedItem) {
+				if($selectedItem == "none") {
+					window.location.href = "<?php echo base_url() . "dashboard"; ?>";
+				} else {
 					window.location.href = "<?php echo base_url() . "dashboard?f="; ?>" + $selectedItem;
 				}
-			});
+			}
+		});
 		<?php }?>
 	});
 </script>
@@ -264,3 +295,14 @@
 	setTimeout(window.randomize, 200);
 </script>
 <!-- End Radial Ring script -->
+<?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
+<script>
+	$(document).ready(function () {
+		$('#message-container').transition('drop');
+		setTimeout(function () {
+			$('#message-container').transition('drop');
+		}, 10000);
+	});
+
+</script>
+<?php endif; ?>

@@ -135,12 +135,11 @@ class Teacher extends CI_Model{
         {
             $this->db->or_where('classes.className', $subject['className']);
             $this->db->where('assignments.subjectID', $subject['subjectID']);
+            $this->db->where('subjects.subjectName', "$subjectName");
         }
-        $this->db->where('subjects.subjectName', $subjectName);
 
         $query = $this->db->get();
         return $query->result_array();
-        
     }
     
     public function getStudentScorebySubjectInHomeroom($id, $subjectName, $className)
@@ -156,6 +155,11 @@ class Teacher extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
         
+    }
+
+    public function reqEditProfile($id, $data)
+    {
+        if($this->db->insert('reqeditprofile', $data)) return true; else false;
     }
 }
 

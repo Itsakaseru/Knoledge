@@ -195,8 +195,6 @@
 
 </script>
 <!-- End Radial Ring script -->
-
-
 <?php if($this->session->flashdata('success') || $this->session->flashdata('failed')): ?>
 <script>
 	$(document).ready(function () {

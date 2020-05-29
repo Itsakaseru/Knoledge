@@ -3,6 +3,10 @@
 		$text = "Students";
 		$role = "Student";
 		$back = "current";
+	} else if($data['roleID'] == 2) {
+		$text = "Teachers";
+		$role = "Teacher";
+		$back = "current";
 	}
 
 	if(isset($data['ppPath']))

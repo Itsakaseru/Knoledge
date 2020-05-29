@@ -37,5 +37,11 @@ class User extends CI_Model{
         else return $query->result_array();
     }
 
+    public function updatePassword($id, $data)
+    {
+        $this->db->where('userID', $id);
+        if($this->db->update('users', $data)) return true; else false;
+    }
+
 }
 ?>
