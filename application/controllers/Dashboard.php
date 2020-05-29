@@ -45,10 +45,6 @@ class Dashboard extends CI_Controller {
         foreach($query as $row) $roleid = $row['roleID'];
         unset($query);
 
-        // Import CSS, JS, Fonts
-        $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
-
         // If Admin load this
         if($roleid == 1)
         {
@@ -61,6 +57,7 @@ class Dashboard extends CI_Controller {
             foreach($notifications as $row) {
                 // get img from ppPath
                 $ppPath = $this->admin->getProfImg($row['targetID']);
+                $temp['notificationID'] = $row['notificationID'];
                 if($ppPath == NULL || $ppPath == "") $temp['userImg'] = "placeholder.jpg";
                 else $temp['userImg'] = $ppPath;
                 unset($ppPath);
@@ -119,7 +116,9 @@ class Dashboard extends CI_Controller {
         else if($roleid == 2)
         {
             $data['qotd'] = $this->motd->getMotd();
+            $data['main'] = $this->load->view('include/main', NULL, TRUE);
             $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+            $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
             $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
@@ -160,7 +159,9 @@ class Dashboard extends CI_Controller {
         // If Student load this
         else if($roleid == 3)
         {
+            $data['main'] = $this->load->view('include/main', NULL, TRUE);
             $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+            $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
             $this->load->model('student');
 
             $data['qotd'] = $this->motd->getMotd();

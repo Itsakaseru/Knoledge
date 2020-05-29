@@ -375,8 +375,6 @@ class User extends CI_Controller {
             $data['module'] = $this->load->view('admin-module/action/deleteUser', $module, TRUE);
             $this->load->view('page/dashboard-admin',$data);
         }
-
-        
     }
 
 }

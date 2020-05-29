@@ -67,3 +67,89 @@
     background-color: #fff;
 }
 /* End styling for mobile */
+
+#reqProfile {
+    width: 50%;
+    border-radius: 15px !important;
+}
+
+#reqProfile .content {
+    padding: 50px;
+}
+
+#reqProfile .header {
+    color: white !important;
+    background-color: #955F26 !important;
+}
+
+#reqProfile .info {
+    box-shadow: 0px 3px 60px 0px rgba(0,0,0,0.20);
+    background-color: rgb(255, 255, 255);
+}
+
+#reqProfile .title {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt !important;
+    text-align: center;
+}
+
+#reqProfile .change-container {
+    padding: 10px;
+}
+
+#reqProfile .change-container label {
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 15pt !important;
+    text-align: left;
+}
+
+#reqProfile .change-container div {
+    font-family: 'Myriad Pro Regular' !important;
+    font-size: 12pt !important;
+    text-align: left;
+}
+
+#reqProfile .button-container {
+    padding-top: 30px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+#reqProfile .confirmBtn {
+    background: rgb(38, 149, 38) !important;
+    text-align: center;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    transition: .4s ease-in-out;
+}
+
+#reqProfile .confirmBtn:hover {
+    background: rgb(49, 187, 49) !important;
+}
+
+#reqProfile .denyBtn {
+    background: rgb(149, 38, 38) !important;
+    text-align: center;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    transition: .4s ease-in-out;
+}
+
+#reqProfile .denyBtn:hover {
+    background: rgb(197, 52, 52) !important;
+}
+
+#reqProfile .closeBtn {
+    background: rgb(133, 133, 133) !important;
+    text-align: center;
+    color: white !important;
+    font-family: 'Myriad Pro Semibold' !important;
+    font-size: 12pt !important;
+    transition: .4s ease-in-out;
+}
+
+#reqProfile .closeBtn:hover {
+    background: rgb(185, 185, 185) !important;
+}

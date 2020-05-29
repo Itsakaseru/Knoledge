@@ -105,7 +105,7 @@
 						echo '<div class="notification-container">';
 							echo '<div class="ui link celled selection list" style="padding: 4px;width: 280px;">';
 								foreach($notifications as $row) {
-									echo '<div class="item">';
+									echo '<div class="item" onclick="openNotification(' . $row['notificationID'] . ')">';
 										echo '<img class="ui avatar image" src="' . base_url('data/users-img/' . $row['userImg']) . '" style="height: 3.2rem; width: auto;">';
 										echo '<div class="content notif">';
 											echo '<a class="header">' . $row['fullName'] . '</a>';
@@ -124,71 +124,6 @@
 						echo '<p style="padding: 4px; width: 280px; text-align: center;">No notifications</p>';
 					}
 				?>
-				<!--
-				<div class="notification-container">
-					<div class="ui link celled selection list" style="padding: 4px;width: 280px;">
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/Kuma.jpg'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Kuma</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just
-									now.
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Itsakaseru</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just
-									now.
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Kaltsit</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just
-									now.
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Kaltsit</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just
-									now.
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/kaltsit.png'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Kaltsit</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just
-									now.
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<img class="ui avatar image" src="<?php echo base_url('data/users-img/itsakaseru.png'); ?>"
-								style="height: 3.2rem; width: auto;">
-							<div class="content">
-								<a class="header">Itsakaseru</a>
-								<div class="description">Send Request <br> <a><b>Score Re-review</b></a> 5 minute ago.
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				-->
 			</div>
 			<!-- End dropdown notification -->
 
@@ -307,7 +242,70 @@
 	</div>
 </div>
 </div>
+<!-- Modal -->
+<div id="reqProfile" class="ui modal">
+	<div class="header">Request Edit Profile</div>
+	<div class="content">
+		<div class="ui two column grid">
+			<div class="column info">
+				<div class="title">Before</div>
+				<img class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
+				<div class="change-container">
+					<label>Name</label>
+					<div id="ReqProfileCurrName"></div>
+					<hr>
+					<label>Email</label>
+					<div id="ReqProfileCurrEmail">Kaguya.shinomiya@mail.com</div>
+				</div>
+			</div>
+			<div class="column info">
+				<div class="title">After</div>
+				<img class="ui centered circular image" src="<?php echo base_url('data/users-img/itsakaseru.png');?>" width="150px;">
+				<div class="change-container">
+					<label>Name</label>
+					<div id="ReqProfileAfterName">Kaguya Shino</div>
+					<hr>
+					<label>Email</label>
+					<div id="ReqProfileAfterEmail">Kaguya@mail.com</div>
+				</div>
+			</div>
+			<div class="sixteen wide column button-container">
+				<a id="ReqProfileConfirmURL" class="ui button confirmBtn">Accept Changes</a>
+				<a class="ui button closeBtn">Close</a>
+				<a class="ui button denyBtn">Reject Changes</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function openNotification(id) {
+		$.ajax({
+			type: "POST",
+			dataType: 'json',
+			url: 'notification/api/' + id,
+			cache: false,
+			//check this in Firefox browser
+			success: function (response) {
+				console.log(response);
+				var url = '<?php echo base_url('notification/api/accept/');?>' + response.notificationID;
+				// Insert data here
+				$('#ReqProfileCurrName').text(response.currentFirstName + ' ' + response.currentLastName);
+				$('#ReqProfileCurrEmail').text(response.currentEmail);
+				$('#ReqProfileConfirmURL').attr('href', url);
 
+				if(response.firstName == null) $('#ReqProfileAfterName').text(response.currentFirstName + ' ' + response.currentLastName);else $('#ReqProfileAfterName').text(response.firstName + ' ' + response.lastName);
+
+				if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
+				
+				$('.ui.modal').modal('show');
+			},
+			error: function() {
+				console.log("error occured");
+			}
+		});
+		return false;
+	}
+</script>
 <!-- popup list-->
 <script>
 	$('.notification')

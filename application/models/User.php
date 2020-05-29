@@ -43,5 +43,38 @@ class User extends CI_Model{
         if($this->db->update('users', $data)) return true; else false;
     }
 
+    public function loadNotificationAdmin($id)
+    {
+        $this->db->select('*');
+        $this->db->where('notificationID', $id);
+        $this->db->from('request_editprofile');
+        $query = $this->db->get();
+
+        return $query->result_array()[0];
+    }
+
+    public function updateDataFromNotification($id)
+    {
+        $this->db->select('*');
+        $this->db->from('request_editprofile');
+        $this->db->where('notificationID', $id);
+        $query = $this->db->get();
+        $result = $query->result_array()[0];
+
+        $userID = $result['targetID'];
+        if(!empty($result['firstName'])) $data['firstName'] = $result['firstName'];
+        if(!empty($result['lastName'])) $data['lastName'] = $result['lastName'];
+        if(!empty($result['email'])) $data['email'] = $result['email'];
+        
+        $this->db->where('userID', $userID);
+        if($this->db->update('users', $data)) return true; else return false;
+    }
+
+    public function deleteNotification($id)
+    {
+        $this->db->where('notificationID', $id);
+        $this->db->delete('reqeditprofile');
+    }
+
 }
 ?>
