@@ -1,7 +1,9 @@
--- KNoLedgeDB 0.11 Documentation --
+-- KNoLedgeDB 0.11.1 Documentation --
 -- Enable word wrap for better reading. --
 
 -- Update notes (codes)
+-- 0.11.1
+-- (*) Fix currentEmail in request_editprofile shown as requested email
 -- 0.11
 -- (+) Add reqreview and reqeditprofile table as combining to notification table
 --     at once adds spaghetti codes
@@ -123,7 +125,7 @@ SELECT classID, className, instructorID, IF(lastName='' OR lastName IS NULL, fir
 
 -- view for profile change requests (request_editprofile, note firstName, lastName and email here is what being requested)
 -- [notificationID, description, targetID, currentFirstName, currentLastName, currentEmail, firstName, lastName, email]
-SELECT notificationID, description, targetID, users.firstName AS currentFirstName, users.lastName AS currentLastName, reqeditprofile.email AS currentEmail, reqeditprofile.firstName, reqeditprofile.lastName, reqeditprofile.email FROM reqeditprofile JOIN users ON targetID=userID;
+SELECT notificationID, description, targetID, users.firstName AS currentFirstName, users.lastName AS currentLastName, users.email AS currentEmail, reqeditprofile.firstName, reqeditprofile.lastName, reqeditprofile.email FROM reqeditprofile JOIN users ON targetID=userID;
 
 -- view for review score requests (request_review)
 -- [notificationID, description, targetID, fullName, subjectID, subjectName, requestType, requested]

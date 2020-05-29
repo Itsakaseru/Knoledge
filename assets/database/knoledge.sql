@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2020 at 06:10 PM
+-- Generation Time: May 29, 2020 at 06:31 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -736,7 +736,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `request_editprofile`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `request_editprofile`  AS  select `reqeditprofile`.`notificationID` AS `notificationID`,`reqeditprofile`.`description` AS `description`,`reqeditprofile`.`targetID` AS `targetID`,`users`.`firstName` AS `currentFirstName`,`users`.`lastName` AS `currentLastName`,`reqeditprofile`.`email` AS `currentEmail`,`reqeditprofile`.`firstName` AS `firstName`,`reqeditprofile`.`lastName` AS `lastName`,`reqeditprofile`.`email` AS `email` from (`reqeditprofile` join `users` on(`reqeditprofile`.`targetID` = `users`.`userID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `request_editprofile`  AS  select `reqeditprofile`.`notificationID` AS `notificationID`,`reqeditprofile`.`description` AS `description`,`reqeditprofile`.`targetID` AS `targetID`,`users`.`firstName` AS `currentFirstName`,`users`.`lastName` AS `currentLastName`,`users`.`email` AS `currentEmail`,`reqeditprofile`.`firstName` AS `firstName`,`reqeditprofile`.`lastName` AS `lastName`,`reqeditprofile`.`email` AS `email` from (`reqeditprofile` join `users` on(`reqeditprofile`.`targetID` = `users`.`userID`)) ;
 
 -- --------------------------------------------------------
 
