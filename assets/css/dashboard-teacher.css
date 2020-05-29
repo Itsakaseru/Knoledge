@@ -274,6 +274,22 @@ tr:nth-child(even) {
     padding-right: 0 !important;
 }
 
+.filter-container a .yes {
+    color: white !important;
+    background-color: #955F26 !important;
+}
+
+.filter-container a {
+    color: #955F26 !important;
+    background-color: transparent !important;
+    transition: 0.3s ease-in !important;
+}
+
+.filter-container a:hover {
+    color: rgb(255, 255, 255) !important;
+    background-color: #955F26 !important;
+}
+
 /* Radial Ring */  
 .radial-progress {
 	float: left;

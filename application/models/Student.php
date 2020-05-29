@@ -29,8 +29,8 @@ class Student extends CI_Model{
     {
         $this->db->select('users.userID, users.firstName, users.lastName, users.dob, users.email, users.ppPath, users.roleID, genders.genderID, genders.genderName');
         $this->db->from('users');
-        $this->db->where('userID', $id);
         $this->db->join('genders', 'users.genderID = genders.genderID');
+        $this->db->where('userID', $id);
         $query = $this->db->get();
 
         return $query->result_array()[0];

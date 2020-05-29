@@ -119,12 +119,40 @@ class Dashboard extends CI_Controller {
         else if($roleid == 2)
         {
             $data['qotd'] = $this->motd->getMotd();
+            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
 
-            $data['teacherID'] = $this->teacher->getTeacher();
-            
-            $data['studentScores'] = $this->student->getScores();
-            $data['averageScore'] = $this->student->getAverageScore();
+            $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
+            $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
+            $data['homeroomClassAverage'] = $this->teacher->getAverageScoreClass($data['homeroomClassInfo']['className']);
+            $data['teachingSubjects'] = $this->teacher->getTeachingSubject($_SESSION['id']);
+            $data['subjectList'] = $this->teacher->getSubjectList();
 
+            $view = $this->input->get('v', TRUE);
+            $filter = $this->input->get('f', TRUE);
+
+            if(isset($view)) {
+                switch($view) {
+                    case "homeroom":
+                        if(isset($filter)) {
+                            $data['studentScoreList'] = $this->teacher->getStudentScorebySubjectInHomeroom($_SESSION['id'], $filter, $data['homeroomClassInfo']['className']);
+                        } else {
+                            $data['studentScoreList'] = $this->teacher->getStudentScoreHomeroom($_SESSION['id'], $data['homeroomClassInfo']['className']);
+                        }
+                    break;
+
+                    default: 
+                        redirect(base_url() . "dashboard", 'refresh');
+                }
+            } else {
+                if(isset($filter)) {
+                    $data['studentScoreList'] = $this->teacher->getStudentScorebySubject($_SESSION['id'], $filter);
+                } else {
+                    $data['studentScoreList'] = $this->teacher->getStudentScoreSubjects($_SESSION['id']);
+                }
+            }
+
+            $data['currNav'] = $view;
+            $data['currFilter'] = $filter;
             $this->load->view('page/dashboard-teacher',$data);
         }
         // If Student load this
