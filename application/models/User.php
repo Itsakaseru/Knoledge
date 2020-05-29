@@ -69,7 +69,7 @@ class User extends CI_Model{
 
     public function updateDataFromNotification($id)
     {
-        $this->db->select('request_editprofile.*, users.ppPath AS currImg, reqeditprofile.ppPath');
+        $this->db->select('*');
         $this->db->from('request_editprofile');
         $this->db->where('notificationID', $id);
         $query = $this->db->get();
@@ -81,13 +81,7 @@ class User extends CI_Model{
         if(!empty($result['email'])) $data['email'] = $result['email'];
         
         $this->db->where('userID', $userID);
-
-        $currImg = base_url() . 'data/users-img/' . $result['currImg'];
-        $newImg = base_url() . 'data/users-img/' . $result['ppPath'];
-
-        // rename($newImg, $currImg);
-
-
+        
         if($this->db->update('users', $data)) return true; else return false;
     }
 
