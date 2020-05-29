@@ -19,6 +19,12 @@ class Student extends CI_Model{
         if($this->db->insert('reqreview', $data)) return true; else false;
     }
 
+    public function updatePassword($id, $data)
+    {
+        $this->db->where('userID', $id);
+        if($this->db->update('users', $data)) return true; else false;
+    }
+
     public function getStudentInfo($id)
     {
         $this->db->select('users.userID, users.firstName, users.lastName, users.dob, users.email, users.ppPath, users.roleID, genders.genderID, genders.genderName');

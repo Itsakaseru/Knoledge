@@ -107,7 +107,7 @@
 								foreach($notifications as $row) {
 									echo '<div class="item">';
 										echo '<img class="ui avatar image" src="' . base_url('data/users-img/' . $row['userImg']) . '" style="height: 3.2rem; width: auto;">';
-										echo '<div class="content">';
+										echo '<div class="content notif">';
 											echo '<a class="header">' . $row['fullName'] . '</a>';
 											// move description to controller directly
 											// echo '<div class="description">Send Request <br> <a><b>Score Re-review</b></a> just now. </div>';

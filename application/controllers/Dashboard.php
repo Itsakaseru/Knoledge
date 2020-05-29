@@ -367,6 +367,64 @@ class Dashboard extends CI_Controller {
         $this->load->view('page/reqReview',$data);
     }
 
+    public function reqEditPassword($id)
+    {
+        // Import CSS, JS, Fonts
+        $data['main'] = $this->load->view('include/main', NULL, TRUE);
+        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+
+        // ONLY LOAD IF USER ID EXIST
+        $module['userID'] = $id;
+        $module['data'] = $this->student->getStudentInfo($id);
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            // Load Form Validation Library and Configure Form Rules
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<li>', '</li>');
+
+            // Only check if password want to be changed
+            if($this->input->post('password') != NULL) {
+                $this->form_validation->set_rules('password','Password','required',
+                array(
+                    'required' => 'Password is required!'
+                ));
+            }
+
+            if($this->form_validation->run() != false){
+                // Form validation passed
+                $password = $this->input->post('password');
+
+
+                $formData = array();
+                if(isset($password) && $password != NULL) {
+                    // Load random generator model
+                    $this->load->model('saltgenerator');
+
+                    $salt = $this->saltgenerator->getSalt();
+                    $formData['salt'] = $salt;
+                    $formData['hash'] = hash('sha256', $password . $salt);
+                }
+
+                if($this->student->updatePassword($id, $formData)) {
+                    $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                    redirect(base_url() . "dashboard");
+                } else {
+                    $this->session->set_flashdata('failed', 'Something went wrong');
+                    redirect(base_url() . "dashboard/reqEditPassword/" . $id);
+                }
+
+            } else {
+                $data['student'] = $this->load->view('page/editPassword', $module, TRUE);
+                $this->load->view('page/editPassword',$data);
+            }
+        } else {
+            // NOT A POST REQUEST -> Load normal page
+            $data['student'] = $this->load->view('page/editPassword', $module, TRUE);
+            $this->load->view('page/editPassword',$data);
+        }
+    }
+
     public function update()
     {
         // Import CSS, JS, Fonts

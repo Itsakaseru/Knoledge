@@ -7,7 +7,7 @@
 <body>
 	<!-- loader -->
 	<div class="loader">
-		<img src="<?php echo base_url('assets/images/loader.png'); ?>" alt="Loading..." />
+		<img src="<?php echo base_url('assets/images/loader.gif'); ?>" alt="Loading..." />
 	</div>
 	<!-- loader -->
 
