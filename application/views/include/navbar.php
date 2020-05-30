@@ -134,7 +134,7 @@
 			</div>
 			<div class="ui left labeled button item" tabindex="0">
 				<div class="ui brown button"
-					style="border-radius: .5rem 0 0 .5rem; font-family: 'Myriad Pro Semibold';"><?php echo $userInfo['firstName']; ?></div>
+					style="border-radius: .5rem 0 0 .5rem; font-family: 'Myriad Pro Semibold';"><?php echo $_SESSION['firstName']; ?></div>
 				<div id="signOutDropDown" class="ui dark-brown button dropdown user-dropdownButton"
 					style="border-radius: 0 .5rem .5rem 0; font-family: 'Myriad Pro Semibold';">
 					<i class="dropdown icon" style="color: #fff; margin: 0; font-size: 1rem !important;"></i>

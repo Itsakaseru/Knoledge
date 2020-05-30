@@ -13,7 +13,7 @@ class User extends CI_Model{
     {
         $this->db->trans_begin();
         // create view later
-        $query = $this->db->query("SELECT userID, email, hash, salt, roleID FROM users WHERE email='$email'");
+        $query = $this->db->query("SELECT userID, firstName, email, hash, salt, roleID FROM users WHERE email='$email'");
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE)
         {
