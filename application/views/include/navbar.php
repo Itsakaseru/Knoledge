@@ -292,6 +292,9 @@
 					if(response.ppPath == null) {
 						var afterimg = '<?php echo base_url('data/users-img/placeholder.jpg');?>';
 					} else var afterimg = '<?php echo base_url('data/users-img/');?>' + response.ppPath;
+
+					if(response.firstName == null) var firstName = response.currentFirstName; else var firstName = response.firstName;
+					if(response.lastName == null) var lastName = response.currentLastName; else var lastName = response.lastName;
 					
 					// Insert data here
 					$('#ReqProfileBeforeImg').attr('src', beforeimg)
@@ -300,7 +303,7 @@
 					$('#ReqProfileCurrEmail').text(response.currentEmail);
 					$('#ReqProfileConfirmURL').attr('href', url);
 
-					if(response.firstName == null) $('#ReqProfileAfterName').text(response.currentFirstName + ' ' + response.currentLastName);else $('#ReqProfileAfterName').text(response.firstName + ' ' + response.lastName);
+					$('#ReqProfileAfterName').text(firstName + ' ' + lastName);
 
 					if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
 					
