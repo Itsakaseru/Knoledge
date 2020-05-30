@@ -78,9 +78,9 @@ class User extends CI_Model{
         if(!empty($result['firstName'])) $data['firstName'] = $result['firstName'];
         if(!empty($result['lastName'])) $data['lastName'] = $result['lastName'];
         if(!empty($result['email'])) $data['email'] = $result['email'];
-        
+
         $this->db->where('userID', $userID);
-        
+
         if($this->db->update('users', $data)) return true; else return false;
     }
 
@@ -96,5 +96,20 @@ class User extends CI_Model{
         $this->db->delete('reqreview');
     }
 
+    public function queryUser($id) {
+        $this->db->select('firstName, lastName, email');
+        $this->db->from('users');
+        $this->db->where('userID', $id);
+
+        $query = $this->db->get();
+        return $query->result_array()[0];
+    }
+
+    public function updateProfPic($id, $path) {
+        $data = array('ppPath' => $path);
+
+        $this->db->where('userID', $id);
+        $this->db->update('users', $data);
+    }
 }
 ?>

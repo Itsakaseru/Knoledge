@@ -290,5 +290,20 @@ class Admin extends CI_Model{
 
         return $query->result_array();
     }
+
+    public function addProfRequest($id, $data) {
+        $data['targetID'] = $id;
+        $data['description'] = "Request profile change";
+
+        if(!isset($data['firstName'])) $data['firstName'] = NULL;
+        if(!isset($data['lastName'])) $data['lastName'] = NULL;
+        if(!isset($data['email'])) $data['email'] = NULL;
+
+        if(count($data) != 0) {
+            $this->db->insert('reqEditProfile', $data);
+            return true;
+        }
+        else return false;
+    }
 }
 ?>

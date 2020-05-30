@@ -160,7 +160,7 @@ class Dashboard extends CI_Controller {
                         }
                     break;
 
-                    default: 
+                    default:
                         redirect(base_url() . "dashboard", 'refresh');
                 }
             } else {
@@ -304,13 +304,61 @@ class Dashboard extends CI_Controller {
                 $email = $this->input->post('email');
 
                 $formData = array();
-                $formData['description'] = "Change profile for his/her userID";
-                $formData['targetID'] = $_SESSION['id'];
                 if(isset($firstName)) $formData['firstName'] = $firstName;
                 if(isset($lastName)) $formData['lastName'] = $lastName;
                 if(isset($email)) $formData['email'] = $email;
 
+                $picChange = 0;
+                if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
+                    // picture change
+                    if($this->upload->do_upload('imageFile')) {
+                        $data = $this->upload->data();
+                        $this->user->updateProfPic($_SESSION['id'], $data['file_name']);
+                        $picChange = 1;
+                    }
+                    else {
+                        $this->session->set_flashdata('failed', 'Something went wrong');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
 
+                // data comparison
+                $currData = $this->user->queryUser($_SESSION['id']);
+                if($currData['firstName'] == $formData['firstName']) unset($formData['firstName']);
+                if($currData['lastName'] == $formData['lastName']) unset($formData['lastName']);
+                if($currData['email'] == $formData['email']) unset($formData['email']);
+
+                if(count($formData) != 0) {
+                    // request update
+                    $this->load->model('admin');
+                    
+                    if($this->admin->addProfRequest($_SESSION['id'], $formData)) {
+                        if($picChange == 1) {
+                            $this->session->set_flashdata('success', 'Profile picture changed and request successfully sent.');
+                            redirect(base_url() . "dashboard");
+                        }
+                        else {
+                            $this->session->set_flashdata('success', 'Request successfully sent.');
+                            redirect(base_url() . "dashboard");
+                        }
+                    }
+                    else {
+                        $this->session->set_flashdata('failed', 'Something went wrong,');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
+                else {
+                    if($picChange == 1) {
+                        $this->session->set_flashdata('success', 'Profile picture changed.');
+                        redirect(base_url() . "dashboard");
+                    }
+                    else {
+                        $this->session->set_flashdata('error', 'Nothing changed.');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
+
+                /*
                 if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
                 // User want to change profile picture
                     if($this->upload->do_upload('imageFile')) {
@@ -338,7 +386,7 @@ class Dashboard extends CI_Controller {
                             $this->session->set_flashdata('failed', 'Something went wrong');
                             redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                         }
-                        
+
                     }
                     else {
                         $this->session->set_flashdata('failed', 'Something went wrong');
@@ -369,14 +417,16 @@ class Dashboard extends CI_Controller {
                         redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                     }
                 }
+                */
             } else {
                 $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
                 $this->load->view('student-module/reqEditProfile',$data);
             }
         } else {
-            // NOT A POST REQUEST -> Load normal page
+            // NOT A POST REQUEST -> Show form
             $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
             $this->load->view('student-module/reqEditProfile',$data);
+            // redirect(base_url() . "dashboard");
         }
     }
 
@@ -458,7 +508,7 @@ class Dashboard extends CI_Controller {
         $query = $this->user->getRole($_SESSION['id']);
         foreach($query as $row) $roleid = $row['roleID'];
         unset($query);
-        
+
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
