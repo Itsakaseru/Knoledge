@@ -4,8 +4,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html lang="en">
 <style type="text/css">
+@font-face {
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('<?php echo config_item('base_url') . 'assets/fonts/MYRIADPRO-REGULAR.woff'; ?>') format('woff');
+}
+
 html {
 	font-family: 'Myriad Pro Regular' !important;
+}
+
+::-webkit-scrollbar-track
+{
+    background-color: rgb(190, 190, 190);
+}
+
+::-webkit-scrollbar
+{
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #955F26;
 }
 
 .for-container {
@@ -32,7 +54,7 @@ html {
 .btn {
   font-weight: 400;
   padding: 20px;
-  background-color: #5e7fdc;
+  background-color: #a5673f;
   color: white;
   width: 320px;
   margin: 0 auto;
@@ -44,6 +66,7 @@ html {
   margin-bottom: 50px;
   transition: all 0.2s linear;
 }
+
 @media screen and (max-width: 400px) {
   .btn {
     margin: 0 auto;
@@ -53,7 +76,7 @@ html {
   }
 }
 .btn:hover {
-  background-color: rgba(94, 127, 220, 0.8);
+  background-color: #a35726;
   transition: all 0.2s linear;
 }
 ::selection { background-color: #E13300; color: white; }

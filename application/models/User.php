@@ -45,7 +45,7 @@ class User extends CI_Model{
 
     public function loadNotificationAdmin($id)
     {
-        $this->db->select('request_editprofile.*');
+        $this->db->select('request_editprofile.*, users.ppPath');
         $this->db->join('users', 'request_editprofile.targetID = users.userID');
         $this->db->where('request_editprofile.notificationID', $id);
         $this->db->from('request_editprofile');
