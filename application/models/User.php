@@ -76,5 +76,15 @@ class User extends CI_Model{
         $this->db->delete('reqeditprofile');
     }
 
+    public function getUserInfo($id)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('userID', $id);
+
+        $query = $this->db->get();
+        return $query->result_array()[0];
+    }
+
 }
 ?>

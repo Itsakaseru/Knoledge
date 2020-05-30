@@ -52,6 +52,9 @@ class Dashboard extends CI_Controller {
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
+            $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+            $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
+
             $notifications = $this->admin->getNotifications();
             $nav['notifications'] = array();
             foreach($notifications as $row) {
@@ -117,10 +120,13 @@ class Dashboard extends CI_Controller {
         {
             $data['qotd'] = $this->motd->getMotd();
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
-            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
+
+            $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+            $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
+
             $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
             if(isset($data['homeroomClassInfo']['className'])) {
                 $data['homeroomClassAverage'] = $this->teacher->getAverageScoreClass($data['homeroomClassInfo']['className']);
@@ -160,7 +166,6 @@ class Dashboard extends CI_Controller {
         else if($roleid == 3)
         {
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
-            $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
             $this->load->model('student');
 
@@ -168,6 +173,10 @@ class Dashboard extends CI_Controller {
 
             $student['userID'] = $_SESSION['id'];
             $student['data'] = $this->student->getStudentInfo($_SESSION['id']);
+
+            $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+            $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
+
             $student['currentClass'] = $this->student->getStudentClass($_SESSION['id']);
             if($student['data']['roleID'] == 3){
                 $student['currentClass'] = $this->student->getCurrentClass($_SESSION['id']);

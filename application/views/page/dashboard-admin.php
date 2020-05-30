@@ -60,6 +60,8 @@
 		});
 
 		$(".userDropdownButton").dropdown();
+
+		$("#signOutDropDown").dropdown();
 		
 		$('.global-dropdown').dropdown({
 			action: 'select'
