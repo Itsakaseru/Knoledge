@@ -84,7 +84,7 @@
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
 				<div class="title">
-					<h1>Hi Lemuel, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
+					<h1>Hi <?php echo $teacherInfo['firstName']; ?>, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
