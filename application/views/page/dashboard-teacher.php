@@ -97,7 +97,7 @@
 		<div class="ui four column stackable grid container" style="padding: 0 !important;">
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
-					<img class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
+					<img class="ui circular image centered" src="<?php echo base_url('data/users-img/') . $profilePicture . '?t=' . time(); ?>" width="85%" />
 					<div class="name"><?php echo $teacherInfo['firstName'] . " " . $teacherInfo['lastName'];?></div>
 					<div class="role">Teacher</div>
 					<hr>

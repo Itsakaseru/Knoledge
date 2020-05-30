@@ -132,7 +132,7 @@
 			<div class="user-container four wide computer five wide tablet column">
 				<div class="ui profile-info">
 					<img class="ui circular image centered"
-						src="<?php echo base_url('data/users-img/') . $profilePicture; ?>" width="85%" />
+						src="<?php echo base_url('data/users-img/') . $profilePicture . '?t=' . time(); ?>" width="85%" />
 					<div class="name"><?php echo $data['firstName'] . ' ' . $data['lastName']; ?></div>
 					<div class="role"><?php echo $role; ?></div>
 					<hr>
