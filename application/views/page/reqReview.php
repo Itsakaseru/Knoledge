@@ -5,6 +5,11 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/footer.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/reqReview.css'); ?>">
 
+	<style>
+		.notification{
+			display: none !important;
+		}
+	</style>
 </head>
 
 <body>

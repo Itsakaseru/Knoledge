@@ -250,7 +250,8 @@ class Dashboard extends CI_Controller {
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+        $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         // ONLY LOAD IF USER ID EXIST
@@ -398,7 +399,8 @@ class Dashboard extends CI_Controller {
 
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+        $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         if(isset($_SESSION['id']) && $_SESSION['roleID'] == 3) {
@@ -462,7 +464,8 @@ class Dashboard extends CI_Controller {
 
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+        $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
         $this->load->model('user');
 
@@ -520,7 +523,8 @@ class Dashboard extends CI_Controller {
     public function update($userID, $classID, $subjectID) // teacher only
     {
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+        $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         if(isset($_SESSION['roleID']) && $_SESSION['roleID'] == 2) {
@@ -589,7 +593,8 @@ class Dashboard extends CI_Controller {
 
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
+        $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+        $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         if(isset($_SESSION['roleID']) && ($_SESSION['roleID'] == 1 || $_SESSION['roleID'] == 2)) $this->load->view('page/notificationList',$data);
