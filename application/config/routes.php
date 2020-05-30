@@ -59,8 +59,14 @@ $route['login/action'] = 'Home/action';
 $route['user/(:num)'] = 'user/info/$1';
 $route['logout'] = 'Home/logout';
 
+$route['student/update/(:num)/(:num)/(:num)'] = 'Dashboard/update/$1/$2/$3';
+
 $route['notification/api/(:num)'] = 'Notification/open/$1';
+$route['notification/api/teacher/(:num)'] = 'Notification/openTeacher/$1';
+
 $route['notification/api/accept/(:num)'] = 'Notification/accept/$1';
+$route['notification/remove/(:num)'] = 'Notification/remove/$1';
+
 
 $route['user/(:num)/edit'] = 'user/editUser/$1';
 $route['user/(:num)/assign/class'] = 'user/assignClass/$1';

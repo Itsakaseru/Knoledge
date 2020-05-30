@@ -91,13 +91,13 @@ html {
 <div class="for-container" style="overflow: hidden;">
     <div class="left">
         <h1 class="text-center">Oops! Something went wrong!</h1>
-        <h4 style="text-align: center; text-decoration: none !important;">404 Not Found</h4>
+        <h4 style="text-align: center; text-decoration: none !important;">Access Denied</h4>
         <div class="btnCenter">
             <a style="text-align: center; text-decoration: none !important;" class="btn" href="<?php echo config_item('base_url') . 'Dashboard'; ?>">Return to Dashboard</a>
         </div>
     </div>
     <div class="right">
-        <img src="<?php echo config_item('base_url') . 'assets/images/404.jpg'; ?>" alt=":3"/>
+        <img src="<?php echo config_item('base_url') . 'assets/images/accessdenied.jpg'; ?>" alt=":3"/>
     </div>
 </div>
 </body>

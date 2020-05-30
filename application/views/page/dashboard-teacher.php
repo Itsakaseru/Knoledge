@@ -52,13 +52,15 @@
 		.radial-progress .circle .mask .fill {
 			clip: rect(0px, 70px, 140px, 0px);
 			background-color: <?php
-				if($homeroomClassAverage > 79) {
-					echo "#EDCF2E";
+				if(isset($homeroomClassAverage)){
+					if($homeroomClassAverage > 79) {
+						echo "#EDCF2E";
+					}
+					else if($homeroomClassAverage > 59) {
+						echo "#002456";
+					}
+					else { echo "#780E0B"; }
 				}
-				else if($homeroomClassAverage > 59) {
-					echo "#002456";
-				}
-				else { echo "#780E0B"; }
 			?>;
 		}
 	</style>
@@ -82,7 +84,7 @@
 		<div class="ui two column stackable grid container">
 			<div class="ten wide computer column">
 				<div class="title">
-					<h1>Hi Lemuel, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
+					<h1>Hi <?php echo $teacherInfo['firstName']; ?>, <span style="font-weight: normal"><?php echo $qotd; ?></span></h1>
 				</div>
 			</div>
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
@@ -209,7 +211,7 @@
 									<td><?php echo $score['assignmentScore']; ?></td>
 									<td><?php echo $score['midtermScore']; ?></td>
 									<td><?php echo $score['finaltermScore']; ?></td>
-									<td><a href="<?php echo base_url('Dashboard/update'); ?>" class="tiny ui button reqReview">Update Score</a></td>
+									<td><a href="<?php echo base_url('student/update/') . $score['userID'] . '/' . $score['classID'] . '/' . $score['subjectID']; ?>" class="tiny ui button reqReview">Update Score</a></td>
 								</tr>
 							<?php } ?>
 							</tbody>

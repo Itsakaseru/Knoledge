@@ -122,6 +122,26 @@ class Dashboard extends CI_Controller {
             $data['main'] = $this->load->view('include/main', NULL, TRUE);
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
+            $notifications = $this->teacher->getNotifications($_SESSION['id']);
+
+            $nav['notifications'] = array();
+            foreach($notifications as $row) {
+                // get img from ppPath
+                $ppPath = $this->teacher->getProfImg($row['targetID']);
+                $temp['notificationID'] = $row['notificationID'];
+                if($ppPath == NULL || $ppPath == "") $temp['userImg'] = "placeholder.jpg";
+                else $temp['userImg'] = $ppPath;
+                unset($ppPath);
+                $temp['fullName'] = $row['fullName'];
+                $temp['description'] = "Score Re-Review Request";
+
+                array_push($nav['notifications'], $temp);
+                unset($temp);
+            }
+            unset($notifications);
+            $data['navbar'] = $this->load->view('include/navbar', $nav, TRUE);
+            unset($nav);
+
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
 
             $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
@@ -147,7 +167,7 @@ class Dashboard extends CI_Controller {
                         }
                     break;
 
-                    default: 
+                    default:
                         redirect(base_url() . "dashboard", 'refresh');
                 }
             } else {
@@ -294,13 +314,61 @@ class Dashboard extends CI_Controller {
                 $email = $this->input->post('email');
 
                 $formData = array();
-                $formData['description'] = "Change profile for his/her userID";
-                $formData['targetID'] = $_SESSION['id'];
                 if(isset($firstName)) $formData['firstName'] = $firstName;
                 if(isset($lastName)) $formData['lastName'] = $lastName;
                 if(isset($email)) $formData['email'] = $email;
 
+                $picChange = 0;
+                if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
+                    // picture change
+                    if($this->upload->do_upload('imageFile')) {
+                        $data = $this->upload->data();
+                        $this->user->updateProfPic($_SESSION['id'], $data['file_name']);
+                        $picChange = 1;
+                    }
+                    else {
+                        $this->session->set_flashdata('failed', 'Something went wrong');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
 
+                // data comparison
+                $currData = $this->user->queryUser($_SESSION['id']);
+                if($currData['firstName'] == $formData['firstName']) unset($formData['firstName']);
+                if($currData['lastName'] == $formData['lastName']) unset($formData['lastName']);
+                if($currData['email'] == $formData['email']) unset($formData['email']);
+
+                if(count($formData) != 0) {
+                    // request update
+                    $this->load->model('admin');
+                    
+                    if($this->admin->addProfRequest($_SESSION['id'], $formData)) {
+                        if($picChange == 1) {
+                            $this->session->set_flashdata('success', 'Profile picture changed and request successfully sent.');
+                            redirect(base_url() . "dashboard");
+                        }
+                        else {
+                            $this->session->set_flashdata('success', 'Request successfully sent.');
+                            redirect(base_url() . "dashboard");
+                        }
+                    }
+                    else {
+                        $this->session->set_flashdata('failed', 'Something went wrong,');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
+                else {
+                    if($picChange == 1) {
+                        $this->session->set_flashdata('success', 'Profile picture changed.');
+                        redirect(base_url() . "dashboard");
+                    }
+                    else {
+                        $this->session->set_flashdata('error', 'Nothing changed.');
+                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
+                    }
+                }
+
+                /*
                 if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
                 // User want to change profile picture
                     if($this->upload->do_upload('imageFile')) {
@@ -328,7 +396,7 @@ class Dashboard extends CI_Controller {
                             $this->session->set_flashdata('failed', 'Something went wrong');
                             redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                         }
-                        
+
                     }
                     else {
                         $this->session->set_flashdata('failed', 'Something went wrong');
@@ -359,14 +427,16 @@ class Dashboard extends CI_Controller {
                         redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                     }
                 }
+                */
             } else {
                 $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
                 $this->load->view('student-module/reqEditProfile',$data);
             }
         } else {
-            // NOT A POST REQUEST -> Load normal page
+            // NOT A POST REQUEST -> Show form
             $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
             $this->load->view('student-module/reqEditProfile',$data);
+            // redirect(base_url() . "dashboard");
         }
     }
 
@@ -448,7 +518,7 @@ class Dashboard extends CI_Controller {
         $query = $this->user->getRole($_SESSION['id']);
         foreach($query as $row) $roleid = $row['roleID'];
         unset($query);
-        
+
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
@@ -476,7 +546,6 @@ class Dashboard extends CI_Controller {
             if($this->form_validation->run() != false){
                 // Form validation passed
                 $password = $this->input->post('password');
-
 
                 $formData = array();
                 if(isset($password) && $password != NULL) {
@@ -507,14 +576,64 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function update()
+    public function update($userID, $classID, $subjectID)
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $this->load->view('page/updateScore',$data);
+        $teacherID = $_SESSION['id'];
+        $data['studentInfo'] = $this->teacher->getStudentInfo($userID);
+        $data['studentScore'] = $this->teacher->getStudentScore($teacherID, $userID, $classID, $subjectID);
+        $data['studentID'] = $userID;
+        $data['classID'] = $classID;
+        $data['subjectID'] = $subjectID;
+
+        // Load Form Validation Library and Configure Form Rules
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+
+        // Only check if password want to be changed
+        $this->form_validation->set_rules('assignment','assignment','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+        $this->form_validation->set_rules('middleTest','middleTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+        $this->form_validation->set_rules('finalTest','finalTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+        array(
+            'required' => 'Score is required!',
+            'greater_than_equal_to' => 'Nilai minimum 0',
+            'less_than_equal_to' => 'Nilai maksimum 100!'
+        ));
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            if($this->form_validation->run() != false) {
+                $formData['assignmentScore'] = $this->input->post('assignment');
+                $formData['midtermScore'] = $this->input->post('middleTest');
+                $formData['finaltermScore'] = $this->input->post('finalTest');
+
+                if($this->teacher->updateStudentScore($teacherID, $userID, $classID, $subjectID, $formData)) {
+                    $this->session->set_flashdata('success', 'Student score updated!');
+                    redirect(base_url() . "dashboard");
+                } else {
+                    $this->session->set_flashdata('failed', 'Access Denied!');
+                    redirect(base_url() . "dashboard");
+                }
+            } else {
+                $this->session->set_flashdata('failed', 'Harap isi form dengan benar!');
+                $this->load->view('page/updateScore',$data);
+            }
+        } else {
+            $this->load->view('page/updateScore',$data);
+        }
     }
 
     public function notification()
