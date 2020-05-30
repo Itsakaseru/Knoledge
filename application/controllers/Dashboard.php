@@ -383,7 +383,7 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function request($id)
+    public function request($id) // student only
     {
 
         // Import CSS, JS, Fonts
@@ -391,52 +391,55 @@ class Dashboard extends CI_Controller {
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        // ONLY LOAD IF SUBJECT ID EXIST
-        $data['subjectID'] = $id;
-        $data['subjectInfo'] = $this->student->getSubjectInfo($_SESSION['id'], $id);
-        $student['studentClass'] = $this->student->getStudentClass($_SESSION['id']);
+        if(isset($_SESSION['id']) && $_SESSION['roleID'] == 3) {
+            // ONLY LOAD IF SUBJECT ID EXIST
+            $data['subjectID'] = $id;
+            $data['subjectInfo'] = $this->student->getSubjectInfo($_SESSION['id'], $id);
+            $student['studentClass'] = $this->student->getStudentClass($_SESSION['id']);
 
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            // Load Form Validation Library and Configure Form Rules
-            $this->load->library('form_validation');
-            $this->form_validation->set_error_delimiters('<li>', '</li>');
-            $this->form_validation->set_rules('reason','Reason','required|min_length[20]|max_length[255]',
-            array(
-                'required' => 'Reason must not be empty!',
-                'min_length' => 'The reason is too short!',
-                'max_length' => 'The reason is too long!'
-            ));
+            if ($this->input->server('REQUEST_METHOD') == 'POST') {
+                // Load Form Validation Library and Configure Form Rules
+                $this->load->library('form_validation');
+                $this->form_validation->set_error_delimiters('<li>', '</li>');
+                $this->form_validation->set_rules('reason','Reason','required|min_length[20]|max_length[255]',
+                array(
+                    'required' => 'Reason must not be empty!',
+                    'min_length' => 'The reason is too short!',
+                    'max_length' => 'The reason is too long!'
+                ));
 
-            $this->form_validation->set_rules('score','Score','required',
-            array(
-                'required' => 'You need to select Score!',
-            ));
+                $this->form_validation->set_rules('score','Score','required',
+                array(
+                    'required' => 'You need to select Score!',
+                ));
 
-            if($this->form_validation->run() != false){
-                // Form validation passed
-                $subject = $this->input->post('subject');
-                $score = $this->input->post('score');
-                $reason = $this->input->post('reason');
+                if($this->form_validation->run() != false){
+                    // Form validation passed
+                    $subject = $this->input->post('subject');
+                    $score = $this->input->post('score');
+                    $reason = $this->input->post('reason');
 
-                $formData = array();
-                if(isset($reason)) $formData['description'] = $reason;
-                $formData['targetID'] = $_SESSION['id'];
-                $formData['subjectID'] = $id;
-                if(isset($score)) $formData['requestType'] = $score;
+                    $formData = array();
+                    if(isset($reason)) $formData['description'] = $reason;
+                    $formData['targetID'] = $_SESSION['id'];
+                    $formData['subjectID'] = $id;
+                    if(isset($score)) $formData['requestType'] = $score;
 
-                if($this->student->reqReview($id, $formData)) {
-                    $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                    redirect(base_url() . "dashboard");
-                } else {
-                    $this->session->set_flashdata('failed', 'Something went wrong');
-                    redirect(base_url() . "dashboard/request/" . $id);
+                    if($this->student->reqReview($id, $formData)) {
+                        $this->session->set_flashdata('success', 'Request Successfully Sent!');
+                        redirect(base_url() . "dashboard");
+                    } else {
+                        $this->session->set_flashdata('failed', 'Something went wrong');
+                        redirect(base_url() . "dashboard/request/" . $id);
+                    }
+
+                }else{
+                    $this->load->view('page/reqReview',$data);
                 }
-
-            }else{
-                $this->load->view('page/reqReview',$data);
             }
+            $this->load->view('page/reqReview',$data);
         }
-        $this->load->view('page/reqReview',$data);
+        else $this->load->view('errors/html/error_permission.php', $data);
     }
 
     public function reqEditPassword()
@@ -504,63 +507,69 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function update($userID, $classID, $subjectID)
+    public function update($userID, $classID, $subjectID) // teacher only
     {
-        // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $teacherID = $_SESSION['id'];
-        $data['studentInfo'] = $this->teacher->getStudentInfo($userID);
-        $data['studentScore'] = $this->teacher->getStudentScore($teacherID, $userID, $classID, $subjectID);
-        $data['studentID'] = $userID;
-        $data['classID'] = $classID;
-        $data['subjectID'] = $subjectID;
+        if(isset($_SESSION['roleID']) && $_SESSION['roleID'] == 2) {
+            // Import CSS, JS, Fonts
 
-        // Load Form Validation Library and Configure Form Rules
-        $this->load->library('form_validation');
-        $this->form_validation->set_error_delimiters('<li>', '</li>');
+            $teacherID = $_SESSION['id'];
+            $data['studentInfo'] = $this->teacher->getStudentInfo($userID);
+            $data['studentScore'] = $this->teacher->getStudentScore($teacherID, $userID, $classID, $subjectID);
+            $data['studentID'] = $userID;
+            $data['classID'] = $classID;
+            $data['subjectID'] = $subjectID;
 
-        // Only check if password want to be changed
-        $this->form_validation->set_rules('assignment','assignment','required|greater_than_equal_to[0]|less_than_equal_to[100]',
-        array(
-            'required' => 'Score is required!',
-            'greater_than_equal_to' => 'Nilai minimum 0',
-            'less_than_equal_to' => 'Nilai maksimum 100!'
-        ));
-        $this->form_validation->set_rules('middleTest','middleTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
-        array(
-            'required' => 'Score is required!',
-            'greater_than_equal_to' => 'Nilai minimum 0',
-            'less_than_equal_to' => 'Nilai maksimum 100!'
-        ));
-        $this->form_validation->set_rules('finalTest','finalTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
-        array(
-            'required' => 'Score is required!',
-            'greater_than_equal_to' => 'Nilai minimum 0',
-            'less_than_equal_to' => 'Nilai maksimum 100!'
-        ));
+            // Load Form Validation Library and Configure Form Rules
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<li>', '</li>');
 
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            if($this->form_validation->run() != false) {
-                $formData['assignmentScore'] = $this->input->post('assignment');
-                $formData['midtermScore'] = $this->input->post('middleTest');
-                $formData['finaltermScore'] = $this->input->post('finalTest');
+            // Only check if password want to be changed
+            $this->form_validation->set_rules('assignment','assignment','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+            array(
+                'required' => 'Score is required!',
+                'greater_than_equal_to' => 'Nilai minimum 0',
+                'less_than_equal_to' => 'Nilai maksimum 100!'
+            ));
+            $this->form_validation->set_rules('middleTest','middleTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+            array(
+                'required' => 'Score is required!',
+                'greater_than_equal_to' => 'Nilai minimum 0',
+                'less_than_equal_to' => 'Nilai maksimum 100!'
+            ));
+            $this->form_validation->set_rules('finalTest','finalTest','required|greater_than_equal_to[0]|less_than_equal_to[100]',
+            array(
+                'required' => 'Score is required!',
+                'greater_than_equal_to' => 'Nilai minimum 0',
+                'less_than_equal_to' => 'Nilai maksimum 100!'
+            ));
 
-                if($this->teacher->updateStudentScore($teacherID, $userID, $classID, $subjectID, $formData)) {
-                    $this->session->set_flashdata('success', 'Student score updated!');
-                    redirect(base_url() . "dashboard");
+            if ($this->input->server('REQUEST_METHOD') == 'POST') {
+                if($this->form_validation->run() != false) {
+                    $formData['assignmentScore'] = $this->input->post('assignment');
+                    $formData['midtermScore'] = $this->input->post('middleTest');
+                    $formData['finaltermScore'] = $this->input->post('finalTest');
+
+                    if($this->teacher->updateStudentScore($teacherID, $userID, $classID, $subjectID, $formData)) {
+                        $this->session->set_flashdata('success', 'Student score updated!');
+                        redirect(base_url() . "dashboard");
+                    } else {
+                        $this->session->set_flashdata('failed', 'Access Denied!');
+                        redirect(base_url() . "dashboard");
+                    }
                 } else {
-                    $this->session->set_flashdata('failed', 'Access Denied!');
-                    redirect(base_url() . "dashboard");
+                    $this->session->set_flashdata('failed', 'Harap isi form dengan benar!');
+                    $this->load->view('page/updateScore',$data);
                 }
             } else {
-                $this->session->set_flashdata('failed', 'Harap isi form dengan benar!');
                 $this->load->view('page/updateScore',$data);
             }
-        } else {
-            $this->load->view('page/updateScore',$data);
+        }
+        else {
+            $this->load->view('errors/html/error_permission.php', $data);
         }
     }
 
@@ -573,7 +582,8 @@ class Dashboard extends CI_Controller {
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
-        $this->load->view('page/notificationList',$data);
+        if(isset($_SESSION['roleID']) && ($_SESSION['roleID'] == 1 || $_SESSION['roleID'] == 2)) $this->load->view('page/notificationList',$data);
+        else $this->load->view('errors/html/error_permission.php', $data);
     }
 
 }
