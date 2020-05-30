@@ -1,6 +1,8 @@
 <!-- Import Main CSS Framework -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/semantic/semantic.min.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/semantic/dataTables.semanticui.min.css'); ?>">
+<link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico'); ?>" type="image/x-icon">
+<link rel="icon" href="<?php echo base_url('assets/images/favicon.ico'); ?>" type="image/x-icon">
 
 <!-- Import Script -->
 <script src="<?php echo base_url('assets/jquery/jquery-3.5.1.min.js'); ?>"></script>

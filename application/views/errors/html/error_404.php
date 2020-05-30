@@ -86,6 +86,8 @@ html {
 <head>
 <meta charset="utf-8">
 <title>404 Page Not Found</title>
+<link rel="shortcut icon" href="<?php echo config_item('base_url') . 'assets/images/favicon.ico'; ?>" type="image/x-icon">
+<link rel="icon" href="<?php echo config_item('base_url') . 'assets/images/favicon.ico'; ?>" type="image/x-icon">
 </head>
 <body>
 <div class="for-container" style="overflow: hidden;">
