@@ -312,7 +312,7 @@
 		function openNotification(id) {
 			$.ajax({
 				type: "POST",
-				dataType: 'json',
+				data: { roleID : '<?php echo $sessionRoleID; ?>' },
 				url: 'notification/api/' + id,
 				cache: false,
 				//check this in Firefox browser
@@ -351,7 +351,7 @@
 	function openNotification(id) {
 			$.ajax({
 				type: "POST",
-				dataType: 'json',
+				data: { roleID : '<?php echo $sessionRoleID; ?>' },
 				url: 'notification/api/teacher/' + id,
 				cache: false,
 				//check this in Firefox browser
@@ -365,6 +365,7 @@
 					$('#ReqReviewName').text(response.fullName);
 					$('#ReqReviewSubject').text(response.subjectName);
 					$('#ReqReviewType').text(response.requested);
+					$('#ReqReviewDesc').text(response.description);
 					$('#ReqReviewUpdateURL').attr('href', url);
 					$('#ReqReviewRejectURL').attr('href', removeurl);
 

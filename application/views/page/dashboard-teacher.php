@@ -52,13 +52,15 @@
 		.radial-progress .circle .mask .fill {
 			clip: rect(0px, 70px, 140px, 0px);
 			background-color: <?php
-				if($homeroomClassAverage > 79) {
-					echo "#EDCF2E";
+				if(isset($homeroomClassAverage)){
+					if($homeroomClassAverage > 79) {
+						echo "#EDCF2E";
+					}
+					else if($homeroomClassAverage > 59) {
+						echo "#002456";
+					}
+					else { echo "#780E0B"; }
 				}
-				else if($homeroomClassAverage > 59) {
-					echo "#002456";
-				}
-				else { echo "#780E0B"; }
 			?>;
 		}
 	</style>
