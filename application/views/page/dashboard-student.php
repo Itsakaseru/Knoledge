@@ -143,9 +143,9 @@
 						<div class="content"><?php echo $age->format('%y'); ?></div>
 					</div>
 					<div class="editProfile">
-						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $data['userID']; ?>"
+						<a href="<?php echo base_url('dashboard/reqEditProfile/'); ?>"
 							style="color: #955F26;"> Request Edit Profile </a><br><br>
-						<a href="<?php echo base_url('dashboard/reqEditPassword/') . $data['userID']; ?>"
+						<a href="<?php echo base_url('dashboard/reqEditPassword/'); ?>"
 						class="ui fluid button brown submitBtn"> Change My Password </a>
 					</div>
 				</div>

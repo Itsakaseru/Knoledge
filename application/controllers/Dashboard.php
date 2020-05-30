@@ -10,11 +10,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('user');
 
         // if session doesn't exist, return to login page
-        if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1)
-        {
-            echo "<script>window.location.href = \"" . base_url('login') . "\"</script>";
-            exit();
-        }
+        if(!isset($_SESSION['logged']) || $_SESSION['logged'] != 1) redirect(base_url("login"));
 
         // role query
         $query = $this->user->getRole($_SESSION['id']);
@@ -240,7 +236,7 @@ class Dashboard extends CI_Controller {
         }
     }
 
-    public function reqEditProfile($id)
+    public function reqEditProfile()
     {
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
@@ -248,6 +244,7 @@ class Dashboard extends CI_Controller {
         $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
         // ONLY LOAD IF USER ID EXIST
+        $id = $_SESSION['id'];
         $module['userID'] = $id;
 
         // role query
@@ -331,7 +328,7 @@ class Dashboard extends CI_Controller {
                 if(count($formData) != 0) {
                     // request update
                     $this->load->model('admin');
-                    
+
                     if($this->admin->addProfRequest($_SESSION['id'], $formData)) {
                         if($picChange == 1) {
                             $this->session->set_flashdata('success', 'Profile picture changed and request successfully sent.');
@@ -357,67 +354,6 @@ class Dashboard extends CI_Controller {
                         redirect(base_url() . "dashboard/reqEditProfile/" . $id);
                     }
                 }
-
-                /*
-                if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") {
-                // User want to change profile picture
-                    if($this->upload->do_upload('imageFile')) {
-                        $data = $this->upload->data();
-                        if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
-                        //Insert to database
-                        if($roleid == 3) {
-                            if($this->student->reqEditProfile($id, $formData)) {
-                                $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                                redirect(base_url() . "dashboard");
-                            } else {
-                                $this->session->set_flashdata('failed', 'Something went wrong');
-                                redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                            }
-                        } else
-                        if($roleid == 2) {
-                            if($this->teacher->reqEditProfile($id, $formData)) {
-                                $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                                redirect(base_url() . "dashboard");
-                            } else {
-                                $this->session->set_flashdata('failed', 'Something went wrong');
-                                redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                            }
-                        } else {
-                            $this->session->set_flashdata('failed', 'Something went wrong');
-                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                        }
-
-                    }
-                    else {
-                        $this->session->set_flashdata('failed', 'Something went wrong');
-                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                    }
-                // If user DON'T want to change profile picture
-                } else {
-                     //Insert to database
-                     if($roleid == 3) {
-                        if($this->student->reqEditProfile($id, $formData)) {
-                            $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                            redirect(base_url() . "dashboard");
-                        } else {
-                            $this->session->set_flashdata('failed', 'Something went wrong!');
-                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                        }
-                    } else
-                    if($roleid == 2) {
-                        if($this->teacher->reqEditProfile($id, $formData)) {
-                            $this->session->set_flashdata('success', 'Request Successfully Sent!');
-                            redirect(base_url() . "dashboard");
-                        } else {
-                            $this->session->set_flashdata('failed', 'Something went wrong!');
-                            redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                        }
-                    } else {
-                        $this->session->set_flashdata('failed', 'Something went wrong!');
-                        redirect(base_url() . "dashboard/reqEditProfile/" . $id);
-                    }
-                }
-                */
             } else {
                 $data['student'] = $this->load->view('student-module/reqEditProfile', $module, TRUE);
                 $this->load->view('student-module/reqEditProfile',$data);
@@ -449,6 +385,7 @@ class Dashboard extends CI_Controller {
 
     public function request($id)
     {
+
         // Import CSS, JS, Fonts
         $data['main'] = $this->load->view('include/main', NULL, TRUE);
         $data['navbar'] = $this->load->view('include/navbar', NULL, TRUE);
@@ -502,10 +439,11 @@ class Dashboard extends CI_Controller {
         $this->load->view('page/reqReview',$data);
     }
 
-    public function reqEditPassword($id)
+    public function reqEditPassword()
     {
         // role query
-        $query = $this->user->getRole($_SESSION['id']);
+        $id = $_SESSION['id'];
+        $query = $this->user->getRole($id);
         foreach($query as $row) $roleid = $row['roleID'];
         unset($query);
 
