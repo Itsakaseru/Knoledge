@@ -160,7 +160,7 @@
 			</div>
 	</div>
 	<div class="ui vertical secondary fluid menu">
-		<a style="color: #955F26;" class="item topButton">Dashboard</a>
+		<a style="color: #955F26;" class="item topButton" href="<?php echo base_url('Dashboard'); ?>">Dashboard</a>
 		<div class="item topButton">
 			<div class="ui dropdown topButton" style="color: #955F26;">
 				<?php echo $userInfo['firstName']; ?> <i class="dropdown icon"></i>
@@ -372,3 +372,19 @@
 		});
 </script>
 <!-- End popup list-->
+
+<script>
+	$(document).ready(function () {
+		$(".ui.toggle.button").click(function () {
+			$(".mobile.only.grid .ui.vertical.menu").toggle(100);
+		});
+
+		$(".userDropdownButton").dropdown();
+
+		$("#signOutDropDown").dropdown();
+		
+		$('.global-dropdown').dropdown({
+			action: 'select'
+		});
+	});
+</script>

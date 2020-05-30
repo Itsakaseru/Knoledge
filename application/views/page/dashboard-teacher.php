@@ -234,6 +234,8 @@
 
 		$('#studentScore').DataTable();
 
+		$("#signOutDropDown").dropdown();
+
 		$('#studentSubject').DataTable();
 
 		<?php if(isset($currNav)) { ?>
