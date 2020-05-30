@@ -21,7 +21,7 @@
 
 	if(isset($homeroomClassInfo))
 	{
-		if($homeroomClassInfo == false) { 
+		if($homeroomClassInfo == false) {
 			$homeroomClass = "N/A";
 		} else {
 			$homeroomClass = $homeroomClassInfo['className'];
@@ -90,7 +90,7 @@
 			<div id="user-small-info" class="three wide computer five wide tablet column right floated">
 				<div class="ui labeled icon button right floated user-role" data-tooltip="Teacher" data-position="bottom right">
 					<i class="user plus icon"></i>
-					Teacher 
+					Teacher
 				</div>
 			</div>
 		</div>
@@ -102,17 +102,17 @@
 					<div class="role">Teacher</div>
 					<hr>
 					<div class="details">
-						<div class="title">Gender</div> 
+						<div class="title">Gender</div>
 						<div class="content"><?php echo $teacherInfo['genderName'];?></div>
-						<div class="title">Age</div> 
+						<div class="title">Age</div>
                         <div class="content"><?php echo $age->format('%y');?></div>
                         <div class="title">Homeroom Teacher</div>
 						<div class="content"><?php echo $homeroomClass; ?></div>
 					</div>
 					<div class="editProfile">
-						<a href="<?php echo base_url('dashboard/reqEditProfile/') . $teacherInfo['userID']; ?>"
+						<a href="<?php echo base_url('dashboard/reqEditProfile/'); ?>"
 							style="color: #955F26;"> Request Edit Profile </a><br><br>
-						<a href="<?php echo base_url('dashboard/reqEditPassword/') . $teacherInfo['userID']; ?>"
+						<a href="<?php echo base_url('dashboard/reqEditPassword/'); ?>"
 						class="ui fluid button brown submitBtn"> Change My Password </a>
 					</div>
 				</div>

@@ -6,17 +6,21 @@ class Home extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        
         $this->load->model('user');
         $this->load->model('quote');
     }
 
     public function index()
     {
-        $data['main'] = $this->load->view('include/main', NULL, TRUE);
-        $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
-        $data['quote'] = $this->quote->getQuote();
+        if(!isset($_SESSION['id'])) {
+            $data['main'] = $this->load->view('include/main', NULL, TRUE);
+            $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
+            $data['quote'] = $this->quote->getQuote();
 
-        $this->load->view('page/home', $data);
+            $this->load->view('page/home', $data);
+        }
+        else redirect(base_url() . "dashboard");
     }
 
     public function login()
