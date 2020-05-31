@@ -33,8 +33,6 @@
 }
 
 .group {
-	display: grid;
-	justify-content: center;
 	margin-top: 1rem;
 	margin-left: -7rem;
 }
@@ -42,11 +40,32 @@
 .group-2 {
 	display: flex;
 	justify-content: center;
-	margin-top: 1rem;
-	margin-left: -27rem;
+	margin-right: 22rem;
+	padding-left: 2rem;
 }
 
-@media screen and (max-width: 1080px) {
+/* 4K */
+@media screen and (max-width: 1920px) {
+	.small-screens {
+		display: none;
+	}
+
+	.group-2 {
+		display: flex;
+		justify-content: center;
+		margin-right: 22rem;
+		padding-left: -5rem;
+		margin-top: 15em;
+	}
+
+	.brand-icon {
+		width: 8rem;
+	}
+
+	.brand {
+		font-size: 6rem;
+	}
+
 	form {
 		width: 290px;
 	}
@@ -55,12 +74,182 @@
 		font-size: 2.4rem;
 		margin: 8px 0;
 	}
+
+	.container {
+		grid-gap: 5rem;
+		display: block;
+	}
+
+	.quote-texts {
+		text-align: left;
+		font-size: 36px;
+		margin-left: 40px;
+	}
+
+	.brown {
+		margin-top: 0px !important;
+	}
 }
 
-@media screen and (max-width: 1280px) {
+/* 1920x1080 */
+@media screen and (max-width: 1920px) {
+	.small-screens {
+		display: none;
+	}
+
+	.group-2 {
+		display: flex;
+		justify-content: center;
+		margin-right: 22rem;
+		padding-left: -5rem;
+		margin-top: 10em;
+	}
+
+	.brand-icon {
+		width: 8rem;
+	}
+
+	.brand {
+		font-size: 6rem;
+	}
+
+	form {
+		width: 290px;
+	}
+
+	.leftSide h2 {
+		font-size: 2.4rem;
+		margin: 8px 0;
+	}
+
+	.container {
+		grid-gap: 5rem;
+		display: block;
+	}
+
+	.quote-texts {
+		text-align: left;
+		font-size: 36px;
+		margin-left: 40px;
+	}
+
+	.brown {
+		margin-top: 0px !important;
+	}
+}
+
+/* 1600x900 */
+@media screen and (max-width: 1600px) {
+	.group-2 {
+		display: flex;
+		justify-content: center;
+		margin-right: 22rem;
+		padding-left: -5rem;
+		margin-top: 7em;
+	}
+}
+
+/* 1366x768 */
+@media screen and (max-width: 1366px) {
+	.small-screens {
+		display: none;
+	}
+
+	.group-2 {
+		display: flex;
+		justify-content: center;
+		margin-right: 22rem;
+		padding-left: -5rem;
+		margin-top: -2.5em;
+	}
+
+	.brand-icon {
+		width: 8rem;
+	}
+
+	.brand {
+		font-size: 4rem;
+	}
+
+	form {
+		width: 290px;
+	}
+
+	.leftSide h2 {
+		font-size: 2.4rem;
+		margin: 8px 0;
+	}
+
+	.container {
+		grid-gap: 5rem;
+		display: block;
+	}
+
+	.quote-texts {
+		text-align: left;
+		margin-left: 3em;
+	}
+
+	.brown {
+		margin-top: 0px !important;
+	}
+}
+
+/* 1024x768 */
+@media screen and (max-width: 1024px) {
+	.small-screens {
+		display: none;
+	}
+
+	.brand-icon {
+		width: 8rem;
+	}
+
+	.brand {
+		font-size: 4rem;
+	}
+
+	form {
+		width: 290px;
+	}
+
+	.leftSide h2 {
+		font-size: 2.4rem;
+		margin: 8px 0;
+	}
+
+	.container {
+		grid-gap: 5rem;
+		display: block;
+	}
+
+	.quote-texts {
+		text-align: left;
+	}
+
+	.brown {
+		margin-top: 0px !important;
+	}
+}
+
+/* 800x600 and phone viewports */
+@media screen and (max-width: 800px) {
+	.small-screens {
+		display: contents;
+	}
+
+	.medium-screens {
+		display: none;
+	}
+
+	.quotes {
+		size: 8px;
+	}
+
 	.container {
 		grid-template-columns: 1fr;
 		display: block;
+		text-align: center;
 	}
 
 	.BG {
@@ -87,15 +276,8 @@
 		margin-left: 0;
 	}
 
-	.group-2 {
-		display: flex;
-		justify-content: center;
-		margin-top: 1rem;
-		margin-left: 0;
-	}
-
-	.quotes {
-		font-size: 20pt !important;
+	.group-2-small {
+		margin-top: -5em;
 	}
 }
 
@@ -108,16 +290,8 @@
 	padding: 0 2rem;
 }
 
-@media screen and (max-width: 1080px) {
-	.container {
-		grid-gap: 5rem;
-		display: block;
-	}
-}
-
 .brand {
 	font-family: 'Myriad Pro Semibold';
-	font-size: 10rem;
 	color: #955F26;
 	display: flex;
 	align-items: center;
@@ -125,7 +299,6 @@
 
 .quotes {
 	font-family: 'Myriad Pro Semibold';
-	font-size: 28pt;
 	color: rgb(199, 146, 89);
 }
 
