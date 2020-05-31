@@ -239,8 +239,8 @@
 			</div>
 			<div class="sixteen wide column button-container">
 				<a id="ReqProfileConfirmURL" class="ui button confirmBtn">Accept Changes</a>
-				<a class="ui button closeBtn">Close</a>
-				<a class="ui button denyBtn">Reject Changes</a>
+				<a onclick="closeReqProfile()" class="ui button closeBtn">Close</a>
+				<a id="ReqProfileRejectURL" class="ui button denyBtn">Reject Changes</a>
 			</div>
 		</div>
 	</div>
@@ -267,13 +267,19 @@
 			</div>
 			<div class="sixteen wide column button-container">
 				<a id="ReqReviewUpdateURL" class="ui button confirmBtn">Update Score</a>
-				<a class="ui button closeBtn">Close</a>
+				<a onclick="closeReqReview()" class="ui button closeBtn">Close</a>
 				<a id="ReqReviewRejectURL" class="ui button denyBtn">Remove Request</a>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
+		function closeReqProfile() {
+			$('#reqProfile').modal('hide');
+		}
+		function closeReqReview() {
+			$('#reqReview').modal('hide');
+		}
 	<?php if($sessionRoleID == "1") { ?>
 		function openNotification(id) {
 			$.ajax({
@@ -285,9 +291,10 @@
 				success: function (response) {
 					console.log(response);
 					var url = '<?php echo base_url('notification/api/accept/');?>' + response.notificationID;
-					if(response.currImg == null) {
+					var url = '<?php echo base_url('notification/api/accept/');?>' + response.notificationID;
+					if(response.ppPath == null) {
 						var beforeimg = '<?php echo base_url('data/users-img/placeholder.jpg');?>';
-					} else var beforeimg = '<?php echo base_url('data/users-img/');?>' + response.currImg;
+					} else var beforeimg = '<?php echo base_url('data/users-img/');?>' + response.ppPath;
 					
 					if(response.ppPath == null) {
 						var afterimg = '<?php echo base_url('data/users-img/placeholder.jpg');?>';
@@ -302,8 +309,10 @@
 					$('#ReqProfileCurrName').text(response.currentFirstName + ' ' + response.currentLastName);
 					$('#ReqProfileCurrEmail').text(response.currentEmail);
 					$('#ReqProfileConfirmURL').attr('href', url);
+					$('#ReqProfileRejectURL').attr('href', url);
 
 					$('#ReqProfileAfterName').text(firstName + ' ' + lastName);
+
 
 					if(response.email == null) $('#ReqProfileAfterEmail').text(response.currentEmail); else $('#ReqProfileAfterEmail').text(response.email);
 					

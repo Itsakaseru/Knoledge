@@ -51,7 +51,11 @@ class Notification extends CI_Controller {
         if($roleID = 2) {
             $this->user->deleteNotificationTeacher($notificationID);
             redirect($_SERVER['HTTP_REFERER']);
-        } else {
+        } else if($roleID = 1) {
+            $this->user->deleteNotification($notificationID);
+            redirect($_SERVER['HTTP_REFERER']);
+        } 
+        else {
             redirect($_SERVER['HTTP_REFERER']);
         }
     }

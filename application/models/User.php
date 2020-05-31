@@ -45,9 +45,22 @@ class User extends CI_Model{
 
     public function loadNotificationAdmin($id)
     {
-        $this->db->select('*');
-        $this->db->where('notificationID', $id);
+        $this->db->select('request_editprofile.*, users.ppPath');
+        $this->db->join('users', 'request_editprofile.targetID = users.userID');
+        $this->db->where('request_editprofile.notificationID', $id);
         $this->db->from('request_editprofile');
+        $query = $this->db->get();
+
+        return $query->result_array()[0];
+    }
+
+    public function loadNotificationTeacher($id)
+    {
+        $this->db->select('request_review.*, student_class.classID, users.ppPath');
+        $this->db->join('student_class', 'student_class.studentID = request_review.targetID');
+        $this->db->join('users', 'users.userID = request_review.targetID');
+        $this->db->where('notificationID', $id);
+        $this->db->from('request_review');
         $query = $this->db->get();
 
         return $query->result_array()[0];
@@ -76,6 +89,12 @@ class User extends CI_Model{
         $this->db->delete('reqeditprofile');
     }
 
+    public function deleteNotificationTeacher($id)
+    {
+        $this->db->where('notificationID', $id);
+        $this->db->delete('reqreview');
+    }
+
     public function getUserInfo($id)
     {
         $this->db->select('*');
@@ -84,6 +103,22 @@ class User extends CI_Model{
 
         $query = $this->db->get();
         return $query->result_array()[0];
+    }
+
+    public function queryUser($id) {
+        $this->db->select('firstName, lastName, email');
+        $this->db->from('users');
+        $this->db->where('userID', $id);
+
+        $query = $this->db->get();
+        return $query->result_array()[0];
+    }
+
+    public function updateProfPic($id, $path) {
+        $data = array('ppPath' => $path);
+
+        $this->db->where('userID', $id);
+        $this->db->update('users', $data);
     }
 
 }
