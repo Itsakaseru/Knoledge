@@ -45,7 +45,7 @@
 }
 
 /* 4K */
-@media screen and (max-width: 1920px) {
+@media screen and (max-width: 3840px) {
 	.small-screens {
 		display: none;
 	}
