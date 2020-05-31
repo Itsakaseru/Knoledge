@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2020 at 09:03 AM
+-- Generation Time: May 31, 2020 at 03:40 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -688,16 +688,13 @@ DELIMITER $$
 CREATE TRIGGER `add_student` AFTER INSERT ON `users` FOR EACH ROW BEGIN
 	DECLARE i INTEGER;
 	DECLARE counter INTEGER;
-	DECLARE notificationcount INTEGER;
 	IF NEW.roleID=3 THEN
 		SET i = 0;
 		SET counter = (SELECT COUNT(*) FROM subjects);
-		SET notificationcount = (SELECT COUNT(*) FROM notifications);
 		WHILE i < counter DO
 			INSERT INTO assignments(studentID, subjectID) VALUES(NEW.userID, i + 1);
 			SET i = i + 1;
 		END WHILE;
-		SET notificationcount = notificationcount + 1;
 		INSERT INTO reqreview(description, targetID, subjectID, requestType) VALUES
 			("Add Mathematics assignment score", NEW.userID, 1, 1),
 			("Add Mathematics midterm score", NEW.userID, 1, 2),
