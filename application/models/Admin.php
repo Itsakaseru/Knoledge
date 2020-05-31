@@ -128,9 +128,18 @@ class Admin extends CI_Model{
 
     public function deleteUserData($id, $role)
     {
+        // delete all request profile changes
+        $this->db->where('targetID', $id);
+        $this->db->delete('reqeditprofile');
+        
         if($role == "3") {
+            // delete all assignments
             $this->db->where('studentID', $id);
             $this->db->delete('assignments');
+
+            // delete all request for re-reviews
+            $this->db->where('targetID', $id);
+            $this->db->delete('reqreview');
         }
         if($role == "2") {
             // Check for teacher status as coordinator and instructor
