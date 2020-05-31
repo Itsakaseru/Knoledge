@@ -125,7 +125,7 @@ class Teacher extends CI_Model{
         // Get subjects score by subjectName
         $subjects = $this->getTeachingSubject($id);
 
-        $this->db->select('user_info.fullName, assignments.classID, classes.className, assignments.subjectID, subjects.subjectName, assignments.assignmentScore, assignments.midtermScore, assignments.finaltermScore');
+        $this->db->select('user_info.userID, user_info.fullName, assignments.classID, classes.className, assignments.subjectID, subjects.subjectName, assignments.assignmentScore, assignments.midtermScore, assignments.finaltermScore');
         $this->db->from('assignments');
         $this->db->join('user_info', 'user_info.userID = assignments.studentID');
         $this->db->join('classes', 'classes.classID = assignments.classID');
@@ -144,7 +144,7 @@ class Teacher extends CI_Model{
 
     public function getStudentScorebySubjectInHomeroom($id, $subjectName, $className)
     {
-        $this->db->select('user_info.fullName, assignments.classID, classes.className, assignments.subjectID, subjects.subjectName, assignments.assignmentScore, assignments.midtermScore, assignments.finaltermScore');
+        $this->db->select('user_info.userID, user_info.fullName, assignments.classID, classes.className, assignments.subjectID, subjects.subjectName, assignments.assignmentScore, assignments.midtermScore, assignments.finaltermScore');
         $this->db->from('assignments');
         $this->db->join('user_info', 'user_info.userID = assignments.studentID');
         $this->db->join('classes', 'classes.classID = assignments.classID');
