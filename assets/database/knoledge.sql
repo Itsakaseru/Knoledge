@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2020 at 06:31 PM
+-- Generation Time: May 31, 2020 at 09:03 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -383,7 +383,8 @@ CREATE TABLE `reqeditprofile` (
 --
 
 INSERT INTO `reqeditprofile` (`notificationID`, `description`, `targetID`, `firstName`, `lastName`, `email`) VALUES
-(1, 'change email from chitanda.eru@mail.com to eru.chitanda@mail.com', 43, NULL, NULL, 'eru.chitanda@mail.com');
+(1, 'change email from chitanda.eru@mail.com to eru.chitanda@mail.com', 43, NULL, NULL, 'eru.chitanda@mail.com'),
+(3, 'Request profile change', 2, NULL, 'Snapius', NULL);
 
 -- --------------------------------------------------------
 
@@ -632,7 +633,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `dob`, `email`, `hash`, `ppPath`, `salt`, `genderID`, `roleID`) VALUES
 (1, 'Shigeru', 'Itou', '1996-07-22', 'shigeru.itou@knoledge.com', '709916b52f23b3163b135668bc9849ebf4774760d1ed499f8ab19ed594270206', NULL, 'wpgfw', 1, 1),
-(2, 'Severus', 'Snape', '1960-01-09', 'severus.snape@knoledge.com', '37692c84b14e5345535e893da6db288be4bdf1b23da61ca2b4fa3d1876b81cc6', NULL, 'oewyn', 1, 2),
+(2, 'Severus', 'Snape', '1960-01-09', 'severus.snape@knoledge.com', '37692c84b14e5345535e893da6db288be4bdf1b23da61ca2b4fa3d1876b81cc6', 'c81e728d9d4c2f636f067f89cc14862c.jpg', 'oewyn', 1, 2),
 (3, 'Koro', '', '1987-03-13', 'koro.sensei@knoledge.com', 'd9345baf8aff0fc2046477580a71221b90ec2ce72d224473851efe045553519f', NULL, 'launv', 3, 2),
 (4, 'Hideo', 'Harada', '1974-07-12', 'hideo.harada@knoledge.com', 'ba2fb7b523f4e1b36012e1bf126b8cf0ec8e8792971b29762503440bcc31d344', NULL, 'mqvdk', 1, 2),
 (5, 'Jiraiya', '', '1972-08-28', 'jiraiya.sensei@knoledge.com', '9b8c79805fc2f0c51b2fe462a21af48eff2da07d28c0c44ce40dffd6cac81608', NULL, 'borzv', 1, 2),
@@ -685,20 +686,35 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `dob`, `email`, `hash`, 
 --
 DELIMITER $$
 CREATE TRIGGER `add_student` AFTER INSERT ON `users` FOR EACH ROW BEGIN
-DECLARE i INTEGER;
-DECLARE counter INTEGER;
-DECLARE notificationcount INTEGER;
-IF NEW.roleID=3 THEN
-SET i = 0;
-SET counter = (SELECT COUNT(*) FROM subjects);
-SET notificationcount = (SELECT COUNT(*) FROM notifications);
-WHILE i < counter DO
-INSERT INTO assignments(studentID, subjectID) VALUES(NEW.userID, i + 1);
-SET i = i + 1;
-END WHILE;
-SET notificationcount = notificationcount + 1;
-INSERT INTO notifications(notificationID, description, notificationType, jsonMsg) VALUES(notificationcount, CONCAT('Add entry for ', NEW.firstName, '''s scores'), 2, '{"info":"added","description":"New student added"}');
-END IF;
+	DECLARE i INTEGER;
+	DECLARE counter INTEGER;
+	DECLARE notificationcount INTEGER;
+	IF NEW.roleID=3 THEN
+		SET i = 0;
+		SET counter = (SELECT COUNT(*) FROM subjects);
+		SET notificationcount = (SELECT COUNT(*) FROM notifications);
+		WHILE i < counter DO
+			INSERT INTO assignments(studentID, subjectID) VALUES(NEW.userID, i + 1);
+			SET i = i + 1;
+		END WHILE;
+		SET notificationcount = notificationcount + 1;
+		INSERT INTO reqreview(description, targetID, subjectID, requestType) VALUES
+			("Add Mathematics assignment score", NEW.userID, 1, 1),
+			("Add Mathematics midterm score", NEW.userID, 1, 2),
+			("Add Mathematics final score", NEW.userID, 1, 3),
+			("Add Indonesian assignment score", NEW.userID, 2, 1),
+			("Add Indonesian midterm score", NEW.userID, 2, 2),
+			("Add Indonesian final score", NEW.userID, 2, 3),
+			("Add English assignment score", NEW.userID, 3, 1),
+			("Add English midterm score", NEW.userID, 3, 2),
+			("Add English final score", NEW.userID, 3, 3),
+			("Add Civics assignment score", NEW.userID, 4, 1),
+			("Add Civics midterm score", NEW.userID, 4, 2),
+			("Add Civics final score", NEW.userID, 4, 3),
+			("Add ICT assignment score", NEW.userID, 5, 1),
+			("Add ICT midterm score", NEW.userID, 5, 2),
+			("Add ICT final score", NEW.userID, 5, 3);
+	END IF;
 END
 $$
 DELIMITER ;
@@ -899,7 +915,7 @@ ALTER TABLE `genders`
 -- AUTO_INCREMENT for table `reqeditprofile`
 --
 ALTER TABLE `reqeditprofile`
-  MODIFY `notificationID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `notificationID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reqreview`

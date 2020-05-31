@@ -2,6 +2,8 @@
 -- Enable word wrap for better reading. --
 
 -- Update notes (codes)
+-- 0.11.2
+-- (*) Fix add_student view to follow reqreview table
 -- 0.11.1
 -- (*) Fix currentEmail in request_editprofile shown as requested email
 -- 0.11
@@ -177,7 +179,22 @@ BEGIN
 			SET i = i + 1;
 		END WHILE;
 		SET notificationcount = notificationcount + 1;
-		INSERT INTO notifications(notificationID, description, notificationType, jsonMsg) VALUES(notificationcount, CONCAT('Add entry for ', NEW.firstName, '\'s scores'), 2, '{"info":"added","description":"New student added"}');
+		INSERT INTO reqreview(description, targetID, subjectID, requestType) VALUES
+			("Add Mathematics assignment score", NEW.userID, 1, 1),
+			("Add Mathematics midterm score", NEW.userID, 1, 2),
+			("Add Mathematics final score", NEW.userID, 1, 3),
+			("Add Indonesian assignment score", NEW.userID, 2, 1),
+			("Add Indonesian midterm score", NEW.userID, 2, 2),
+			("Add Indonesian final score", NEW.userID, 2, 3),
+			("Add English assignment score", NEW.userID, 3, 1),
+			("Add English midterm score", NEW.userID, 3, 2),
+			("Add English final score", NEW.userID, 3, 3),
+			("Add Civics assignment score", NEW.userID, 4, 1),
+			("Add Civics midterm score", NEW.userID, 4, 2),
+			("Add Civics final score", NEW.userID, 4, 3),
+			("Add ICT assignment score", NEW.userID, 5, 1),
+			("Add ICT midterm score", NEW.userID, 5, 2),
+			("Add ICT final score", NEW.userID, 5, 3);
 	END IF;
 END//
 DELIMITER ;
