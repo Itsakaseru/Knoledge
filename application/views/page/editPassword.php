@@ -31,7 +31,7 @@
 ?>
 
 <head>
-	<title>Test</title>
+	<title>Change Password</title>
 	<?php echo $main; ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/navbar.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/footer.css'); ?>">

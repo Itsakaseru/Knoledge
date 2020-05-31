@@ -5,6 +5,7 @@ body {
 
 #dashboard {
     margin-top: 100px;
+    min-height: 495px !important;
 }
 
 h1 {
