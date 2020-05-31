@@ -49,6 +49,7 @@ class Dashboard extends CI_Controller {
             $data['footer'] = $this->load->view('include/footer', NULL, TRUE);
 
             $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+            $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
 
             $notifications = $this->admin->getNotifications();
             $nav['notifications'] = array();
@@ -67,7 +68,7 @@ class Dashboard extends CI_Controller {
                 unset($temp);
             }
             unset($notifications);
-            $data['navbar'] = $this->load->view('include/navbar', $info, $nav, TRUE);
+            $data['navbar'] = $this->load->view('include/navbar', $nav, TRUE);
             unset($nav);
 
             $this->load->model('admin');
@@ -134,11 +135,13 @@ class Dashboard extends CI_Controller {
                 unset($temp);
             }
             unset($notifications);
-            $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
-            $data['navbar'] = $this->load->view('include/navbar', $info, $nav, TRUE);
+            $data['navbar'] = $this->load->view('include/navbar', $nav, TRUE);
             unset($nav);
 
             $data['teacherInfo'] = $this->teacher->getTeacherInfo($_SESSION['id']);
+
+            $info['userInfo'] = $this->user->getUserInfo($_SESSION['id']);
+            $data['navbar'] = $this->load->view('include/navbar', $info, TRUE);
 
             $data['homeroomClassInfo'] = $this->teacher->isHomeroomTeacher($_SESSION['id']);
             if(isset($data['homeroomClassInfo']['className'])) {
