@@ -134,7 +134,7 @@ class User extends CI_Controller {
                             $data = $this->upload->data();
                             if(isset($_FILES['imageFile']['name']) && $_FILES['imageFile']['name']!="") $formData['ppPath'] = $data['file_name'];
                             // Insert to database
-                            if($this->admin->addUserData($id, $formData)) {
+                            if($this->admin->addUserData($formData)) {
                                 $this->session->set_flashdata('success', 'User Added Successfully!');
                                 redirect(base_url() . "dashboard?v=manageusers");
                             } else {
@@ -149,7 +149,7 @@ class User extends CI_Controller {
                     // If user DON'T want to change profile picture
                     } else {
                         // Insert to database
-                        if($this->admin->addUserData($id, $formData)) {
+                        if($this->admin->addUserData($formData)) {
                             $this->session->set_flashdata('success', 'User Added Successfully!');
                             redirect(base_url() . "dashboard?v=manageusers");
                         } else {

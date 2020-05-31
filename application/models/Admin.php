@@ -121,7 +121,7 @@ class Admin extends CI_Model{
         if($this->db->update('users', $data)) return true; else false;
     }
 
-    public function addUserData($id, $data)
+    public function addUserData($data)
     {
         if($this->db->insert('users', $data)) return true; else false;
     }
