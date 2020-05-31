@@ -98,7 +98,7 @@ class User extends CI_Controller {
     				$config['upload_path'] = './data/users-img/';
     				$config['allowed_types'] = 'png|jpg|jpeg';
     				$config['max_size'] = 10000;
-                    $config['file_name'] = md5($id);
+                    $config['file_name'] = md5($this->input->post('email'));
                     $config['overwrite'] = TRUE;
 
     				$this->load->library('upload', $config);
